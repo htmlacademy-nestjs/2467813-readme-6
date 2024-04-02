@@ -23,7 +23,7 @@ export class BlogUserEntity
       return;
     }
 
-    this.id = this.id ?? '';
+    this.id = user.id ?? '';
     this.email = user.email;
     this.avatarPath = user.avatarPath ?? '';
     this.firstName = user.firstName;

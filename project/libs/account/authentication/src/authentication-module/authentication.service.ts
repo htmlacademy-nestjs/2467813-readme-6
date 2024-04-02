@@ -13,7 +13,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 export class AuthenticationService {
   constructor(private readonly blogUserRepository: BlogUserRepository) {}
 
-  public async register(dto: CreateUserDto) {
+  public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
     const { email, firstName, lastName, password, avatarPath } = dto;
 
     const blogUser = {
@@ -26,7 +26,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (existUser) {
+    if (existUser.email) {
       throw new ConflictException(AuthUser.Exists);
     }
 
@@ -39,9 +39,10 @@ export class AuthenticationService {
 
   public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
+
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (!existUser) {
+    if (!existUser.email) {
       throw new NotFoundException(AuthUser.NotFound);
     }
 
