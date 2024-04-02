@@ -1,5 +1,7 @@
 import { IStorableEntity, IAuthUser } from '@project/core';
 import { Entity } from '@project/core';
+import { SALT_ROUNDS } from '../const';
+import { genSalt, hash, compare } from 'bcrypt';
 
 export class BlogUserEntity
   extends Entity
@@ -38,5 +40,15 @@ export class BlogUserEntity
       avatarPath: this.avatarPath,
       passwordHash: this.passwordHash,
     };
+  }
+
+  public async setPassword(password: string): Promise<BlogUserEntity> {
+    const salt = await genSalt(SALT_ROUNDS);
+    this.passwordHash = await hash(password, salt);
+    return this;
+  }
+
+  public async comparePassword(password: string): Promise<boolean> {
+    return compare(password, this.passwordHash);
   }
 }
