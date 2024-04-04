@@ -26,7 +26,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (existUser.email) {
+    if (existUser) {
       throw new ConflictException(AuthUser.Exists);
     }
 
@@ -42,7 +42,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (!existUser.email) {
+    if (!existUser) {
       throw new NotFoundException(AuthUser.NotFound);
     }
 
