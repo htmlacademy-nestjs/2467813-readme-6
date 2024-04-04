@@ -13,6 +13,11 @@ export class BlogUserRepository extends BaseMemoryRepository<BlogUserEntity> {
   public findByEmail(email: string): Promise<BlogUserEntity | null> {
     const entities = Array.from(this.entities.values());
     const user = entities.find((entity) => entity.email === email);
+
+    if (!user) {
+      return null;
+    }
+
     return Promise.resolve(this.entityFactory.create(user));
   }
 }

@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AppRoutes, Path } from '@project/constant';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { LoginUserDto } from '../dto/login-user.dto';
 
 @Controller(AppRoutes.Auth)
 export class AuthenticationController {

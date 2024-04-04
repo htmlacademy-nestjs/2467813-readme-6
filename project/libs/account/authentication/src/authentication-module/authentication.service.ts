@@ -5,9 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUser } from '../const';
-import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserDto } from '../dto/login-user.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -54,6 +54,12 @@ export class AuthenticationService {
   }
 
   public async getUser(id: string) {
-    return this.blogUserRepository.findById(id);
+    const user = await this.blogUserRepository.findById(id);
+
+    if (!user) {
+      throw new NotFoundException(AuthUser.NotFound);
+    }
+
+    return user;
   }
 }
