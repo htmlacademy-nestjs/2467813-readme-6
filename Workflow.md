@@ -33,6 +33,14 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 
 В процессе создание библиотеки будет выполнен процесс создание модуля по пути `project\libs\shared` где `constant` название библиотеки, a `--directory libs/shared/constant` путь до нужного места.
 
+#### Локальный запуск базы данных MongoDB
+
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `.env`
+
+```bash
+docker compose --file ./apps/user/docker-compose.dev.yml --env-file ./apps/user/user.env --project-name "readme-user" up -d
+```
+
 ## Структура проекта
 
 ### Директория `src`
