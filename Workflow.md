@@ -58,6 +58,8 @@ DB_MONGO_PASSWORD=value - Пароль пользователя в базе да
 DB_MONGO_PORT=value - Порт пользователя в базе данных (MongoDB)
 DB_MONGO_NAME=value - Название базы данных (MongoDB)
 DB_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
+
+PORT=value - Порт для входящих подключений
 ```
 
 ### Остальное
