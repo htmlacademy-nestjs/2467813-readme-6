@@ -24,3 +24,13 @@ export function fillDto<T, V extends TPlainObject>(
     ...options,
   });
 }
+
+export const getMongoConnectionString = ({
+  username,
+  password,
+  host,
+  port,
+  databaseName,
+  authDatabase,
+}): string =>
+  `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;

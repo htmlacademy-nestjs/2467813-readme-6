@@ -1,17 +1,24 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUser } from '../const';
-import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserDto } from '../dto/login-user.dto';
+import { ConfigType } from '@nestjs/config';
+import { mongoDbConfig } from '@project/config';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly blogUserRepository: BlogUserRepository) {}
+  constructor(
+    private readonly blogUserRepository: BlogUserRepository,
+    @Inject(mongoDbConfig.KEY)
+    private readonly databaseConfig: ConfigType<typeof mongoDbConfig>
+  ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
     const { email, firstName, lastName, password, avatarPath } = dto;
@@ -26,7 +33,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (existUser.email) {
+    if (existUser) {
       throw new ConflictException(AuthUser.Exists);
     }
 
@@ -42,7 +49,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findByEmail(email);
 
-    if (!existUser.email) {
+    if (!existUser) {
       throw new NotFoundException(AuthUser.NotFound);
     }
 
@@ -54,6 +61,12 @@ export class AuthenticationService {
   }
 
   public async getUser(id: string) {
-    return this.blogUserRepository.findById(id);
+    const user = await this.blogUserRepository.findById(id);
+
+    if (!user) {
+      throw new NotFoundException(AuthUser.NotFound);
+    }
+
+    return user;
   }
 }
