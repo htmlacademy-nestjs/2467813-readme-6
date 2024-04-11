@@ -35,10 +35,18 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 
 #### Локальный запуск базы данных MongoDB
 
-Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `.env`
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
 
 ```bash
 docker compose --file ./apps/user/docker-compose.dev.yml --env-file ./apps/user/user.env --project-name "readme-user" up -d
+```
+
+#### Локальный запуск базы данных PostgreSql
+
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `blog.env`
+
+```bash
+docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name "readme-blog" up -d
 ```
 
 ## Структура проекта
@@ -66,6 +74,20 @@ DB_MONGO_PASSWORD=value - Пароль пользователя в базе да
 DB_MONGO_PORT=value - Порт пользователя в базе данных (MongoDB)
 DB_MONGO_NAME=value - Название базы данных (MongoDB)
 DB_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
+
+PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения проекта `blog`
+
+```bash
+DB_POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
+DB_POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
+DB_POSTGRES_NAME=value - Имя базы данных (PostgreSql)
+DB_POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
+
+PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
+PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
 
 PORT=value - Порт для входящих подключений
 ```
