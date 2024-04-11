@@ -33,6 +33,14 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 
 В процессе создание библиотеки будет выполнен процесс создание модуля по пути `project\libs\shared` где `constant` название библиотеки, a `--directory libs/shared/constant` путь до нужного места.
 
+#### Инициализации prisma
+
+Для инициализации prisma не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma init --datasource-provider postgresql
+```
+
 #### Локальный запуск базы данных MongoDB
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
@@ -90,6 +98,12 @@ PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
 PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
 
 PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения prisma
+
+```bash
+DATABASE_URL=value - Строка соединения к postgresql через prisma (PostgreSql)
 ```
 
 ### Остальное
