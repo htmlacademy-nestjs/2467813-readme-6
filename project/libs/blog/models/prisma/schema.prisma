@@ -12,3 +12,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Post {
+  id                 String    @id @default(uuid())
+  title              String
+  typePost           String    @map("type_post")
+  announcementPublic String?   @map("announcement_public") // для текстовых постов
+  textPublic         String?   @map("text_public") // для текстовых постов
+  videoUrl           String?   @map("video_url") // только для видео постов
+  imageUrl           String?   @map("image_url") // только для фото постов
+  textQuote          String?   @map("text_quote") // только для цитат
+  quoteAuthor        String?   @map("quote_author") // только для цитат
+  link               String? // только для ссылок
+  linkDescription    String?   @map("link_description") // только для ссылок
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  isPublished        Boolean   @default(true) @map("is_published")
+  isRepost           Boolean?  @default(false) @map("is_repost")
+  originalPostId     String?   @map("original_post_Id") // для идентификации оригинального поста при репосте
+  userId             String    @map("user_id")
+  tags               String[]
+  likes              Like[]
+  comments           Comment[]
+
+  @@map("posts")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  postId    String   @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([userId, postId])
+  @@map("likes")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  message   String
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  postId    String   @map("post_id")
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([postId])
+  @@map("comments")
+}

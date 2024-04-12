@@ -41,6 +41,26 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 npx prisma init --datasource-provider postgresql
 ```
 
+#### Линтинг prisma model
+
+Для линтинга prisma model не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma format ./prisma/schema.prisma
+```
+
+#### migration prisma model
+
+Для migration prisma model не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.prisma --skip-generate
+```
+
+- `--name` — название миграции
+- `--schema` — путь к схеме
+- `--skip-generate` — пропустить формирование клиента.
+
 #### Локальный запуск базы данных MongoDB
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
