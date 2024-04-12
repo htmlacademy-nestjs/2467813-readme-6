@@ -25,6 +25,36 @@ npx nx run user:serve
 
 В процессе запуска проекта будет выполнен процесс «Сборки проекта» и запуска результирующего кода.
 
+#### Линтинг Prisma
+
+```bash
+npx nx run blog:db:lint
+```
+
+#### Создание миграций Prisma
+
+```bash
+npx nx run blog:db:migrate
+```
+
+#### Принудительный сброс базы данных до начального состояния
+
+```bash
+npx nx run blog:db:reset
+```
+
+#### Запуск генерации клиента для Prisma
+
+```bash
+npx nx run blog:db:generate
+```
+
+#### Наполнение базы данных данными
+
+```bash
+npx nx run blog:db:seed
+```
+
 #### Создание модуля библиотеки
 
 ```bash
@@ -33,9 +63,9 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 
 В процессе создание библиотеки будет выполнен процесс создание модуля по пути `project\libs\shared` где `constant` название библиотеки, a `--directory libs/shared/constant` путь до нужного места.
 
-#### Инициализации prisma
+#### Инициализации Prisma
 
-Для инициализации prisma не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+Для инициализации Prisma не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
 
 ```bash
 npx prisma init --datasource-provider postgresql
