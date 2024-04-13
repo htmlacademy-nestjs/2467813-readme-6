@@ -25,6 +25,36 @@ npx nx run user:serve
 
 В процессе запуска проекта будет выполнен процесс «Сборки проекта» и запуска результирующего кода.
 
+#### Линтинг Prisma
+
+```bash
+npx nx run blog:db:lint
+```
+
+#### Создание миграций Prisma
+
+```bash
+npx nx run blog:db:migrate
+```
+
+#### Принудительный сброс базы данных до начального состояния
+
+```bash
+npx nx run blog:db:reset
+```
+
+#### Запуск генерации клиента для Prisma
+
+```bash
+npx nx run blog:db:generate
+```
+
+#### Наполнение базы данных данными
+
+```bash
+npx nx run blog:db:seed
+```
+
 #### Создание модуля библиотеки
 
 ```bash
@@ -33,12 +63,48 @@ npx nx generate @nx/node:library constant --directory libs/shared/constant
 
 В процессе создание библиотеки будет выполнен процесс создание модуля по пути `project\libs\shared` где `constant` название библиотеки, a `--directory libs/shared/constant` путь до нужного места.
 
+#### Инициализации Prisma
+
+Для инициализации Prisma не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma init --datasource-provider postgresql
+```
+
+#### Линтинг prisma model
+
+Для линтинга prisma model не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma format ./prisma/schema.prisma
+```
+
+#### migration prisma model
+
+Для migration prisma model не обходимо перейти в рабочую дерикторию `project\libs\blog\models` и выполнить команду.
+
+```bash
+npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.prisma --skip-generate
+```
+
+- `--name` — название миграции
+- `--schema` — путь к схеме
+- `--skip-generate` — пропустить формирование клиента.
+
 #### Локальный запуск базы данных MongoDB
 
-Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `.env`
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
 
 ```bash
 docker compose --file ./apps/user/docker-compose.dev.yml --env-file ./apps/user/user.env --project-name "readme-user" up -d
+```
+
+#### Локальный запуск базы данных PostgreSql
+
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `blog.env`
+
+```bash
+docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name "readme-blog" up -d
 ```
 
 ## Структура проекта
@@ -68,6 +134,26 @@ DB_MONGO_NAME=value - Название базы данных (MongoDB)
 DB_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
 
 PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения проекта `blog`
+
+```bash
+DB_POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
+DB_POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
+DB_POSTGRES_NAME=value - Имя базы данных (PostgreSql)
+DB_POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
+
+PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
+PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
+
+PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения prisma
+
+```bash
+DATABASE_URL=value - Строка соединения к postgresql через prisma (PostgreSql)
 ```
 
 ### Остальное

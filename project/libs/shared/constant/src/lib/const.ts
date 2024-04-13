@@ -15,6 +15,14 @@ export const SpaceName = {
   MongoDB: 'mongo_db',
 } as const;
 
+export const TypePost = {
+  Video: 'video',
+  Text: 'text',
+  Quote: 'quote',
+  Photo: 'photo',
+  Link: 'link',
+} as const;
+
 export const DefaultPort = {
   AppPort: 3_000,
   MongoPort: 27_017,
