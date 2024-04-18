@@ -7,6 +7,7 @@ export const AppRoutes = {
 
 export const Path = {
   Register: 'register',
+  NewPassword: 'new-password',
   Login: 'login',
 } as const;
 
