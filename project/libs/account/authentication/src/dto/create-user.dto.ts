@@ -14,6 +14,7 @@ export class CreateUserDto {
     description: 'User first name',
     example: 'Mikhail',
   })
+  @IsString({ message: CreateUserMessages.firstName.invalidFormat })
   @Length(Name.Min, Name.Max, {
     message: CreateUserMessages.firstName.lengthField,
   })
@@ -23,6 +24,7 @@ export class CreateUserDto {
     description: 'User last name',
     example: 'Yanov',
   })
+  @IsString({ message: CreateUserMessages.lastName.invalidFormat })
   @Length(Name.Min, Name.Max, {
     message: CreateUserMessages.lastName.lengthField,
   })

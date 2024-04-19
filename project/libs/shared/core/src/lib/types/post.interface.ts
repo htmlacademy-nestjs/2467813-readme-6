@@ -1,4 +1,4 @@
-import { Comment } from './comment.interface';
+import { IComment } from './comment.interface';
 import { Like } from './like.interface';
 import { TTypePost } from '@project/constant';
 
@@ -22,5 +22,5 @@ export interface Post {
   updatedAt?: Date;
   userId: string;
   Like: Like[];
-  comments: Comment[];
+  comments: IComment[];
 }
