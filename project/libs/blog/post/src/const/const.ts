@@ -1,5 +1,10 @@
 import { TypePost } from '@project/constant';
 
+export const PostCount = {
+  Default: 25,
+  PageDefault: 1,
+} as const;
+
 export const Title = {
   Min: 20,
   Max: 50,

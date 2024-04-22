@@ -2,14 +2,17 @@ import { Expose } from 'class-transformer';
 
 export class CommentRdo {
   @Expose()
-  public postId: string;
+  public id: string;
+
+  @Expose()
+  public createdAt: Date;
 
   @Expose()
   public message: string;
 
   @Expose()
-  public userId: string;
+  public postId: string;
 
   @Expose()
-  public createdAt: Date;
+  public userId: string;
 }

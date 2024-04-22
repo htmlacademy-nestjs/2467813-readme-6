@@ -1,7 +1,7 @@
 import { Entity, IPost, IStorableEntity } from '@project/core';
 import { TTypePost } from '@project/constant';
 
-export class BlogPostEntity extends Entity implements IStorableEntity<IPost> {
+export class PostEntity extends Entity implements IStorableEntity<IPost> {
   public title: string;
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -19,9 +19,9 @@ export class BlogPostEntity extends Entity implements IStorableEntity<IPost> {
   public isRepost?: boolean;
   public originalPostId?: string;
   public tags?: string[];
-  public likes: number;
-  public comments: number;
-  public reposts: number;
+  public likes?: number;
+  public comments?: number;
+  public reposts?: number;
 
   constructor(post?: IPost) {
     super();

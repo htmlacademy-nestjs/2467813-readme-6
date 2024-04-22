@@ -19,7 +19,7 @@ export interface IPost {
   tags: string[];
   createdAt?: Date;
   updatedAt?: Date;
-  likes: number;
-  comments: number;
-  reposts: number;
+  likes?: number;
+  comments?: number;
+  reposts?: number;
 }

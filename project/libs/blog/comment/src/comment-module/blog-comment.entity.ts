@@ -22,7 +22,6 @@ export class BlogCommentEntity
 
     this.id = comment.id ?? undefined;
     this.createdAt = comment.createdAt;
-    this.updatedAt = comment.updatedAt;
     this.message = comment.message;
     this.postId = comment.postId ?? undefined;
     this.userId = comment.userId;
@@ -32,7 +31,6 @@ export class BlogCommentEntity
     return {
       id: this.id,
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
       message: this.message,
       postId: this.postId,
       userId: this.userId,

@@ -5,10 +5,13 @@ export const DECIMAL_SYSTEM = 10;
 export const AppRoutes = {
   Auth: 'auth',
   Swagger: 'swagger',
+  Posts: 'posts',
+  Comments: 'comments',
 } as const;
 
 export const Path = {
   Register: 'register',
+  Comments: 'comments',
   NewPassword: 'new-password',
   Login: 'login',
 } as const;

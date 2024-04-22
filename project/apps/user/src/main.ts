@@ -10,6 +10,8 @@ import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app/app.module';
 import { AppRoutes } from '@project/constant';
 
+const GLOBAL_PREFIX = 'api';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -19,11 +21,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(AppRoutes.Swagger, app, document);
+
+  app.setGlobalPrefix(GLOBAL_PREFIX);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -36,7 +37,7 @@ async function bootstrap() {
 
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: http://localhost:${port}/${GLOBAL_PREFIX}`
   );
 }
 

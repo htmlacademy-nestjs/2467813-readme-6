@@ -1,4 +1,6 @@
-export const DEFAULT_COMMENT_COUNT = 50;
+export const CommentCount = {
+  default: 50,
+} as const;
 
 export const Message = {
   Min: 10,
