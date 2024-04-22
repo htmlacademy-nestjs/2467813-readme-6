@@ -6,3 +6,4 @@ export { IComment } from './lib/types/comment.interface';
 
 export { IStorableEntity } from './lib/types/storable-entity.interface';
 export { IEntityFactory } from './lib/types/entity-factory.interface';
+export { IPaginationResult } from './lib/types/pagination.interface';

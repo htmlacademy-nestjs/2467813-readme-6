@@ -1,3 +1,5 @@
+import { TTypePost } from './types/type-post.type';
+
 export const DECIMAL_SYSTEM = 10;
 
 export const AppRoutes = {
@@ -29,4 +31,11 @@ export const DefaultPort = {
   MongoPort: 27_017,
 } as const;
 
-export const ENVIRONMENTS = ['development', 'production', 'stage'] as const;
+export const Environments = ['development', 'production', 'stage'] as const;
+
+export const SortDirection = {
+  Asc: 'asc',
+  Desc: 'desc',
+} as const;
+
+export const TypePostList: TTypePost[] = Object.values(TypePost);

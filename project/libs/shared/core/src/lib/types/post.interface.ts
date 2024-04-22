@@ -1,9 +1,8 @@
-import { IComment } from './comment.interface';
-import { Like } from './like.interface';
 import { TTypePost } from '@project/constant';
 
-export interface Post {
+export interface IPost {
   id?: string;
+  userId: string;
   title: string;
   typePost: TTypePost;
   announcementPublic?: string;
@@ -20,7 +19,7 @@ export interface Post {
   tags: string[];
   createdAt?: Date;
   updatedAt?: Date;
-  userId: string;
-  Like: Like[];
-  comments: IComment[];
+  likes: number;
+  comments: number;
+  reposts: number;
 }

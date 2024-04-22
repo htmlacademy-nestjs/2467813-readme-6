@@ -1,4 +1,4 @@
-export interface Like {
+export interface ILike {
   id?: string;
   createdAt: Date;
   updatedAt: Date;

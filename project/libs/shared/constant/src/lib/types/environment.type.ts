@@ -1,3 +1,3 @@
-import { ENVIRONMENTS } from '../const';
+import { Environments } from '../const';
 
-export type TEnvironment = (typeof ENVIRONMENTS)[number];
+export type TEnvironment = (typeof Environments)[number];
