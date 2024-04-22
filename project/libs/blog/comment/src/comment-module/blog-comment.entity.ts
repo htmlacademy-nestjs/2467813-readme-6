@@ -4,8 +4,7 @@ export class BlogCommentEntity
   extends Entity
   implements IStorableEntity<IComment>
 {
-  public createdAt: Date;
-  public updatedAt: Date;
+  public createdAt?: Date;
   public postId?: string;
   public message: string;
   public userId: string;
