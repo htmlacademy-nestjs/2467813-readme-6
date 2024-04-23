@@ -117,6 +117,10 @@ export class PostRdo {
   @Expose()
   public likes: number;
 
+  @ApiProperty({
+    description: 'Post comments',
+    example: 2,
+  })
   @Expose()
   public comments: number;
 
