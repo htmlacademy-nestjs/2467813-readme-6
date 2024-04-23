@@ -2,6 +2,7 @@ import { TypePostList, TTypePost } from '@project/constant';
 
 import {
   ArrayMaxSize,
+  ArrayNotEmpty,
   ArrayUnique,
   IsArray,
   IsIn,
@@ -170,5 +171,6 @@ export class CreatePostDto {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
+  @ArrayNotEmpty()
   public tags?: string[];
 }

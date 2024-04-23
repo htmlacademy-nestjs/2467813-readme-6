@@ -23,7 +23,8 @@ Content-Type: application/json
   "title": "Some text Some text Some text Some text",
   "typePost": "text",
   "announcementPublic": "announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic",
-  "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic"
+  "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic",
+  "tags":["quote"]
 }
 
 ###

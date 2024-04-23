@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 
 import { fillDto } from '@project/helpers';
@@ -23,6 +24,7 @@ import { UpdatePostDto } from '../dto/update-post.dto';
 import { AppRoutes, AuthToken, SortDirection } from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostResponseMessage } from '../const';
+import { PostGuard } from '../guard/post.guard';
 
 @ApiTags(AppRoutes.Posts)
 @Controller(AppRoutes.Posts)
@@ -102,6 +104,7 @@ export class PostController {
     required: true,
   })
   @Post()
+  @UseGuards(PostGuard)
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.postService.createPost(dto);
     return fillDto(PostRdo, newPost.toPOJO());

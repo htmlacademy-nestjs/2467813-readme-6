@@ -1,5 +1,6 @@
 import {
   ArrayMaxSize,
+  ArrayNotEmpty,
   ArrayUnique,
   IsArray,
   IsLowercase,
@@ -149,5 +150,6 @@ export class UpdatePostDto {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
+  @ArrayNotEmpty()
   public tags?: string;
 }
