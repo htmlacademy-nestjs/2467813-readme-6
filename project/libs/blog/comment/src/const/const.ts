@@ -1,5 +1,6 @@
 export const CommentCount = {
-  default: 50,
+  Default: 50,
+  PageDefault: 1,
 } as const;
 
 export const Message = {
@@ -22,4 +23,12 @@ export const CreateCommentMessages = {
 
 export const CommentValidateMessage = {
   InvalidID: 'Invalid author id',
+} as const;
+
+export const CommentResponseMessage = {
+  CommentListSuccess: 'Список комментариев',
+  CreatedSuccess: 'Создание нового комментария.',
+  DeleteSuccess: 'Удаление комментария.',
+  NotFound: 'Поста с указанным идентификатором не найдено',
+  IsNotLogged: 'The token is invalid or expired.',
 } as const;

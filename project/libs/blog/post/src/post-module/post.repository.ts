@@ -19,7 +19,9 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
   }
 
   private async getPostCount(where: Prisma.PostWhereInput): Promise<number> {
-    return this.client.post.count({ where });
+    return this.client.post.count({
+      where,
+    });
   }
 
   private calculatePostsPage(totalCount: number, limit: number): number {

@@ -96,8 +96,8 @@ export const CreatePostValidationMessage = {
 export const PostResponseMessage = {
   PostDetailSuccess: 'Детальный пост',
   PostListSuccess: 'Список постов',
-  CreatedSuccess: 'Редактирование поста.',
-  UpdateSuccess: 'Создание нового поста.',
+  CreatedSuccess: 'Создание нового поста.',
+  UpdateSuccess: 'Редактирование поста.',
   DeleteSuccess: 'Удаление поста.',
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',
