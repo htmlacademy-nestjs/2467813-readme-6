@@ -5,6 +5,8 @@ export interface IPost {
   userId: string;
   title: string;
   typePost: TTypePost;
+  createdAt?: Date;
+  updatedAt?: Date;
   announcementPublic?: string;
   textPublic?: string;
   videoUrl?: string;
@@ -16,9 +18,7 @@ export interface IPost {
   isPublished: boolean;
   isRepost?: boolean;
   originalPostId?: string;
-  tags: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  tags?: string[];
   likes?: number;
   comments?: number;
   reposts?: number;

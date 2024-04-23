@@ -19,9 +19,9 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
   public isRepost?: boolean;
   public originalPostId?: string;
   public tags?: string[];
-  public likes?: number;
-  public comments?: number;
-  public reposts?: number;
+  // public likes?: number;
+  // public comments?: number;
+  // public reposts?: number;
 
   constructor(post?: IPost) {
     super();
@@ -51,9 +51,9 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
     this.isRepost = post.isRepost ?? undefined;
     this.originalPostId = post.originalPostId ?? undefined;
     this.tags = post.tags ?? [];
-    this.likes = 0;
-    this.comments = 0;
-    this.reposts = 0;
+    // this.likes = 0;
+    // this.comments = 0;
+    // this.reposts = 0;
   }
 
   public toPOJO(): IPost {
@@ -76,9 +76,9 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
       isRepost: this.isRepost,
       originalPostId: this.originalPostId,
       tags: this.tags,
-      likes: 0,
-      comments: 0,
-      reposts: 0,
+      // likes: 0,
+      // comments: 0,
+      // reposts: 0,
     };
   }
 }
