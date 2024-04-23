@@ -32,7 +32,7 @@ export class PostController {
   @ApiResponse({
     type: PostRdo,
     status: HttpStatus.OK,
-    description: PostResponseMessage.PostSuccess,
+    description: PostResponseMessage.PostDetailSuccess,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -53,6 +53,20 @@ export class PostController {
     return fillDto(PostRdo, post.toPOJO());
   }
 
+  @ApiResponse({
+    type: PostWithPaginationRdo,
+    status: HttpStatus.OK,
+    description: PostResponseMessage.PostListSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @Get()
   public async index(@Query() query: PostQuery) {
     const postsWithPagination = await this.postService.getAllPosts(query);

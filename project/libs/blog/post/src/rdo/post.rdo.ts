@@ -101,6 +101,10 @@ export class PostRdo {
   @Expose()
   public linkDescription?: string;
 
+  @ApiProperty({
+    description: 'Post isPublished',
+    example: true,
+  })
   @Expose()
   public isPublished: boolean;
 
