@@ -66,6 +66,23 @@ export class PostController {
     return fillDto(PostRdo, newPost.toPOJO());
   }
 
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: PostResponseMessage.DeleteSuccess,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   public async destroy(@Param('id') id: string) {

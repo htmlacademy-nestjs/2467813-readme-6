@@ -44,7 +44,7 @@ Content-Type: application/json
 ###
 
 # Delete the post by id
-DELETE http://localhost:4000/api/posts/0549e0e7-ad8c-43b8-aa35-507ba547d743 HTTP/1.1
+DELETE http://localhost:4000/api/posts/e47c322e-f754-4b33-8b2a-014b505f86b6 HTTP/1.1
 
 ###
 
