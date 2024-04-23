@@ -29,6 +29,24 @@ import { PostResponseMessage } from '../const';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.OK,
+    description: PostResponseMessage.PostSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @Get(':id')
   public async show(@Param('id') id: string) {
     const post = await this.postService.getPost(id);
@@ -62,7 +80,6 @@ export class PostController {
   @Post()
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.postService.createPost(dto);
-    // console.log('PostController', newPost);
     return fillDto(PostRdo, newPost.toPOJO());
   }
 

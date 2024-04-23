@@ -94,6 +94,7 @@ export const CreatePostValidationMessage = {
 } as const;
 
 export const PostResponseMessage = {
+  PostSuccess: 'Пост',
   CreatedSuccess: 'Редактирование поста.',
   UpdateSuccess: 'Создание нового поста.',
   DeleteSuccess: 'Удаление поста.',

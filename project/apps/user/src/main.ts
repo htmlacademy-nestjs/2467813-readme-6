@@ -14,6 +14,7 @@ const GLOBAL_PREFIX = 'api';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix(GLOBAL_PREFIX);
 
   const config = new DocumentBuilder()
     .setTitle('The User service')
@@ -23,8 +24,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(AppRoutes.Swagger, app, document);
-
-  app.setGlobalPrefix(GLOBAL_PREFIX);
 
   app.useGlobalPipes(
     new ValidationPipe({
