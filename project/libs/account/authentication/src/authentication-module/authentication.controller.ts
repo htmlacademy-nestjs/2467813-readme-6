@@ -16,6 +16,7 @@ import { AuthUser, AuthenticationResponseMessage } from '../const';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
+import { MongoIdValidationPipe } from '@project/pipes';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -66,7 +67,7 @@ export class AuthenticationController {
     description: AuthenticationResponseMessage.UserNotFound,
   })
   @Get(':id')
-  public async show(@Param('id') id: string) {
+  public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
     return existUser.toPOJO();
   }
@@ -90,13 +91,13 @@ export class AuthenticationController {
     required: true,
   })
   @Patch(`:id/${Path.NewPassword}`)
-  public async updatePassword(@Param('id') id: string) {
+  public async updatePassword(@Param('id', MongoIdValidationPipe) id: string) {
     // FIXME:ИМПЛЕМЕНТИРОВАТЬ РУЧКУ
     throw new Error('Not implemented');
   }
 
   @Get('/demo/:id')
-  public async demoPipe(@Param('id') id: number) {
+  public async demoPipe(@Param('id', MongoIdValidationPipe) id: number) {
     console.log(typeof id);
   }
 }
