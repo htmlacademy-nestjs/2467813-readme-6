@@ -88,7 +88,6 @@ export class BlogCommentRepository extends BasePostgresRepository<
         skip,
         take,
         // include: {
-        //   categories: true,
         //   comments: true,
         // },
       }),

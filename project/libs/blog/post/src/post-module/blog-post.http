@@ -10,7 +10,7 @@ GET http://localhost:4000/api/posts?limit=2&sortDirection=desc&page=1 HTTP/1.1
 ###
 
 # Get post by id
-GET http://localhost:4000/api/posts/0eb6c19a-962c-4fc7-9106-7d46b09aaab8z HTTP/1.1
+GET http://localhost:4000/api/posts/c1f32332-5f13-40cc-9a50-ec09ab595a86 HTTP/1.1
 
 ###
 

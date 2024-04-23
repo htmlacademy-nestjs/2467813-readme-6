@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
@@ -63,17 +64,23 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       where: {
         id,
       },
-      // include: {
-      //   categories: true,
-      //   comments: true,
-      // },
+      include: {
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+      },
     });
 
     if (!document) {
       throw new NotFoundException(`Post with id ${id} not found.`);
     }
 
-    return this.createEntityFromDocument(document as IPost);
+    const postEntity = this.createEntityFromDocument(document as IPost);
+    postEntity.comments = document._count?.comments;
+
+    return postEntity;
   }
 
   public async update(entity: PostEntity): Promise<void> {
@@ -96,10 +103,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         linkDescription: pojoEntity.linkDescription,
         tags: pojoEntity.tags,
       },
-      // include: {
-      //   categories: true,
-      //   comments: true,
-      // },
     });
   }
 
@@ -120,18 +123,25 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         orderBy,
         skip,
         take,
-        // include: {
-        //   categories: true,
-        //   comments: true,
-        // },
+        include: {
+          _count: {
+            select: {
+              comments: true,
+            },
+          },
+        },
       }),
       this.getPostCount(where),
     ]);
 
+    const entities = records.map((record) => {
+      const postEntity = this.createEntityFromDocument(record as IPost);
+      postEntity.comments = record._count?.comments;
+      return postEntity;
+    });
+
     return {
-      entities: records.map((record) =>
-        this.createEntityFromDocument(record as IPost)
-      ),
+      entities,
       totalPages: this.calculatePostsPage(postCount, take),
       totalItems: postCount,
       currentPage: query?.page,
