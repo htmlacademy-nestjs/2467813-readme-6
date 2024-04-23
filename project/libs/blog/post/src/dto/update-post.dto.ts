@@ -20,8 +20,13 @@ import {
   TextQuote,
   Title,
 } from '../const';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePostDto {
+  @ApiProperty({
+    description: 'Post title',
+    example: 'Some title',
+  })
   @IsOptional()
   @IsString({ message: CreatePostValidationMessage.title.invalidFormat })
   @Length(Title.Min, Title.Max, {
@@ -29,6 +34,10 @@ export class UpdatePostDto {
   })
   public title?: string;
 
+  @ApiProperty({
+    description: 'Post announcementPublic',
+    example: 'announcementPublic',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.announcementPublic.invalidFormat,
@@ -38,6 +47,10 @@ export class UpdatePostDto {
   })
   public announcementPublic?: string;
 
+  @ApiProperty({
+    description: 'Post textPublic',
+    example: 'textPublic',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.textPublic.invalidFormat,
@@ -47,18 +60,30 @@ export class UpdatePostDto {
   })
   public textPublic?: string;
 
+  @ApiProperty({
+    description: 'Post videoUrl',
+    example: 'videoUrl',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
 
+  @ApiProperty({
+    description: 'Post imageUrl',
+    example: 'imageUrl',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.imageUrl.invalidFormat,
   })
   public imageUrl?: string;
 
+  @ApiProperty({
+    description: 'Post textQuote',
+    example: 'textQuote',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.textQuote.invalidFormat,
@@ -68,6 +93,10 @@ export class UpdatePostDto {
   })
   public textQuote?: string;
 
+  @ApiProperty({
+    description: 'Post quoteAuthor',
+    example: 'quoteAuthor',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.quoteAuthor.invalidFormat,
@@ -77,12 +106,20 @@ export class UpdatePostDto {
   })
   public quoteAuthor?: string;
 
+  @ApiProperty({
+    description: 'Post link',
+    example: 'link',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
   public link?: string;
 
+  @ApiProperty({
+    description: 'Post linkDescription',
+    example: 'linkDescription',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.linkDescription.invalidFormat,
@@ -92,6 +129,10 @@ export class UpdatePostDto {
   })
   public linkDescription?: string;
 
+  @ApiProperty({
+    description: 'Post tags',
+    example: '["tags"]',
+  })
   @IsOptional()
   @ValidateIf((_, value) => value != null)
   @IsArray({

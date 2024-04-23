@@ -89,6 +89,24 @@ export class PostController {
     await this.postService.deletePost(id);
   }
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.CREATED,
+    description: PostResponseMessage.UpdateSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @Patch(':id')
   public async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
     const updatedPost = await this.postService.updatePost(id, dto);

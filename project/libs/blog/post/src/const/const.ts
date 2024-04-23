@@ -94,7 +94,8 @@ export const CreatePostValidationMessage = {
 } as const;
 
 export const PostResponseMessage = {
-  CreatedSuccess: 'Создание нового поста.',
+  CreatedSuccess: 'Редактирование поста.',
+  UpdateSuccess: 'Создание нового поста.',
   DeleteSuccess: 'Удаление поста.',
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',

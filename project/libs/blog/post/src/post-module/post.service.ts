@@ -41,37 +41,18 @@ export class PostService {
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
     const existsPost = await this.postRepository.findById(id);
-    // let isSameCategories = true;
-    // let hasChanges = false;
+    let hasChanges = false;
 
-    // for (const [key, value] of Object.entries(dto)) {
-    //   if (
-    //     value !== undefined &&
-    //     key !== 'categories' &&
-    //     existsPost[key] !== value
-    //   ) {
-    //     existsPost[key] = value;
-    //     hasChanges = true;
-    //   }
+    for (const [key, value] of Object.entries(dto)) {
+      if (value !== undefined && existsPost[key] !== value) {
+        existsPost[key] = value;
+        hasChanges = true;
+      }
+    }
 
-    //   if (key === 'categories' && value) {
-    //     const currentCategoryIds = existsPost.categories.map(
-    //       (category) => category.id
-    //     );
-    //     isSameCategories =
-    //       currentCategoryIds.length === value.length &&
-    //       currentCategoryIds.some((categoryId) => value.includes(categoryId));
-
-    //     if (!isSameCategories) {
-    //       existsPost.categories =
-    //         await this.blogCategoryService.getCategoriesByIds(dto.categories);
-    //     }
-    //   }
-    // }
-
-    // if (isSameCategories && !hasChanges) {
-    //   return existsPost;
-    // }
+    if (!hasChanges) {
+      return existsPost;
+    }
 
     await this.postRepository.update(existsPost);
 

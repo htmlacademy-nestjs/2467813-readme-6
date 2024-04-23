@@ -49,12 +49,11 @@ DELETE http://localhost:4000/api/posts/e47c322e-f754-4b33-8b2a-014b505f86b6 HTTP
 ###
 
 # Update post by id
-PATCH http://localhost:4000/api/posts/0eb6c19a-962c-4fc7-9106-7d46b09aaab8 HTTP/1.1
+PATCH http://localhost:4000/api/posts/1c2bc357-9d4f-4086-a6cb-6f7c5e59657c HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Как дела",
-  "description": "И вновь привет"
+  "title": "Some new Some new Some new Some new"
 }
 
 ###

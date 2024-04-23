@@ -80,9 +80,13 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
   public async update(entity: PostEntity): Promise<void> {
     const pojoEntity = entity.toPOJO();
     await this.client.post.update({
-      where: { id: entity.id },
+      where: {
+        id: entity.id,
+      },
       data: {
+        userId: pojoEntity.userId,
         title: pojoEntity.title,
+        typePost: pojoEntity.typePost,
         announcementPublic: pojoEntity.announcementPublic,
         textPublic: pojoEntity.textPublic,
         videoUrl: pojoEntity.videoUrl,
@@ -92,9 +96,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         link: pojoEntity.link,
         linkDescription: pojoEntity.linkDescription,
         tags: pojoEntity.tags,
-        // categories: {
-        //   set: pojoEntity.categories.map((category) => ({ id: category.id })),
-        // },
       },
       // include: {
       //   categories: true,
