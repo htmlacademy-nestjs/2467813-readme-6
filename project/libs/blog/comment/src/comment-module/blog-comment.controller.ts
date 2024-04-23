@@ -17,7 +17,7 @@ export class BlogCommentController {
     const comments = await this.blogCommentService.getComments(postId);
     return fillDto(
       CommentRdo,
-      comments.map((comment) => comment.toPOJO() as any)
+      comments.map((comment) => comment.toPOJO())
     );
   }
 
@@ -27,6 +27,6 @@ export class BlogCommentController {
     @Body() dto: CreateCommentDto
   ) {
     const newComment = await this.blogCommentService.createComment(postId, dto);
-    return fillDto(CommentRdo, newComment.toPOJO() as any);
+    return fillDto(CommentRdo, newComment.toPOJO());
   }
 }

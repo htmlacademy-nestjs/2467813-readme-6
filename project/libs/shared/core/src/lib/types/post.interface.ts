@@ -1,6 +1,7 @@
 import { TTypePost } from '@project/constant';
 
 export interface IPost {
+  [key: string]: unknown;
   id?: string;
   userId: string;
   title: string;

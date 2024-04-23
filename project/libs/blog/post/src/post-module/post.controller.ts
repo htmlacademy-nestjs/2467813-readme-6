@@ -32,7 +32,7 @@ export class PostController {
   @Get(':id')
   public async show(@Param('id') id: string) {
     const post = await this.postService.getPost(id);
-    return fillDto(PostRdo, post.toPOJO() as any);
+    return fillDto(PostRdo, post.toPOJO());
   }
 
   @Get()
@@ -63,7 +63,7 @@ export class PostController {
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.postService.createPost(dto);
     // console.log('PostController', newPost);
-    return fillDto(PostRdo, newPost.toPOJO() as any);
+    return fillDto(PostRdo, newPost.toPOJO());
   }
 
   @Delete(':id')
@@ -75,6 +75,6 @@ export class PostController {
   @Patch(':id')
   public async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
     const updatedPost = await this.postService.updatePost(id, dto);
-    return fillDto(PostRdo, updatedPost.toPOJO() as any);
+    return fillDto(PostRdo, updatedPost.toPOJO());
   }
 }
