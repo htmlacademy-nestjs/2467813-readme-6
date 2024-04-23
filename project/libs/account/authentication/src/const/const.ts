@@ -15,11 +15,6 @@ export const AuthUser = {
   IsNotLogged: 'The token is invalid or expired.',
 } as const;
 
-export const AuthToken = {
-  Name: 'AUTHORIZATION',
-  Description: 'Token (формат: Bearer + "token")',
-} as const;
-
 export const AuthenticationResponseMessage = {
   LoggedSuccess: 'User has been successfully logged.',
   LoggedError: 'Password or Login is wrong.',

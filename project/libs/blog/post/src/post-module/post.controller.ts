@@ -20,8 +20,9 @@ import { PostRdo } from '../rdo/post.rdo';
 import { PostWithPaginationRdo } from '../rdo/post-with-pagination.rdo';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { AppRoutes } from '@project/constant';
-import { ApiTags } from '@nestjs/swagger';
+import { AppRoutes, AuthToken } from '@project/constant';
+import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PostResponseMessage } from '../const';
 
 @ApiTags(AppRoutes.Posts)
 @Controller(AppRoutes.Posts)
@@ -44,9 +45,24 @@ export class PostController {
     return fillDto(PostWithPaginationRdo, result);
   }
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.CREATED,
+    description: PostResponseMessage.CreatedSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @Post()
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.postService.createPost(dto);
+    // console.log('PostController', newPost);
     return fillDto(PostRdo, newPost.toPOJO() as any);
   }
 

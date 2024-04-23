@@ -29,16 +29,21 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
 
   public async save(entity: PostEntity): Promise<void> {
     const pojoEntity = entity.toPOJO();
+    // console.log('PostRepository', pojoEntity);
     const record = await this.client.post.create({
-      // @ts-ignore
       data: {
-        ...pojoEntity,
-        // categories: {
-        //   connect: pojoEntity.categories.map(({ id }) => ({ id })),
-        // },
-        // comments: {
-        //   connect: [],
-        // },
+        userId: pojoEntity.userId,
+        title: pojoEntity.title,
+        typePost: pojoEntity.typePost,
+        announcementPublic: pojoEntity.announcementPublic,
+        textPublic: pojoEntity.textPublic,
+        videoUrl: pojoEntity.videoUrl,
+        imageUrl: pojoEntity.imageUrl,
+        textQuote: pojoEntity.textQuote,
+        quoteAuthor: pojoEntity.quoteAuthor,
+        link: pojoEntity.link,
+        linkDescription: pojoEntity.linkDescription,
+        tags: pojoEntity.tags,
       },
     });
 

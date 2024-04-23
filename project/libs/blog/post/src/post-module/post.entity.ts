@@ -58,7 +58,7 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
 
   public toPOJO(): IPost {
     return {
-      id: this.id,
+      // id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       typePost: this.typePost,

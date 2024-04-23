@@ -1,6 +1,19 @@
 import { TypePostList, TTypePost } from '@project/constant';
 
-import { IsIn, IsMongoId, IsOptional, IsString, Length } from 'class-validator';
+import {
+  ArrayMaxSize,
+  ArrayUnique,
+  IsArray,
+  IsIn,
+  IsLowercase,
+  IsMongoId,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+  MinLength,
+  ValidateIf,
+} from 'class-validator';
 import {
   AnnouncementPublic,
   CreatePostValidationMessage,
@@ -11,24 +24,41 @@ import {
   TextQuote,
   Title,
 } from '../const';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
+  @ApiProperty({
+    description: 'Post title',
+    example: 'Some title',
+  })
   @IsString({ message: CreatePostValidationMessage.title.invalidFormat })
   @Length(Title.Min, Title.Max, {
     message: CreatePostValidationMessage.title.lengthField,
   })
   public title: string;
 
+  @ApiProperty({
+    description: 'Post unique userId MongoDB',
+    example: '6621683a9775bcf7c8f2606b',
+  })
   @IsString({ message: CreatePostValidationMessage.userId.invalidId })
   @IsMongoId({ message: CreatePostValidationMessage.userId.invalidId })
   public userId: string;
 
+  @ApiProperty({
+    description: CreatePostValidationMessage.typePost.invalidChoice,
+    example: 'text',
+  })
   @IsIn([...TypePostList], {
     message: CreatePostValidationMessage.typePost.invalidChoice,
   })
   @IsString({ message: CreatePostValidationMessage.typePost.invalidFormat })
   public typePost: TTypePost;
 
+  @ApiProperty({
+    description: 'Post announcementPublic',
+    example: 'announcementPublic',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.announcementPublic.invalidFormat,
@@ -38,6 +68,10 @@ export class CreatePostDto {
   })
   public announcementPublic?: string;
 
+  @ApiProperty({
+    description: 'Post textPublic',
+    example: 'textPublic',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.textPublic.invalidFormat,
@@ -47,18 +81,30 @@ export class CreatePostDto {
   })
   public textPublic?: string;
 
+  @ApiProperty({
+    description: 'Post videoUrl',
+    example: 'videoUrl',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
 
+  @ApiProperty({
+    description: 'Post imageUrl',
+    example: 'imageUrl',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.imageUrl.invalidFormat,
   })
   public imageUrl?: string;
 
+  @ApiProperty({
+    description: 'Post textQuote',
+    example: 'textQuote',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.textQuote.invalidFormat,
@@ -68,6 +114,10 @@ export class CreatePostDto {
   })
   public textQuote?: string;
 
+  @ApiProperty({
+    description: 'Post quoteAuthor',
+    example: 'quoteAuthor',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.quoteAuthor.invalidFormat,
@@ -77,12 +127,20 @@ export class CreatePostDto {
   })
   public quoteAuthor?: string;
 
+  @ApiProperty({
+    description: 'Post link',
+    example: 'link',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
   public link?: string;
 
+  @ApiProperty({
+    description: 'Post linkDescription',
+    example: 'linkDescription',
+  })
   @IsOptional()
   @IsString({
     message: CreatePostValidationMessage.linkDescription.invalidFormat,
@@ -92,12 +150,25 @@ export class CreatePostDto {
   })
   public linkDescription?: string;
 
+  @ApiProperty({
+    description: 'Post tags',
+    example: '["tags"]',
+  })
   @IsOptional()
-  @IsString({
+  @ValidateIf((_, value) => value != null)
+  @IsArray({
     message: CreatePostValidationMessage.tags.invalidFormat,
   })
-  @Length(Tags.Min, Tags.Max, {
+  @ArrayMaxSize(8)
+  @ArrayUnique()
+  @IsLowercase({ each: true })
+  @MaxLength(Tags.Max, {
+    each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
-  public tags?: string;
+  @MinLength(Tags.Min, {
+    each: true,
+    message: CreatePostValidationMessage.tags.lengthField,
+  })
+  public tags?: string[];
 }

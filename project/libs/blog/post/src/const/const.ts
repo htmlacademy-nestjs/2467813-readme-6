@@ -81,14 +81,19 @@ export const CreatePostValidationMessage = {
     isUrl: 'link must be a valid URL',
   },
   linkDescription: {
-    invalidFormat: `invalidFormat must be an string`,
+    invalidFormat: `linkDescription must be an string`,
     lengthField: `min length for linkDescription is ${LinkDescription.Min}, max is ${LinkDescription.Max}`,
   },
   tags: {
-    invalidFormat: `invalidFormat must be an string`,
+    invalidFormat: `Field tags must be an array and type must be an string`,
     lengthField: `min length for tags is ${Tags.Min}, max is ${Tags.Max}, and limit ${Tags.limit}`,
   },
   userId: {
     invalidId: 'userId field must be a valid id',
   },
+} as const;
+
+export const PostResponseMessage = {
+  CreatedSuccess: 'Создание нового предложения.',
+  IsNotLogged: 'The token is invalid or expired.',
 } as const;

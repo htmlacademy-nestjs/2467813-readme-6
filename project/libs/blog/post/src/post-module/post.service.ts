@@ -20,10 +20,8 @@ export class PostService {
   }
 
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
-    // const categories = await this.blogCategoryService.getCategoriesByIds(
-    //   dto.categories
-    // );
     const newPost = PostFactory.createFromCreatePostDto(dto);
+    // console.log('PostService', newPost);
     await this.postRepository.save(newPost);
 
     return newPost;

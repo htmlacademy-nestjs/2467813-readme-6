@@ -14,16 +14,31 @@ GET http://localhost:4000/api/posts/0eb6c19a-962c-4fc7-9106-7d46b09aaab8z HTTP/1
 
 ###
 
-# Create a new post
+# Create a new post 1
 POST http://localhost:4000/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Hello world 31337!",
-  "description": "Текст анонса",
-  "content": "Расширенный текст публикации",
-  "userId": "658ede7600f80970fcf9e111",
-  "categories": ["39614113-7ad5-45b6-8093-06455437e1e2"]
+  "userId": "6621683a9775bcf7c8f2606b",
+  "title": "Some text Some text Some text Some text",
+  "typePost": "text",
+  "announcementPublic": "announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic",
+  "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic"
+}
+
+###
+
+# Create a new post 2
+POST http://localhost:4000/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "6621683a9775bcf7c8f2606b",
+  "title": "Some quote Some quote Some quote Some quote",
+  "typePost": "quote",
+  "textQuote": "textQuote textQuote textQuote textQuote textQuote textQuote",
+  "quoteAuthor": "quoteAuthor",
+  "tags":["quote","some"]
 }
 
 ###

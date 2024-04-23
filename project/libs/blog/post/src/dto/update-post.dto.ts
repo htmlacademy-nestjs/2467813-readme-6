@@ -1,4 +1,15 @@
-import { IsOptional, IsString, Length } from 'class-validator';
+import {
+  ArrayMaxSize,
+  ArrayUnique,
+  IsArray,
+  IsLowercase,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+  MinLength,
+  ValidateIf,
+} from 'class-validator';
 import {
   AnnouncementPublic,
   CreatePostValidationMessage,
@@ -82,10 +93,19 @@ export class UpdatePostDto {
   public linkDescription?: string;
 
   @IsOptional()
-  @IsString({
+  @ValidateIf((_, value) => value != null)
+  @IsArray({
     message: CreatePostValidationMessage.tags.invalidFormat,
   })
-  @Length(Tags.Min, Tags.Max, {
+  @ArrayMaxSize(8)
+  @ArrayUnique()
+  @IsLowercase({ each: true })
+  @MaxLength(Tags.Max, {
+    each: true,
+    message: CreatePostValidationMessage.tags.lengthField,
+  })
+  @MinLength(Tags.Min, {
+    each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
   public tags?: string;

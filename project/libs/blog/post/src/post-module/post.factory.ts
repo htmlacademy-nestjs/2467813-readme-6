@@ -13,8 +13,18 @@ export class PostFactory implements IEntityFactory<PostEntity> {
 
   public static createFromCreatePostDto(dto: CreatePostDto): PostEntity {
     const entity = new PostEntity();
-    entity.title = dto.title;
     entity.userId = dto.userId;
+    entity.title = dto.title;
+    entity.typePost = dto.typePost;
+    entity.announcementPublic = dto.announcementPublic;
+    entity.textPublic = dto.textPublic;
+    entity.videoUrl = dto.videoUrl;
+    entity.imageUrl = dto.imageUrl;
+    entity.textQuote = dto.textQuote;
+    entity.quoteAuthor = dto.quoteAuthor;
+    entity.link = dto.link;
+    entity.linkDescription = dto.linkDescription;
+    entity.tags = dto.tags;
 
     return entity;
   }

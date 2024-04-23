@@ -8,11 +8,11 @@ import {
   Post,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { AppRoutes, Path } from '@project/constant';
+import { AppRoutes, Path, AuthToken } from '@project/constant';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthToken, AuthUser, AuthenticationResponseMessage } from '../const';
+import { AuthUser, AuthenticationResponseMessage } from '../const';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
@@ -23,6 +23,7 @@ export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
 
   @ApiResponse({
+    type: CreateUserDto,
     status: HttpStatus.CREATED,
     description: AuthenticationResponseMessage.UserCreated,
   })
