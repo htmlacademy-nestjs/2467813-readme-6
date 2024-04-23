@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AppRoutes, Path, AuthToken } from '@project/constant';
@@ -17,6 +18,8 @@ import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
 import { MongoIdValidationPipe } from '@project/pipes';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { fillDto } from '@project/helpers';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -54,7 +57,12 @@ export class AuthenticationController {
   @Post(Path.Login)
   public async login(@Body() dto: LoginUserDto) {
     const verifiedUser = await this.authService.verifyUser(dto);
-    return verifiedUser.toPOJO();
+
+    const userToken = await this.authService.createUserToken(verifiedUser);
+    return fillDto(LoggedUserRdo, {
+      ...verifiedUser.toPOJO(),
+      ...userToken,
+    });
   }
 
   @ApiResponse({
@@ -90,12 +98,14 @@ export class AuthenticationController {
     description: AuthToken.Description,
     required: true,
   })
+  @UseGuards(JwtAuthGuard)
   @Patch(`:id/${Path.NewPassword}`)
   public async updatePassword(@Param('id', MongoIdValidationPipe) id: string) {
     // FIXME:ИМПЛЕМЕНТИРОВАТЬ РУЧКУ
     throw new Error('Not implemented');
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/demo/:id')
   public async demoPipe(@Param('id', MongoIdValidationPipe) id: number) {
     console.log(typeof id);

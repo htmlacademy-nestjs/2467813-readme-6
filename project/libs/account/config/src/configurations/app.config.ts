@@ -21,7 +21,9 @@ const validationSchema = Joi.object({
 });
 
 function validateConfig(config: IApplicationConfig): void {
-  const { error } = validationSchema.validate(config, { abortEarly: true });
+  const { error } = validationSchema.validate(config, {
+    abortEarly: true,
+  });
   if (error) {
     throw new Error(`[Application Config Validation Error]: ${error.message}`);
   }

@@ -28,9 +28,9 @@ GET http://localhost:4000/api/auth/6621683a9775bcf7c8f2606b HTTP/1.1
 ###
 
 # Изменить пароль
-PATCH http://localhost:4000/api/auth/new-password HTTP/1.1
+PATCH http://localhost:4000/api/auth/6621683a9775bcf7c8f2606b/new-password HTTP/1.1
 Content-Type: application/json
-# Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxMzg5ODQ3MCwiZXhwIjoxNzEzODk4NzcwfQ.dHBysC0IIxCaeKQ6zM5lXylbRB4VdMb0__VcUGl9mL8
 
 {
   "password": "123456",
@@ -41,5 +41,6 @@ Content-Type: application/json
 
 # Demo route for Pipe
 GET http://localhost:4000/api/auth/demo/1 HTTP/1.1.
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxMzg5ODQ3MCwiZXhwIjoxNzEzODk4NzcwfQ.dHBysC0IIxCaeKQ6zM5lXylbRB4VdMb0__VcUGl9mL8
 
 ###

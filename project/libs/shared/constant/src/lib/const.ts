@@ -19,6 +19,7 @@ export const Path = {
 export const SpaceName = {
   Application: 'application',
   MongoDB: 'mongo_db',
+  Jwt: 'jwt',
 } as const;
 
 export const TypePost = {
@@ -41,9 +42,9 @@ export const SortDirection = {
   Desc: 'desc',
 } as const;
 
-export const TypePostList: TTypePost[] = Object.values(TypePost);
-
 export const AuthToken = {
   Name: 'AUTHORIZATION',
   Description: 'Token (формат: Bearer + "token")',
 } as const;
+
+export const TypePostList: TTypePost[] = Object.values(TypePost);
