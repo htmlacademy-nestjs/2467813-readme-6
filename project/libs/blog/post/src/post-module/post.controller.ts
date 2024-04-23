@@ -62,11 +62,6 @@ export class PostController {
     status: HttpStatus.UNAUTHORIZED,
     description: PostResponseMessage.IsNotLogged,
   })
-  @ApiHeader({
-    name: AuthToken.Name,
-    description: AuthToken.Description,
-    required: true,
-  })
   @Get()
   public async index(@Query() query: PostQuery) {
     const postsWithPagination = await this.postService.getAllPosts(query);

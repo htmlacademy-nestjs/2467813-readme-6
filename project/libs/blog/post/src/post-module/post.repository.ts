@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
@@ -72,8 +71,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       throw new NotFoundException(`Post with id ${id} not found.`);
     }
 
-    // @ts-ignore
-    return this.createEntityFromDocument(document);
+    return this.createEntityFromDocument(document as IPost);
   }
 
   public async update(entity: PostEntity): Promise<void> {
@@ -110,16 +108,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
 
-    // if (query?.categories) {
-    // where.categories = {
-    //   some: {
-    //     id: {
-    //       in: query.categories,
-    //     },
-    //   },
-    // };
-    // }
-
     if (query?.sortDirection) {
       orderBy.createdAt = query.sortDirection;
     }
@@ -139,12 +127,13 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     ]);
 
     return {
-      // @ts-ignore
-      entities: records.map((record) => this.createEntityFromDocument(record)),
-      currentPage: query?.page,
+      entities: records.map((record) =>
+        this.createEntityFromDocument(record as IPost)
+      ),
       totalPages: this.calculatePostsPage(postCount, take),
-      itemsPerPage: take,
       totalItems: postCount,
+      currentPage: query?.page,
+      itemsPerPage: take,
     };
   }
 }
