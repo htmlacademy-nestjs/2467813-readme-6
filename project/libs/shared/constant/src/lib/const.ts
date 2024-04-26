@@ -56,7 +56,7 @@ export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
 export const RequiredKeysPhoto = ['imageUrl'];
 export const RequiredKeysQuote = ['textQuote', 'quoteAuthor'];
-export const RequiredKeysLink = ['link', 'linkDescription'];
+export const RequiredKeysLink = ['link'];
 
 export const PostTypeToKeys = {
   [TypePost.Link]: {

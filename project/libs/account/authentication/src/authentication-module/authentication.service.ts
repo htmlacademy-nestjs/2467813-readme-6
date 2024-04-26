@@ -14,6 +14,7 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { IToken, ITokenPayload, IUser } from '@project/core';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class AuthenticationService {
@@ -54,7 +55,7 @@ export class AuthenticationService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AuthUser.NotFound);
+      throw new NotFoundException(getMessageNotFoundDocument('User', email));
     }
 
     if (!(await existUser.comparePassword(password))) {
@@ -68,7 +69,7 @@ export class AuthenticationService {
     const user = await this.blogUserRepository.findById(id);
 
     if (!user) {
-      throw new NotFoundException(AuthUser.NotFound);
+      throw new NotFoundException(getMessageNotFoundDocument('User', id));
     }
 
     return user;
@@ -84,7 +85,7 @@ export class AuthenticationService {
     const existUser = await this.blogUserRepository.findById(userId);
 
     if (!existUser) {
-      throw new NotFoundException(AuthUser.NotFound);
+      throw new NotFoundException(getMessageNotFoundDocument('User', userId));
     }
 
     if (!(await existUser.comparePassword(password))) {

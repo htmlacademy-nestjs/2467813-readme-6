@@ -32,3 +32,7 @@ export const getMongoConnectionString = ({
   authDatabase,
 }): string =>
   `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
+
+export const getMessageNotFoundDocument = (name: string, id: string) => {
+  return `${name} with ID ${id} not found`;
+};

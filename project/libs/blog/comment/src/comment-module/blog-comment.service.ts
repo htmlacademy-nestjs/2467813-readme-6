@@ -7,6 +7,7 @@ import { PostService } from '@project/post';
 import { BlogCommentFactory } from './blog-comment.factory';
 import { BlogCommentQuery } from './blog-comment.query';
 import { IPaginationResult } from '@project/core';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class BlogCommentService {
@@ -42,7 +43,7 @@ export class BlogCommentService {
     try {
       await this.blogCommentRepository.deleteById(id);
     } catch {
-      throw new NotFoundException(`Comment with ID ${id} not found`);
+      throw new NotFoundException(getMessageNotFoundDocument('Comment', id));
     }
   }
 }

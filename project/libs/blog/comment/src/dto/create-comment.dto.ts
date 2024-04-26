@@ -3,13 +3,14 @@ import {
   CommentValidateMessage,
   CreateCommentMessages,
   Message,
+  OpenApiMessages,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCommentDto {
   @ApiProperty({
-    description: 'Comment message',
-    example: 'message',
+    description: OpenApiMessages.message.description,
+    example: OpenApiMessages.message.example,
   })
   @IsString({ message: CreateCommentMessages.message.invalidFormat })
   @Length(Message.Min, Message.Max, {
@@ -18,8 +19,8 @@ export class CreateCommentDto {
   public message: string;
 
   @ApiProperty({
-    description: 'The uniq user ID',
-    example: '6621683a9775bcf7c8f2606b',
+    description: OpenApiMessages.userId.description,
+    example: OpenApiMessages.userId.example,
   })
   @IsString()
   @IsMongoId({ message: CommentValidateMessage.InvalidID })
