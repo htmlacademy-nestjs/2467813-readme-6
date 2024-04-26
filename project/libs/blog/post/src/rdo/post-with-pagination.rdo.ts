@@ -1,10 +1,11 @@
 import { Expose } from 'class-transformer';
 import { PostRdo } from './post.rdo';
 import { ApiProperty } from '@nestjs/swagger';
+import { OpenApiMessages } from '../const';
 
 export class PostWithPaginationRdo {
   @ApiProperty({
-    description: 'Post list entities',
+    description: OpenApiMessages.entities.description,
     type: PostRdo,
     isArray: true,
   })
@@ -12,29 +13,29 @@ export class PostWithPaginationRdo {
   public entities: PostRdo[];
 
   @ApiProperty({
-    description: 'Post list totalPages',
-    example: 1,
+    description: OpenApiMessages.totalPages.description,
+    example: OpenApiMessages.totalPages.example,
   })
   @Expose()
   public totalPages: number;
 
   @ApiProperty({
-    description: 'Post list totalItems',
-    example: 1,
+    description: OpenApiMessages.totalItems.description,
+    example: OpenApiMessages.totalItems.example,
   })
   @Expose()
   public totalItems: number;
 
   @ApiProperty({
-    description: 'Post list currentPage',
-    example: 1,
+    description: OpenApiMessages.currentPage.description,
+    example: OpenApiMessages.currentPage.example,
   })
   @Expose()
   public currentPage: number;
 
   @ApiProperty({
-    description: 'Post list itemsPerPage',
-    example: 1,
+    description: OpenApiMessages.currentPage.description,
+    example: OpenApiMessages.itemsPerPage.example,
   })
   @Expose()
   public itemsPerPage: number;

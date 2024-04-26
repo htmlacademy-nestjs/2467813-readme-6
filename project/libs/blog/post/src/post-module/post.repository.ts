@@ -82,7 +82,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     return postEntity;
   }
 
-  public async update(entity: PostEntity): Promise<void> {
+  public async update(entity: PostEntity): Promise<PostEntity> {
     const pojoEntity = entity.toPOJO();
     await this.client.post.update({
       where: {
@@ -103,6 +103,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         tags: pojoEntity.tags,
       },
     });
+
+    return;
   }
 
   public async find(query?: PostQuery): Promise<IPaginationResult<PostEntity>> {
