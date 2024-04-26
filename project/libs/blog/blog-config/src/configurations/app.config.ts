@@ -1,5 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
+
 import {
   DECIMAL_SYSTEM,
   DefaultPort,
@@ -13,13 +14,11 @@ const validationSchema = Joi.object({
   environment: Joi.string()
     .valid(...Environments)
     .required(),
-  port: Joi.number().port().default(DefaultPort.AppPortUser),
+  port: Joi.number().port().default(DefaultPort.AppPortBlog),
 });
 
 function validateConfig(config: IApplicationConfig): void {
-  const { error } = validationSchema.validate(config, {
-    abortEarly: true,
-  });
+  const { error } = validationSchema.validate(config, { abortEarly: true });
   if (error) {
     throw new Error(`[Application Config Validation Error]: ${error.message}`);
   }
@@ -29,7 +28,7 @@ function getConfig(): IApplicationConfig {
   const config: IApplicationConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
-      process.env.PORT || `${DefaultPort.AppPortUser}`,
+      process.env.PORT || `${DefaultPort.AppPortBlog}`,
       DECIMAL_SYSTEM
     ),
   };

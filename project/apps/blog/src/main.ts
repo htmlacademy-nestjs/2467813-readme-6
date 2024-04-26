@@ -8,13 +8,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppRoutes } from '@project/constant';
-
-const PORT = 4000;
-const GLOBAL_PREFIX = 'api';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix(GLOBAL_PREFIX);
+  app.setGlobalPrefix(AppRoutes.Api);
 
   const config = new DocumentBuilder()
     .setTitle('The Blog service')
@@ -31,10 +29,12 @@ async function bootstrap() {
     })
   );
 
-  const port = process.env.PORT || PORT;
+  const configService = app.get(ConfigService);
+  const port = configService.get('application.port');
+
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${GLOBAL_PREFIX}`
+    `🚀 Application is running on: http://localhost:${port}/${AppRoutes.Api}`
   );
 }
 
