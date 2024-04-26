@@ -16,6 +16,7 @@ import { ConfigType } from '@nestjs/config';
 import { mongoDbConfig } from '@project/config';
 import { JwtService } from '@nestjs/jwt';
 import { IToken, ITokenPayload, IUser } from '@project/core';
+import { UpdateUserPassword } from '../dto/update-user-password.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -76,6 +77,31 @@ export class AuthenticationService {
     }
 
     return user;
+  }
+
+  public async changePassword(userId: string, dto: UpdateUserPassword) {
+    const { password, newPassword } = dto;
+
+    if (password === newPassword) {
+      throw new NotFoundException('Новый пароль совпадает с прежним');
+    }
+
+    const existUser = await this.blogUserRepository.findById(userId);
+
+    if (!existUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (!(await existUser.comparePassword(password))) {
+      throw new UnauthorizedException(AuthUser.PasswordWrong);
+    }
+
+    existUser.id = userId;
+    const updatedUser = await new BlogUserEntity(existUser).setPassword(
+      newPassword
+    );
+
+    return await this.blogUserRepository.update(updatedUser);
   }
 
   public async createUserToken(user: IUser): Promise<IToken> {
