@@ -2,7 +2,6 @@ import {
   ConflictException,
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -12,8 +11,6 @@ import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUser } from '../const';
 import { LoginUserDto } from '../dto/login-user.dto';
-import { ConfigType } from '@nestjs/config';
-import { mongoDbConfig } from '@project/config';
 import { JwtService } from '@nestjs/jwt';
 import { IToken, ITokenPayload, IUser } from '@project/core';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
@@ -24,9 +21,7 @@ export class AuthenticationService {
 
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
-    private readonly jwtService: JwtService,
-    @Inject(mongoDbConfig.KEY)
-    private readonly databaseConfig: ConfigType<typeof mongoDbConfig>
+    private readonly jwtService: JwtService
   ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
@@ -83,13 +78,13 @@ export class AuthenticationService {
     const { password, newPassword } = dto;
 
     if (password === newPassword) {
-      throw new NotFoundException('Новый пароль совпадает с прежним');
+      throw new NotFoundException(AuthUser.ComparePassword);
     }
 
     const existUser = await this.blogUserRepository.findById(userId);
 
     if (!existUser) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException(AuthUser.NotFound);
     }
 
     if (!(await existUser.comparePassword(password))) {
@@ -120,7 +115,7 @@ export class AuthenticationService {
     } catch (error) {
       this.logger.error('[Token generation error]: ' + error.message);
       throw new HttpException(
-        'Ошибка при создании токена.',
+        AuthUser.TokenError,
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
