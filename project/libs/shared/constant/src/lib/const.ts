@@ -34,6 +34,7 @@ export const TypePost = {
 export const DefaultPort = {
   AppPortUser: 3_000,
   AppPortBlog: 3_001,
+  AppPortFile: 3_002,
   MongoPort: 27_017,
 } as const;
 
