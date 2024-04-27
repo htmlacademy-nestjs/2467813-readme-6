@@ -8,6 +8,7 @@ import { PostQuery } from './post.query';
 import { PostFactory } from './post.factory';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class PostService {
@@ -30,7 +31,7 @@ export class PostService {
     try {
       await this.postRepository.deleteById(id);
     } catch {
-      throw new NotFoundException(`Post with ID ${id} not found`);
+      throw new NotFoundException(getMessageNotFoundDocument('Post', id));
     }
   }
 

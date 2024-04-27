@@ -15,6 +15,7 @@ import {
   AnnouncementPublic,
   CreatePostValidationMessage,
   LinkDescription,
+  OpenApiMessages,
   QuoteAuthor,
   Tags,
   TextPublic,
@@ -25,8 +26,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePostDto {
   @ApiProperty({
-    description: 'Post title',
-    example: 'Some title',
+    description: OpenApiMessages.title.description,
+    example: OpenApiMessages.title.example,
   })
   @IsOptional()
   @IsString({ message: CreatePostValidationMessage.title.invalidFormat })
@@ -36,8 +37,8 @@ export class UpdatePostDto {
   public title?: string;
 
   @ApiProperty({
-    description: 'Post announcementPublic',
-    example: 'announcementPublic',
+    description: OpenApiMessages.announcementPublic.description,
+    example: OpenApiMessages.announcementPublic.example,
   })
   @IsOptional()
   @IsString({
@@ -49,8 +50,8 @@ export class UpdatePostDto {
   public announcementPublic?: string;
 
   @ApiProperty({
-    description: 'Post textPublic',
-    example: 'textPublic',
+    description: OpenApiMessages.textPublic.description,
+    example: OpenApiMessages.textPublic.example,
   })
   @IsOptional()
   @IsString({
@@ -62,8 +63,8 @@ export class UpdatePostDto {
   public textPublic?: string;
 
   @ApiProperty({
-    description: 'Post videoUrl',
-    example: 'videoUrl',
+    description: OpenApiMessages.videoUrl.description,
+    example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
   @IsString({
@@ -72,8 +73,8 @@ export class UpdatePostDto {
   public videoUrl?: string;
 
   @ApiProperty({
-    description: 'Post imageUrl',
-    example: 'imageUrl',
+    description: OpenApiMessages.imageUrl.description,
+    example: OpenApiMessages.imageUrl.example,
   })
   @IsOptional()
   @IsString({
@@ -82,8 +83,8 @@ export class UpdatePostDto {
   public imageUrl?: string;
 
   @ApiProperty({
-    description: 'Post textQuote',
-    example: 'textQuote',
+    description: OpenApiMessages.textQuote.description,
+    example: OpenApiMessages.textQuote.example,
   })
   @IsOptional()
   @IsString({
@@ -95,8 +96,8 @@ export class UpdatePostDto {
   public textQuote?: string;
 
   @ApiProperty({
-    description: 'Post quoteAuthor',
-    example: 'quoteAuthor',
+    description: OpenApiMessages.quoteAuthor.description,
+    example: OpenApiMessages.quoteAuthor.example,
   })
   @IsOptional()
   @IsString({
@@ -108,8 +109,8 @@ export class UpdatePostDto {
   public quoteAuthor?: string;
 
   @ApiProperty({
-    description: 'Post link',
-    example: 'link',
+    description: OpenApiMessages.link.description,
+    example: OpenApiMessages.link.example,
   })
   @IsOptional()
   @IsString({
@@ -118,8 +119,8 @@ export class UpdatePostDto {
   public link?: string;
 
   @ApiProperty({
-    description: 'Post linkDescription',
-    example: 'linkDescription',
+    description: OpenApiMessages.linkDescription.description,
+    example: OpenApiMessages.linkDescription.example,
   })
   @IsOptional()
   @IsString({
@@ -131,8 +132,8 @@ export class UpdatePostDto {
   public linkDescription?: string;
 
   @ApiProperty({
-    description: 'Post tags',
-    example: '["tags"]',
+    description: OpenApiMessages.tags.description,
+    example: OpenApiMessages.tags.example,
   })
   @IsOptional()
   @ValidateIf((_, value) => value != null)

@@ -10,11 +10,9 @@ import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app/app.module';
 import { AppRoutes } from '@project/constant';
 
-const GLOBAL_PREFIX = 'api';
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix(GLOBAL_PREFIX);
+  app.setGlobalPrefix(AppRoutes.Api);
 
   const config = new DocumentBuilder()
     .setTitle('The User service')
@@ -36,7 +34,7 @@ async function bootstrap() {
 
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${GLOBAL_PREFIX}`
+    `🚀 Application is running on: http://localhost:${port}/${AppRoutes.Api}`
   );
 }
 

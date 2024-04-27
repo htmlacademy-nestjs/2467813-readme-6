@@ -1,24 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { OpenApiMessages } from '../const';
 
 export class LoggedUserRdo {
   @ApiProperty({
-    description: 'The uniq user ID',
-    example: 'd45dc925-bbb2-455f-8a07-ff5ca27674a0',
+    description: OpenApiMessages.id.description,
+    example: OpenApiMessages.id.example,
   })
   @Expose()
   public id: string;
 
   @ApiProperty({
-    description: 'User unique address',
-    example: 'example@email.ru',
+    description: OpenApiMessages.email.description,
+    example: OpenApiMessages.email.example,
   })
   @Expose()
   public email: string;
 
   @ApiProperty({
-    description: 'Access token',
-    example: 'token',
+    description: OpenApiMessages.accessToken.description,
+    example: OpenApiMessages.accessToken.example,
   })
   @Expose()
   public accessToken: string;

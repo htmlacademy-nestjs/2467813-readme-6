@@ -8,6 +8,7 @@ import { BlogCommentFactory } from './blog-comment.factory';
 import { BasePostgresRepository } from '@project/data-access';
 import { BlogCommentQuery } from './blog-comment.query';
 import { Prisma } from '@prisma/client';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class BlogCommentRepository extends BasePostgresRepository<
@@ -53,7 +54,7 @@ export class BlogCommentRepository extends BasePostgresRepository<
     });
 
     if (!document) {
-      throw new NotFoundException(`Comment with id ${id} not found.`);
+      throw new NotFoundException(getMessageNotFoundDocument('Comment', id));
     }
 
     return this.createEntityFromDocument(document);

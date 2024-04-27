@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Body,
   Controller,
@@ -38,7 +39,7 @@ export class AuthenticationController {
   @Post(Path.Register)
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
-    return newUser.toPOJO();
+    return fillDto(UserRdo, newUser.toPOJO() as any);
   }
 
   @ApiResponse({
@@ -100,9 +101,12 @@ export class AuthenticationController {
   })
   @UseGuards(JwtAuthGuard)
   @Patch(`:id/${Path.NewPassword}`)
-  public async updatePassword(@Param('id', MongoIdValidationPipe) id: string) {
-    // FIXME:ИМПЛЕМЕНТИРОВАТЬ РУЧКУ
-    throw new Error('Not implemented');
+  public async updatePassword(
+    @Param('id', MongoIdValidationPipe) id: string,
+    @Body() dto: UpdateUserPassword
+  ) {
+    const updatedUser = await this.authService.changePassword(id, dto);
+    return fillDto(UserRdo, updatedUser.toPOJO() as any);
   }
 
   @UseGuards(JwtAuthGuard)

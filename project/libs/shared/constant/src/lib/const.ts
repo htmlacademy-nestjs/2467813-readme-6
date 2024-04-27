@@ -3,6 +3,7 @@ import { TTypePost } from './types/type-post.type';
 export const DECIMAL_SYSTEM = 10;
 
 export const AppRoutes = {
+  Api: 'api',
   Auth: 'auth',
   Swagger: 'swagger',
   Posts: 'posts',
@@ -31,7 +32,8 @@ export const TypePost = {
 } as const;
 
 export const DefaultPort = {
-  AppPort: 3_000,
+  AppPortUser: 3_000,
+  AppPortBlog: 3_001,
   MongoPort: 27_017,
 } as const;
 
@@ -54,7 +56,7 @@ export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
 export const RequiredKeysPhoto = ['imageUrl'];
 export const RequiredKeysQuote = ['textQuote', 'quoteAuthor'];
-export const RequiredKeysLink = ['link', 'linkDescription'];
+export const RequiredKeysLink = ['link'];
 
 export const PostTypeToKeys = {
   [TypePost.Link]: {

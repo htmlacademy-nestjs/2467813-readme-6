@@ -2,7 +2,6 @@ import {
   ConflictException,
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -12,10 +11,10 @@ import { BlogUserEntity, BlogUserRepository } from '@project/blog-user';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUser } from '../const';
 import { LoginUserDto } from '../dto/login-user.dto';
-import { ConfigType } from '@nestjs/config';
-import { mongoDbConfig } from '@project/config';
 import { JwtService } from '@nestjs/jwt';
 import { IToken, ITokenPayload, IUser } from '@project/core';
+import { UpdateUserPassword } from '../dto/update-user-password.dto';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class AuthenticationService {
@@ -23,9 +22,7 @@ export class AuthenticationService {
 
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
-    private readonly jwtService: JwtService,
-    @Inject(mongoDbConfig.KEY)
-    private readonly databaseConfig: ConfigType<typeof mongoDbConfig>
+    private readonly jwtService: JwtService
   ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
@@ -58,7 +55,7 @@ export class AuthenticationService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AuthUser.NotFound);
+      throw new NotFoundException(getMessageNotFoundDocument('User', email));
     }
 
     if (!(await existUser.comparePassword(password))) {
@@ -72,10 +69,35 @@ export class AuthenticationService {
     const user = await this.blogUserRepository.findById(id);
 
     if (!user) {
-      throw new NotFoundException(AuthUser.NotFound);
+      throw new NotFoundException(getMessageNotFoundDocument('User', id));
     }
 
     return user;
+  }
+
+  public async changePassword(userId: string, dto: UpdateUserPassword) {
+    const { password, newPassword } = dto;
+
+    if (password === newPassword) {
+      throw new NotFoundException(AuthUser.ComparePassword);
+    }
+
+    const existUser = await this.blogUserRepository.findById(userId);
+
+    if (!existUser) {
+      throw new NotFoundException(getMessageNotFoundDocument('User', userId));
+    }
+
+    if (!(await existUser.comparePassword(password))) {
+      throw new UnauthorizedException(AuthUser.PasswordWrong);
+    }
+
+    existUser.id = userId;
+    const updatedUser = await new BlogUserEntity(existUser).setPassword(
+      newPassword
+    );
+
+    return await this.blogUserRepository.update(updatedUser);
   }
 
   public async createUserToken(user: IUser): Promise<IToken> {
@@ -94,7 +116,7 @@ export class AuthenticationService {
     } catch (error) {
       this.logger.error('[Token generation error]: ' + error.message);
       throw new HttpException(
-        'Ошибка при создании токена.',
+        AuthUser.TokenError,
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
