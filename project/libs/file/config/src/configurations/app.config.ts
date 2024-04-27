@@ -16,6 +16,14 @@ const validationSchema = Joi.object({
     .required(),
   port: Joi.number().port().default(DefaultPort.AppPortFile),
   uploadDirectory: Joi.string().required(),
+  db: Joi.object({
+    host: Joi.string().valid().hostname(),
+    port: Joi.number().port(),
+    name: Joi.string().required(),
+    user: Joi.string().required(),
+    password: Joi.string().required(),
+    authBase: Joi.string().required(),
+  }),
 });
 
 function validateConfig(config: IFileConfig): void {
@@ -33,6 +41,17 @@ function getConfig(): IFileConfig {
       DECIMAL_SYSTEM
     ),
     uploadDirectory: process.env.UPLOAD_DIRECTORY_PATH,
+    db: {
+      host: process.env.FILE_MONGO_HOST,
+      port: parseInt(
+        process.env.FILE_MONGO_PORT ?? DefaultPort.MongoPort.toString(),
+        DECIMAL_SYSTEM
+      ),
+      name: process.env.FILE_MONGO_DB_NAME,
+      user: process.env.FILE_MONGO_USER,
+      password: process.env.FILE_MONGO_PASSWORD,
+      authBase: process.env.FILE_MONGO_AUTH_BASE,
+    },
   };
   validateConfig(config);
   return config;

@@ -2,6 +2,8 @@ import 'multer';
 import { Express } from 'express';
 import {
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -11,6 +13,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileUploaderService } from './file-uploader.service';
 import { AppRoutes, Path } from '@project/constant';
 import { ApiTags } from '@nestjs/swagger';
+import { fillDto } from '@project/helpers';
+import { UploadedFileRdo } from '../rdo/uploaded-file.rdo';
+import { MongoIdValidationPipe } from '@project/pipes';
 
 @ApiTags(AppRoutes.Files)
 @Controller(AppRoutes.Files)
@@ -20,6 +25,13 @@ export class FileUploaderController {
   @Post(`/${Path.Upload}`)
   @UseInterceptors(FileInterceptor('file'))
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.fileUploaderService.saveFile(file);
+    const fileEntity = await this.fileUploaderService.saveFile(file);
+    return fillDto(UploadedFileRdo, fileEntity.toPOJO() as any);
+  }
+
+  @Get('/:fileId')
+  public async show(@Param('fileId', MongoIdValidationPipe) fileId: string) {
+    const existFile = await this.fileUploaderService.getFile(fileId);
+    return fillDto(UploadedFileRdo, existFile as any);
   }
 }

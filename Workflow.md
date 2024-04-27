@@ -97,7 +97,7 @@ npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.pris
 - `--schema` — путь к схеме
 - `--skip-generate` — пропустить формирование клиента.
 
-#### Локальный запуск базы данных MongoDB
+#### Локальный запуск базы данных MongoDB для `user`
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
 
@@ -105,12 +105,20 @@ npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.pris
 docker compose --file ./apps/user/docker-compose.dev.yml --env-file ./apps/user/user.env --project-name "readme-user" up -d
 ```
 
-#### Локальный запуск базы данных PostgreSql
+#### Локальный запуск базы данных PostgreSql для `blog`
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `blog.env`
 
 ```bash
 docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name "readme-blog" up -d
+```
+
+#### Локальный запуск базы данных MongoDB для `file`
+
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
+
+```bash
+docker compose --file ./apps/file/docker-compose.dev.yml --env-file ./apps/file/file.env --project-name "readme-file" up -d
 ```
 
 ## Структура проекта

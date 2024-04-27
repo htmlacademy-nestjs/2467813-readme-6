@@ -11,3 +11,6 @@ export { IPaginationResult } from './lib/types/pagination.interface';
 
 export { IToken } from './lib/types/token.interface';
 export { ITokenPayload } from './lib/types/token-payload.interface';
+
+export { IFile } from './lib/types/file.interface';
+export { IStoredFile } from './lib/types/stored-file.interface';

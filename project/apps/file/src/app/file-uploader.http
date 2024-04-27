@@ -11,3 +11,8 @@ Content-Disposition: form-data; name="file"; filename="file-uploader.http"
 
 ###
 
+# Get file by ID
+GET http://localhost:3002/api/files/662d5a30fce7454de13a90af HTTP/1.1
+
+###
+

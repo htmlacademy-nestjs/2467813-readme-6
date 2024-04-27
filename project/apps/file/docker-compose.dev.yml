@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  readme.file.mongo:
+    image: mongo:4.2
+    restart: always
+    container_name: readme.file.mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${FILE_MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${FILE_MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${FILE_MONGO_DB_NAME}
+    ports:
+      - ${MONGO_EXTERNAL_PORT}:${FILE_MONGO_PORT}
+    volumes:
+      - readme.mongo.file:/data/readme.file.mongo
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@localhost:27018/?authSource=${FILE_MONGO_DB_NAME} --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  typeoteka.file.mongo.ui:
+    image: mongo-express:1.0.2-20
+    restart: always
+    container_name: readme.file.mongo.ui
+    ports:
+      - 8084:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${FILE_MONGO_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${FILE_MONGO_PASSWORD}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${FILE_MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${FILE_MONGO_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@readme.file.mongo:${FILE_MONGO_PORT}/
+volumes:
+  readme.mongo.file:
