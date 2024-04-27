@@ -8,10 +8,20 @@ import { NestFactory } from '@nestjs/core';
 import { AppRoutes } from '@project/constant';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app/app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(AppRoutes.Api);
+
+  const config = new DocumentBuilder()
+    .setTitle('The File service')
+    .setDescription('File service API')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(AppRoutes.Swagger, app, document);
 
   const configService = app.get(ConfigService);
   const port = configService.get('application.port');

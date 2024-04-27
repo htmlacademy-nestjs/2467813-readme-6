@@ -8,6 +8,7 @@ export const AppRoutes = {
   Swagger: 'swagger',
   Posts: 'posts',
   Comments: 'comments',
+  Files: 'files',
 } as const;
 
 export const Path = {
@@ -15,6 +16,7 @@ export const Path = {
   Comments: 'comments',
   NewPassword: 'new-password',
   Login: 'login',
+  Upload: 'upload',
 } as const;
 
 export const SpaceName = {
