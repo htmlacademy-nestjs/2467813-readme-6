@@ -34,7 +34,7 @@ function getConfig(): IFileConfig {
     ),
     uploadDirectory: process.env.UPLOAD_DIRECTORY_PATH,
   };
-
+  console.log(process.env.UPLOAD_DIRECTORY_PATH);
   validateConfig(config);
   return config;
 }
