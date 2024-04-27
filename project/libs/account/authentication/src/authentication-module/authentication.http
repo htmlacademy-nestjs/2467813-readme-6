@@ -9,12 +9,6 @@ Content-Type: application/json
   "password": "123456"
 }
 
-
-###
-
-# Get user by ID
-GET http://localhost:4000/api/auth/d45dc925-bbb2-455f-8a07-ff5ca27674a0 HTTP/1.1
-
 ###
 
 # Login user by email and password
@@ -25,5 +19,28 @@ Content-Type: application/json
   "email": "example@email.ru",
   "password": "123456"
 }
+
+###
+
+# Get user by ID
+GET http://localhost:4000/api/auth/6621683a9775bcf7c8f2606b HTTP/1.1
+
+###
+
+# Изменить пароль
+PATCH http://localhost:4000/api/auth/6621683a9775bcf7c8f2606b/new-password HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxMzg5ODQ3MCwiZXhwIjoxNzEzODk4NzcwfQ.dHBysC0IIxCaeKQ6zM5lXylbRB4VdMb0__VcUGl9mL8
+
+{
+  "password": "123456",
+  "newPassword": "1234567"
+}
+
+###
+
+# Demo route for Pipe
+GET http://localhost:4000/api/auth/demo/1 HTTP/1.1.
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxMzg5ODQ3MCwiZXhwIjoxNzEzODk4NzcwfQ.dHBysC0IIxCaeKQ6zM5lXylbRB4VdMb0__VcUGl9mL8
 
 ###

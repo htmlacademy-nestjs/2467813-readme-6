@@ -1,7 +1,5 @@
-export interface Like {
+export interface ILike {
   id?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  postId?: string;
+  postId: string;
   userId: string;
 }

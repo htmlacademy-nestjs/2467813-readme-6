@@ -1,23 +1,31 @@
 import { PrismaClient } from '@prisma/client';
 
-const FIRST_LIKE_UUID = '39614113-7ad5-45b6-8093-06455437e1e2';
-// const SECOND_LIKE_UUID = 'efd775e2-df55-4e0e-a308-58249f5ea202';
+const LikeListUUID = {
+  First: '39614113-7ad5-45b6-8093-06455437e1e2',
+  Second: 'efd775e2-df55-4e0e-a308-58249f5ea202',
+} as const;
 
-const FIRST_COMMENT_UUID = '39614113-7ad5-45bs-8093-06455437e1e2';
-const SECOND_COMMENT_UUID = 'efd775e2-df5s-4e0e-a308-58249f5ea202';
+const CommentListUUID = {
+  First: '39614113-7ad5-45bs-8093-06455437e1e2',
+  Second: 'efd775e2-df5s-4e0e-a308-58249f5ea202',
+} as const;
 
-const FIRST_POST_UUID = '6d308040-96a2-4162-bea6-2338e9976540';
-const SECOND_POST_UUID = 'ab04593b-da99-4fe3-8b4b-e06d82e2efdd';
+const PostListUUID = {
+  First: '6d308040-96a2-4162-bea6-2338e9976540',
+  Second: 'ab04593b-da99-4fe3-8b4b-e06d82e2efdd',
+} as const;
 
-const FIRST_USER_ID = '658170cbb954e9f5b905ccf4';
-const SECOND_USER_ID = '6581762309c030b503e30512';
+const UserListUUID = {
+  First: '658170cbb954e9f5b905ccf4',
+  Second: '6581762309c030b503e30512',
+} as const;
 
 function getLikes() {
   return [
     {
-      id: FIRST_LIKE_UUID,
-      postId: FIRST_POST_UUID,
-      userId: SECOND_USER_ID,
+      id: LikeListUUID.First,
+      postId: PostListUUID.First,
+      userId: UserListUUID.Second,
     },
   ];
 }
@@ -25,9 +33,9 @@ function getLikes() {
 function getPosts() {
   return [
     {
-      id: FIRST_POST_UUID,
+      id: PostListUUID.First,
       title: 'title-video 1',
-      userId: FIRST_USER_ID,
+      userId: UserListUUID.First,
       typePost: 'video',
       videoUrl: 'videoUrl',
       tags: ['video-tags', 'video-tags'],
@@ -35,28 +43,28 @@ function getPosts() {
         'На мой взгляд, это один из самых страшных романов Стивена Кинга.',
       likes: [
         {
-          id: FIRST_LIKE_UUID,
-          userId: SECOND_USER_ID,
+          id: LikeListUUID.First,
+          userId: UserListUUID.Second,
         },
       ],
     },
     {
-      id: SECOND_POST_UUID,
+      id: PostListUUID.Second,
       title: 'title 2',
       typePost: 'text',
-      userId: FIRST_USER_ID,
+      userId: UserListUUID.First,
       announcementPublic: 'announcementPublic',
       textPublic: 'textPublic',
       comments: [
         {
-          id: FIRST_COMMENT_UUID,
+          id: CommentListUUID.First,
           message: 'круто',
-          userId: FIRST_USER_ID,
+          userId: UserListUUID.First,
         },
         {
-          id: SECOND_COMMENT_UUID,
+          id: CommentListUUID.Second,
           message: 'супер',
-          userId: SECOND_USER_ID,
+          userId: UserListUUID.Second,
         },
       ],
     },

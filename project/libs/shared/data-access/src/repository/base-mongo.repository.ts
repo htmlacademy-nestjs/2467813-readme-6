@@ -22,7 +22,10 @@ export abstract class BaseMongoRepository<
     const plainObject = document.toObject({ versionKey: false }) as ReturnType<
       T['toPOJO']
     >;
-    return this.entityFactory.create(plainObject);
+
+    const result = this.entityFactory.create(plainObject);
+
+    return result;
   }
 
   public async findById(id: T['id']): Promise<T> {
@@ -30,11 +33,11 @@ export abstract class BaseMongoRepository<
     return this.createEntityFromDocument(document);
   }
 
-  public async save(entity: T): Promise<void> {
+  public async save(entity: T): Promise<string> {
     const newEntity = new this.model(entity.toPOJO());
     await newEntity.save();
 
-    entity.id = newEntity._id.toString();
+    return newEntity._id.toString();
   }
 
   public async update(entity: T): Promise<void> {

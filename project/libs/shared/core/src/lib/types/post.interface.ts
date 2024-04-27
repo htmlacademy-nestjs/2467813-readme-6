@@ -1,11 +1,13 @@
-import { Comment } from './comment.interface';
-import { Like } from './like.interface';
 import { TTypePost } from '@project/constant';
 
-export interface Post {
+export interface IPost {
+  [key: string]: unknown;
   id?: string;
+  userId: string;
   title: string;
   typePost: TTypePost;
+  createdAt?: Date;
+  updatedAt?: Date;
   announcementPublic?: string;
   textPublic?: string;
   videoUrl?: string;
@@ -17,10 +19,8 @@ export interface Post {
   isPublished: boolean;
   isRepost?: boolean;
   originalPostId?: string;
-  tags: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  userId: string;
-  Like: Like[];
-  comments: Comment[];
+  tags?: string[];
+  likes?: number;
+  comments?: number;
+  reposts?: number;
 }

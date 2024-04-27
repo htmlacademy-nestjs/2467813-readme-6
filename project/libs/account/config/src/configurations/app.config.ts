@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 import {
   DECIMAL_SYSTEM,
   DefaultPort,
-  ENVIRONMENTS,
+  Environments,
   TEnvironment,
   SpaceName,
 } from '@project/constant';
@@ -15,13 +15,15 @@ export interface IApplicationConfig {
 
 const validationSchema = Joi.object({
   environment: Joi.string()
-    .valid(...ENVIRONMENTS)
+    .valid(...Environments)
     .required(),
   port: Joi.number().port().default(DefaultPort.AppPort),
 });
 
 function validateConfig(config: IApplicationConfig): void {
-  const { error } = validationSchema.validate(config, { abortEarly: true });
+  const { error } = validationSchema.validate(config, {
+    abortEarly: true,
+  });
   if (error) {
     throw new Error(`[Application Config Validation Error]: ${error.message}`);
   }

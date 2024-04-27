@@ -1,8 +1,8 @@
-export interface Comment {
+export interface IComment {
+  [key: string]: unknown;
   id?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  postId?: string;
-  message: string;
+  postId: string;
   userId: string;
+  createdAt?: Date;
+  message: string;
 }

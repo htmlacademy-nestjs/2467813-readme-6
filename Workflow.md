@@ -133,6 +133,11 @@ DB_MONGO_PORT=value - Порт пользователя в базе данных
 DB_MONGO_NAME=value - Название базы данных (MongoDB)
 DB_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
 
+JWT_ACCESS_TOKEN_SECRET=value - секрет для доступа токена
+JWT_ACCESS_TOKEN_EXPIRES_IN=value - время жизни доступа токена
+JWT_REFRESH_TOKEN_SECRET=value - секрет для доступа рефреш токена
+JWT_REFRESH_TOKEN_EXPIRES_IN=value - время жизни доступа рефреш токена
+
 PORT=value - Порт для входящих подключений
 ```
 
