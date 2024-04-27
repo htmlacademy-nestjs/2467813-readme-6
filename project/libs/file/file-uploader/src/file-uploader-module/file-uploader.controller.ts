@@ -1,4 +1,5 @@
 import 'multer';
+import { Express } from 'express';
 import {
   Controller,
   Post,
