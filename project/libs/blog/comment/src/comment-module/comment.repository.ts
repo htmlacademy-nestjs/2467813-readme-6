@@ -3,20 +3,20 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClientService } from '@project/models';
 import { IComment, IPaginationResult } from '@project/core';
 
-import { BlogCommentEntity } from './blog-comment.entity';
-import { BlogCommentFactory } from './blog-comment.factory';
+import { CommentEntity } from './comment.entity';
+import { CommentFactory } from './comment.factory';
 import { BasePostgresRepository } from '@project/data-access';
-import { BlogCommentQuery } from './blog-comment.query';
+import { CommentQuery } from './comment.query';
 import { Prisma } from '@prisma/client';
 import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
-export class BlogCommentRepository extends BasePostgresRepository<
-  BlogCommentEntity,
+export class CommentRepository extends BasePostgresRepository<
+  CommentEntity,
   IComment
 > {
   constructor(
-    entityFactory: BlogCommentFactory,
+    entityFactory: CommentFactory,
     readonly client: PrismaClientService
   ) {
     super(entityFactory, client);
@@ -36,7 +36,7 @@ export class BlogCommentRepository extends BasePostgresRepository<
     return Math.ceil(totalCount / limit);
   }
 
-  public async save(entity: BlogCommentEntity): Promise<void> {
+  public async save(entity: CommentEntity): Promise<void> {
     const record = await this.client.comment.create({
       data: {
         ...entity.toPOJO(),
@@ -46,7 +46,7 @@ export class BlogCommentRepository extends BasePostgresRepository<
     entity.id = record.id;
   }
 
-  public async findById(id: string): Promise<BlogCommentEntity> {
+  public async findById(id: string): Promise<CommentEntity> {
     const document = await this.client.comment.findFirst({
       where: {
         id,
@@ -70,8 +70,8 @@ export class BlogCommentRepository extends BasePostgresRepository<
 
   public async findByPostId(
     postId: string,
-    query?: BlogCommentQuery
-  ): Promise<IPaginationResult<BlogCommentEntity>> {
+    query?: CommentQuery
+  ): Promise<IPaginationResult<CommentEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;

@@ -5,7 +5,7 @@ import { SortDirection, TSortDirection } from '@project/constant';
 
 import { CommentCount } from '../const';
 
-export class BlogCommentQuery {
+export class CommentQuery {
   @Transform(({ value }) => +value || CommentCount.Default)
   @IsNumber()
   @IsOptional()

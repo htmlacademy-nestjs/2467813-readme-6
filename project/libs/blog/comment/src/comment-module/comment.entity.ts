@@ -1,9 +1,6 @@
 import { IComment, Entity, IStorableEntity } from '@project/core';
 
-export class BlogCommentEntity
-  extends Entity
-  implements IStorableEntity<IComment>
-{
+export class CommentEntity extends Entity implements IStorableEntity<IComment> {
   public createdAt?: Date;
   public postId?: string;
   public message: string;

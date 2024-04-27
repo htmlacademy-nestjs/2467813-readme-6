@@ -1,33 +1,33 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { BlogCommentRepository } from './blog-comment.repository';
-import { BlogCommentEntity } from './blog-comment.entity';
+import { CommentRepository } from './comment.repository';
+import { CommentEntity } from './comment.entity';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { PostService } from '@project/post';
-import { BlogCommentFactory } from './blog-comment.factory';
-import { BlogCommentQuery } from './blog-comment.query';
+import { CommentFactory } from './comment.factory';
+import { CommentQuery } from './comment.query';
 import { IPaginationResult } from '@project/core';
 import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
-export class BlogCommentService {
+export class CommentService {
   constructor(
-    private readonly blogCommentRepository: BlogCommentRepository,
+    private readonly blogCommentRepository: CommentRepository,
     private readonly postService: PostService,
-    private readonly blogCommentFactory: BlogCommentFactory
+    private readonly blogCommentFactory: CommentFactory
   ) {}
 
   public async getAllComments(
     postId: string,
-    query?: BlogCommentQuery
-  ): Promise<IPaginationResult<BlogCommentEntity>> {
+    query?: CommentQuery
+  ): Promise<IPaginationResult<CommentEntity>> {
     return this.blogCommentRepository.findByPostId(postId, query);
   }
 
   public async createComment(
     postId: string,
     dto: CreateCommentDto
-  ): Promise<BlogCommentEntity> {
+  ): Promise<CommentEntity> {
     const existsPost = await this.postService.getPost(postId);
     const newComment = this.blogCommentFactory.createFromDto(
       dto,

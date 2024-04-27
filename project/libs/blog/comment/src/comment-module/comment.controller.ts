@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { BlogCommentService } from './blog-comment.service';
+import { CommentService } from './comment.service';
 import { fillDto } from '@project/helpers';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { CommentRdo } from '../rdo/comment.rdo';
@@ -18,12 +18,12 @@ import { AppRoutes, Path, AuthToken, SortDirection } from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CommentResponseMessage } from '../const';
 import { CommentWithPaginationRdo } from '../rdo/comment-with-pagination.rdo';
-import { BlogCommentQuery } from './blog-comment.query';
+import { CommentQuery } from './comment.query';
 
 @ApiTags(AppRoutes.Comments)
 @Controller(`${AppRoutes.Posts}/:postId/${Path.Comments}`)
-export class BlogCommentController {
-  constructor(private readonly blogCommentService: BlogCommentService) {}
+export class CommentController {
+  constructor(private readonly blogCommentService: CommentService) {}
 
   @ApiResponse({
     type: CommentWithPaginationRdo,
@@ -52,7 +52,7 @@ export class BlogCommentController {
   @Get()
   public async show(
     @Param('postId') postId: string,
-    @Query() query: BlogCommentQuery
+    @Query() query: CommentQuery
   ) {
     const commentsWithPagination = await this.blogCommentService.getAllComments(
       postId,
