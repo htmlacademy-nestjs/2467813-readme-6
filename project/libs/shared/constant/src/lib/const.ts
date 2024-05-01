@@ -45,6 +45,7 @@ export const DefaultPort = {
   AppPortNotify: 3_003,
   MongoPort: 27_017,
   RabbitPort: 5_672,
+  MailSMTP: 25,
 } as const;
 
 export const PathEnvironments = {

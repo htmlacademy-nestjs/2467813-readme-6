@@ -31,6 +31,13 @@ const validationSchema = Joi.object({
     queue: Joi.string().required(),
     exchange: Joi.string().required(),
   }),
+  mail: Joi.object({
+    host: Joi.string().valid().hostname().required(),
+    port: Joi.number().port().default(DefaultPort.MailSMTP),
+    user: Joi.string().required(),
+    password: Joi.string().required(),
+    from: Joi.string().required(),
+  }),
 });
 
 function validateConfig(config: INotifyConfig): void {
@@ -70,6 +77,16 @@ function getConfig(): INotifyConfig {
       user: process.env.RABBIT_USER,
       queue: process.env.RABBIT_QUEUE,
       exchange: process.env.RABBIT_EXCHANGE,
+    },
+    mail: {
+      host: process.env.MAIL_SMTP_HOST,
+      port: parseInt(
+        process.env.MAIL_SMTP_PORT ?? DefaultPort.MailSMTP.toString(),
+        DECIMAL_SYSTEM
+      ),
+      user: process.env.MAIL_USER_NAME,
+      password: process.env.MAIL_USER_PASSWORD,
+      from: process.env.MAIL_FROM,
     },
   };
 

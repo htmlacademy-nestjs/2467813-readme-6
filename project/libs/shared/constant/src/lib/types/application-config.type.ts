@@ -36,4 +36,11 @@ export interface INotifyConfig {
     exchange: string;
     port: number;
   };
+  mail: {
+    host: string;
+    port: number;
+    user: string;
+    password: string;
+    from: string;
+  };
 }
