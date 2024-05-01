@@ -8,7 +8,8 @@ import { SpaceName } from '@project/constant';
 @Module({
   imports: [
     MailerModule.forRootAsync(
-      getMailerAsyncOptions(`${SpaceName.AppNotify}.mail`)
+      // getMailerAsyncOptions(`${SpaceName.AppNotify}.mail`)
+      getMailerAsyncOptions('application.mail')
     ),
   ],
   providers: [MailService],
