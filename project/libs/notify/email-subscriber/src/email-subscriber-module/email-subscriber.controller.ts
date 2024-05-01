@@ -10,7 +10,7 @@ export class EmailSubscriberController {
   constructor(private readonly subscriberService: EmailSubscriberService) {}
 
   @RabbitSubscribe({
-    exchange: 'readmy.notify',
+    exchange: 'readmy.notify.income',
     routingKey: RabbitRouting.AddSubscriber,
     queue: 'readmy.notify.income',
   })
