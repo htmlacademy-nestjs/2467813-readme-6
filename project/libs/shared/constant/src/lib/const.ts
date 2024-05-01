@@ -42,6 +42,12 @@ export const DefaultPort = {
   RabbitPort: 5_672,
 } as const;
 
+export const PathEnvironments = {
+  Notify: 'apps/notify/notify.env',
+  File: 'apps/file/file.env',
+  User: 'apps/user/user.env',
+} as const;
+
 export const Environments = ['development', 'production', 'stage'] as const;
 
 export const SortDirection = {

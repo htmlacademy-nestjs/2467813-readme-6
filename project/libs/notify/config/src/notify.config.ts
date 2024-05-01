@@ -52,7 +52,7 @@ function getConfig(): INotifyConfig {
     db: {
       host: process.env.NOTIFY_MONGO_HOST,
       port: parseInt(
-        process.env.NOTIFY_MONGO_PORT ?? DefaultPort.MongoPort.toString(),
+        process.env.MONGO_EXTERNAL_PORT ?? DefaultPort.MongoPort.toString(),
         DECIMAL_SYSTEM
       ),
       name: process.env.NOTIFY_MONGO_DB_NAME,
@@ -72,7 +72,7 @@ function getConfig(): INotifyConfig {
       exchange: process.env.RABBIT_EXCHANGE,
     },
   };
-
+  console.log(config);
   validateConfig(config);
   return config;
 }

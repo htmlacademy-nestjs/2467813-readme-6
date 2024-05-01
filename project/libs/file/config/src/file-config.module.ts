@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import fileConfig from './configurations/app.config';
-
-const ENV_FILE_PATH = 'apps/file/file.env';
+import { PathEnvironments } from '@project/constant';
 
 @Module({
   imports: [
@@ -11,7 +10,7 @@ const ENV_FILE_PATH = 'apps/file/file.env';
       isGlobal: true,
       cache: true,
       load: [fileConfig],
-      envFilePath: ENV_FILE_PATH,
+      envFilePath: PathEnvironments.File,
     }),
   ],
 })

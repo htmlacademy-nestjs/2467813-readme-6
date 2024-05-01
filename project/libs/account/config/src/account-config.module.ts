@@ -3,8 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import applicationConfig from './configurations/app.config';
 import mongoConfig from './configurations/mongo.config';
 import jwtConfig from './configurations/jwt.config';
-
-const ENV_USERS_FILE_PATH = 'apps/user/user.env';
+import { PathEnvironments } from '@project/constant';
 
 @Module({
   imports: [
@@ -12,7 +11,7 @@ const ENV_USERS_FILE_PATH = 'apps/user/user.env';
       isGlobal: true,
       cache: true,
       load: [applicationConfig, mongoConfig, jwtConfig],
-      envFilePath: ENV_USERS_FILE_PATH,
+      envFilePath: PathEnvironments.User,
     }),
   ],
 })
