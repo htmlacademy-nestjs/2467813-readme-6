@@ -59,4 +59,4 @@ function getConfig(): IFileConfig {
   return config;
 }
 
-export default registerAs('application', getConfig);
+export default registerAs(SpaceName.AppFile, getConfig);

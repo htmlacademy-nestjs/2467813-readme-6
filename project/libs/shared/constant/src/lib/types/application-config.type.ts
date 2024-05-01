@@ -3,11 +3,6 @@ export interface IAppConfig {
   port: number;
 }
 
-export interface IApplicationConfig {
-  environment: string;
-  port: number;
-}
-
 export interface IFileConfig extends IAppConfig {
   uploadDirectory: string;
   db: {
@@ -20,9 +15,7 @@ export interface IFileConfig extends IAppConfig {
   };
 }
 
-export interface INotifyConfig {
-  environment: string;
-  port: number;
+export interface INotifyConfig extends IAppConfig {
   db: {
     host: string;
     port: number;

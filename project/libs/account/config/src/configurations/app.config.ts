@@ -6,7 +6,7 @@ import {
   Environments,
   TEnvironment,
   SpaceName,
-  IApplicationConfig,
+  IAppConfig,
 } from '@project/constant';
 
 const validationSchema = Joi.object({
@@ -16,7 +16,7 @@ const validationSchema = Joi.object({
   port: Joi.number().port().default(DefaultPort.AppPortUser),
 });
 
-function validateConfig(config: IApplicationConfig): void {
+function validateConfig(config: IAppConfig): void {
   const { error } = validationSchema.validate(config, {
     abortEarly: true,
   });
@@ -25,8 +25,8 @@ function validateConfig(config: IApplicationConfig): void {
   }
 }
 
-function getConfig(): IApplicationConfig {
-  const config: IApplicationConfig = {
+function getConfig(): IAppConfig {
+  const config: IAppConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
       process.env.PORT || `${DefaultPort.AppPortUser}`,
@@ -38,4 +38,4 @@ function getConfig(): IApplicationConfig {
   return config;
 }
 
-export default registerAs(SpaceName.Application, getConfig);
+export default registerAs('application', getConfig);

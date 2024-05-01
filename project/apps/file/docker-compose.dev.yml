@@ -9,14 +9,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${FILE_MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: ${FILE_MONGO_DB_NAME}
     ports:
-      - ${MONGO_EXTERNAL_PORT}:${FILE_MONGO_PORT}
+      - ${MONGO_EXTERNAL_PORT}:27017
+      # - ${MONGO_EXTERNAL_PORT}:${DB_MONGO_PORT}
     volumes:
-      - readme.mongo.file:/data/readme.file.mongo
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@localhost:${MONGO_EXTERNAL_PORT}/?authSource=${FILE_MONGO_DB_NAME} --quiet
-      interval: 30s
-      timeout: 10s
-      retries: 5
+      - readme.mongo.file:/data/db
+    # healthcheck:
+    #   test: echo 'db.runCommand("ping").ok' | mongo mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@localhost:${MONGO_EXTERNAL_PORT}/?authSource=${FILE_MONGO_DB_NAME} --quiet
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
 
   readme.file.mongo.ui:
     image: mongo-express:1.0.2-20
@@ -29,6 +30,6 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: ${FILE_MONGO_PASSWORD}
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${FILE_MONGO_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${FILE_MONGO_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@readme.file.mongo:${FILE_MONGO_PORT}/
+      ME_CONFIG_MONGODB_URL: mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@readme.file.mongo:27017/
 volumes:
   readme.mongo.file:

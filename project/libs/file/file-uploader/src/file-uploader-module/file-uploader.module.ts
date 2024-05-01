@@ -8,6 +8,7 @@ import { FileUploaderRepository } from './file-uploader.repository';
 import { FileUploaderFactory } from './file-uploader.factory';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FileModel, FileSchema } from './file.model';
+import { SpaceName } from '@project/constant';
 
 const SERVE_ROOT = '/static';
 
@@ -17,7 +18,7 @@ const SERVE_ROOT = '/static';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const rootPath = configService.get<string>(
-          'application.uploadDirectory'
+          `${SpaceName.AppFile}.uploadDirectory`
         );
         return [
           {

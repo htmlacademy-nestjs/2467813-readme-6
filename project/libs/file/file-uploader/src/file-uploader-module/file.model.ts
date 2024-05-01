@@ -6,8 +6,12 @@ import { IFile } from '@project/core';
 @Schema({
   collection: 'files',
   timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true },
+  toJSON: {
+    virtuals: true,
+  },
+  toObject: {
+    virtuals: true,
+  },
 })
 export class FileModel extends Document implements IFile {
   @Prop({

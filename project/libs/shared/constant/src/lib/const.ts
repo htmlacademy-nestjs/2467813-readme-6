@@ -25,7 +25,7 @@ export const RabbitRouting = {
 
 export const SpaceName = {
   AppBlog: 'app.blog',
-  AppFile: 'application',
+  AppFile: 'app.file',
   Notify: 'notify',
   User: 'user',
   Rabbit: 'rabbit',
