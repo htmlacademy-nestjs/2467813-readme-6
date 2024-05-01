@@ -25,6 +25,7 @@ export const RabbitRouting = {
 
 export const SpaceName = {
   Application: 'application',
+  Rabbit: 'application.rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
 } as const;

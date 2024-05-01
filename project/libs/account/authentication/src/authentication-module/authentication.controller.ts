@@ -21,11 +21,15 @@ import { UpdateUserPassword } from '../dto/update-user-password.dto';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { fillDto } from '@project/helpers';
+import { NotifyService } from '@project/notify-module';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
 export class AuthenticationController {
-  constructor(private readonly authService: AuthenticationService) {}
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly notifyService: NotifyService
+  ) {}
 
   @ApiResponse({
     type: CreateUserDto,
@@ -39,6 +43,9 @@ export class AuthenticationController {
   @Post(Path.Register)
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
+    const { email, firstName, lastName } = newUser;
+    await this.notifyService.registerSubscriber({ email, firstName, lastName });
+
     return fillDto(UserRdo, newUser.toPOJO() as any);
   }
 

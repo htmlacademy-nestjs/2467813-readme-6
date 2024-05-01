@@ -163,6 +163,13 @@ JWT_REFRESH_TOKEN_SECRET=value - секрет для доступа рефреш
 JWT_REFRESH_TOKEN_EXPIRES_IN=value - время жизни доступа рефреш токена
 
 PORT=value - Порт для входящих подключений
+
+RABBIT_HOST=value - IP-адрес сервера (RabbitMQ)
+RABBIT_USER=alue - Имя пользователя (RabbitMQ)
+RABBIT_PASSWORD=value - Пароль пользователя (RabbitMQ)
+RABBIT_PORT=value - Порт пользователя (RabbitMQ)
+RABBIT_QUEUE=value - Название очереди (RabbitMQ)
+RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
 ```
 
 #### Переменных окружения проекта `blog`

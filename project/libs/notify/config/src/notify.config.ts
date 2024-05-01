@@ -72,7 +72,7 @@ function getConfig(): INotifyConfig {
       exchange: process.env.RABBIT_EXCHANGE,
     },
   };
-  console.log(config);
+
   validateConfig(config);
   return config;
 }
