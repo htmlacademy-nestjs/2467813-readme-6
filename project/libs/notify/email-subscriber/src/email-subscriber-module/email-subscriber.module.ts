@@ -11,6 +11,7 @@ import { EmailSubscriberFactory } from './email-subscriber.factory';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { getRabbitMQOptions } from '@project/helpers';
 import { EmailSubscriberController } from './email-subscriber.controller';
+import { MailModule } from '../mail-module/mail.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { EmailSubscriberController } from './email-subscriber.controller';
       RabbitMQModule,
       getRabbitMQOptions('application.rabbit')
     ),
+    MailModule,
   ],
   controllers: [EmailSubscriberController],
   providers: [
