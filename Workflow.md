@@ -203,6 +203,13 @@ PORT=value - Порт для входящих подключений
 RABBITMQ_DEFAULT_USER=value - Имя пользователя в RabbitMQ
 RABBITMQ_DEFAULT_PASS=value - Пароль пользователя в RabbitMQ
 
+RABBIT_HOST=value - IP-адрес сервера (RabbitMQ)
+RABBIT_USER=alue - Имя пользователя (RabbitMQ)
+RABBIT_PASSWORD=value - Пароль пользователя (RabbitMQ)
+RABBIT_PORT=value - Порт пользователя (RabbitMQ)
+RABBIT_QUEUE=value - Название очереди (RabbitMQ)
+RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
+
 NOTIFY_MONGO_HOST=value - IP-адрес сервера базы данных (MongoDB)
 NOTIFY_MONGO_USER=value - Имя пользователя в базе данных (MongoDB)
 NOTIFY_MONGO_PASSWORD=value - Пароль пользователя в базе данных (MongoDB)
@@ -211,6 +218,8 @@ NOTIFY_MONGO_DB_NAME=value - Название базы данных (MongoDB)
 NOTIFY_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
 
 MONGO_EXTERNAL_PORT=value - Внешний порт пользователя в базе данных (MongoDB)
+
+PORT=value - Порт для входящих подключений
 ```
 
 #### Переменных окружения prisma

@@ -27,7 +27,9 @@ const validationSchema = Joi.object({
 });
 
 function validateConfig(config: IFileConfig): void {
-  const { error } = validationSchema.validate(config, { abortEarly: true });
+  const { error } = validationSchema.validate(config, {
+    abortEarly: true,
+  });
   if (error) {
     throw new Error(`[FileVault Config Validation Error]: ${error.message}`);
   }

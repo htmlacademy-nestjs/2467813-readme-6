@@ -37,7 +37,9 @@ export const DefaultPort = {
   AppPortUser: 3_000,
   AppPortBlog: 3_001,
   AppPortFile: 3_002,
+  AppPortNotify: 3_003,
   MongoPort: 27_017,
+  RabbitPort: 5_672,
 } as const;
 
 export const Environments = ['development', 'production', 'stage'] as const;
