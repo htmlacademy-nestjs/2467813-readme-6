@@ -12,6 +12,7 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { getRabbitMQOptions } from '@project/helpers';
 import { EmailSubscriberController } from './email-subscriber.controller';
 import { MailModule } from '../mail-module/mail.module';
+import { SpaceName } from '@project/constant';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { MailModule } from '../mail-module/mail.module';
     ]),
     RabbitMQModule.forRootAsync(
       RabbitMQModule,
-      getRabbitMQOptions('notify.rabbit')
+      getRabbitMQOptions(`${SpaceName.AppNotify}.rabbit`)
     ),
     MailModule,
   ],

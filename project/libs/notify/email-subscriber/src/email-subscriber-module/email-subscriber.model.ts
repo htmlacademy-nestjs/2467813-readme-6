@@ -6,8 +6,12 @@ import { ISubscriber } from '@project/core';
 @Schema({
   collection: 'email-subscribers',
   timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true },
+  toJSON: {
+    virtuals: true,
+  },
+  toObject: {
+    virtuals: true,
+  },
 })
 export class EmailSubscriberModel extends Document implements ISubscriber {
   @Prop({

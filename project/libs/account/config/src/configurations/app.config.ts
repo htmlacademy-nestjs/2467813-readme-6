@@ -38,4 +38,4 @@ function getConfig(): IAppConfig {
   return config;
 }
 
-export default registerAs('application', getConfig);
+export default registerAs(SpaceName.AppUser, getConfig);
