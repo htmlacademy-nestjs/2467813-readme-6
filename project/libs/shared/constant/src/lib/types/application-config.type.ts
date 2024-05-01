@@ -1,11 +1,14 @@
+export interface IAppConfig {
+  environment: string;
+  port: number;
+}
+
 export interface IApplicationConfig {
   environment: string;
   port: number;
 }
 
-export interface IFileConfig {
-  environment: string;
-  port: number;
+export interface IFileConfig extends IAppConfig {
   uploadDirectory: string;
   db: {
     host: string;

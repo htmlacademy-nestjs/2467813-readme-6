@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import applicationConfig from './configurations/app.config';
-
-const ENV_FILE_PATH = 'apps/blog/blog.env';
+import { PathEnvironments } from '@project/constant';
 
 @Module({
   imports: [
@@ -11,8 +10,8 @@ const ENV_FILE_PATH = 'apps/blog/blog.env';
       isGlobal: true,
       cache: true,
       load: [applicationConfig],
-      envFilePath: ENV_FILE_PATH
+      envFilePath: PathEnvironments.Blog,
     }),
-  ]
+  ],
 })
 export class BlogConfigModule {}

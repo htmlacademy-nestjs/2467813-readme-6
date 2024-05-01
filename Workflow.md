@@ -15,12 +15,30 @@ npm install
 ### Сценарии
 
 После создания проекта вам доступны следующие сценарии.
-Откройте терминал в директории `project`. Чтобы запустить проект вам необходимо запустить сервис к примеру `npx run user:serve` где `user` это приложение в директории `project\apps`
+Откройте терминал в директории `project`. Чтобы запустить проект вам необходимо запустить сервис к примеру `npx run <service_name>:serve` где `service_name` это приложение в директории `project\apps`
 
 #### Запуск проекта
 
 ```bash
 npx nx run user:serve
+```
+
+or
+
+```bash
+npx nx run blog:serve
+```
+
+or
+
+```bash
+npx nx run notify:serve
+```
+
+or
+
+```bash
+npx nx run file:serve
 ```
 
 В процессе запуска проекта будет выполнен процесс «Сборки проекта» и запуска результирующего кода.
@@ -175,10 +193,10 @@ RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
 #### Переменных окружения проекта `blog`
 
 ```bash
-DB_POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
-DB_POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
-DB_POSTGRES_NAME=value - Имя базы данных (PostgreSql)
-DB_POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
+POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
+POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
+POSTGRES_NAME=value - Имя базы данных (PostgreSql)
+POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
 
 PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
 PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)

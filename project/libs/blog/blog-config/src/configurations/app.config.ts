@@ -37,4 +37,4 @@ function getConfig(): IApplicationConfig {
   return config;
 }
 
-export default registerAs(SpaceName.Application, getConfig);
+export default registerAs(SpaceName.AppBlog, getConfig);

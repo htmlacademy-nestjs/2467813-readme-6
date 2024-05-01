@@ -7,7 +7,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppRoutes } from '@project/constant';
+import { AppRoutes, SpaceName } from '@project/constant';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
@@ -30,7 +30,7 @@ async function bootstrap() {
   );
 
   const configService = app.get(ConfigService);
-  const port = configService.get('application.port');
+  const port = configService.get(`${SpaceName.AppBlog}.port`);
 
   await app.listen(port);
   Logger.log(

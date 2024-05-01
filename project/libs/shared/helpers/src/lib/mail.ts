@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { resolve } from 'node:path';
 
-export function getMailerAsyncOptions(optionSpace: string): MailerAsyncOptions {
+export function getMailerAsyncOptions(optionSpace): MailerAsyncOptions {
   return {
     useFactory: async (configService: ConfigService) => {
       return {
