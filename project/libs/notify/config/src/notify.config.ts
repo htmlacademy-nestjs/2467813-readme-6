@@ -94,4 +94,4 @@ function getConfig(): INotifyConfig {
   return config;
 }
 
-export default registerAs(SpaceName.Application, getConfig);
+export default registerAs(SpaceName.Notify, getConfig);

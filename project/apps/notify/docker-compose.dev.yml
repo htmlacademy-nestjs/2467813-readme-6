@@ -25,6 +25,7 @@ services:
 
   readme.notify.mongo:
     image: mongo:4.2
+    restart: always
     container_name: readme.notify.mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${NOTIFY_MONGO_USER}

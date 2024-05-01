@@ -23,7 +23,7 @@ import { MailModule } from '../mail-module/mail.module';
     ]),
     RabbitMQModule.forRootAsync(
       RabbitMQModule,
-      getRabbitMQOptions('application.rabbit')
+      getRabbitMQOptions('notify.rabbit')
     ),
     MailModule,
   ],
