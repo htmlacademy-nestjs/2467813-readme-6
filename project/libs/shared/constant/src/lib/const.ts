@@ -19,6 +19,10 @@ export const Path = {
   Upload: 'upload',
 } as const;
 
+export const RabbitRouting = {
+  AddSubscriber: 'notify.addSubscriber',
+} as const;
+
 export const SpaceName = {
   Application: 'application',
   MongoDB: 'mongo_db',

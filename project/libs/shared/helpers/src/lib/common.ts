@@ -33,6 +33,15 @@ export const getMongoConnectionString = ({
 }): string =>
   `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
 
+export function getRabbitMQConnectionString({
+  user,
+  password,
+  host,
+  port,
+}): string {
+  return `amqp://${user}:${password}@${host}:${port}`;
+}
+
 export const getMessageNotFoundDocument = (name: string, id: string) => {
   return `${name} with ID ${id} not found`;
 };
