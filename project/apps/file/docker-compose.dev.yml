@@ -12,8 +12,13 @@ services:
       - ${MONGO_EXTERNAL_PORT}:${FILE_MONGO_PORT}
     volumes:
       - readme.mongo.file:/data/readme.file.mongo
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb://${FILE_MONGO_USER}:${FILE_MONGO_PASSWORD}@localhost:${MONGO_EXTERNAL_PORT}/?authSource=${FILE_MONGO_DB_NAME} --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
-  typeoteka.file.mongo.ui:
+  readme.file.mongo.ui:
     image: mongo-express:1.0.2-20
     restart: always
     container_name: readme.file.mongo.ui
