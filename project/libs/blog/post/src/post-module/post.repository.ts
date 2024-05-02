@@ -68,6 +68,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         _count: {
           select: {
             comments: true,
+            likes: true,
+            reposts: true,
           },
         },
       },
@@ -79,7 +81,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
 
     const postEntity = this.createEntityFromDocument(document as IPost);
     postEntity.comments = document._count?.comments;
-
+    postEntity.likes = document._count?.likes;
+    postEntity.reposts = document._count?.reposts;
     return postEntity;
   }
 
@@ -129,6 +132,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           _count: {
             select: {
               comments: true,
+              likes: true,
+              reposts: true,
             },
           },
         },
@@ -139,6 +144,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     const entities = records.map((record) => {
       const postEntity = this.createEntityFromDocument(record as IPost);
       postEntity.comments = record._count?.comments;
+      postEntity.likes = record._count?.likes;
+      postEntity.reposts = record._count?.reposts;
       return postEntity;
     });
 

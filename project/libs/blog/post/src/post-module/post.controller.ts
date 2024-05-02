@@ -168,6 +168,10 @@ export class PostController {
     status: HttpStatus.NOT_FOUND,
     description: PostResponseMessage.NotFound,
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
   @Post(`/:id/${Path.Likes}`)
   public async isLike(@Param('id') id: string, @Body() dto: CreateLikeDto) {
     const isLike = await this.postService.createOrDeleteLike(id, dto);
