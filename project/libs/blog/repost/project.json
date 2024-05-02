@@ -1,0 +1,9 @@
+{
+  "name": "repost",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/blog/repost/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project repost --web",
+  "targets": {}
+}
