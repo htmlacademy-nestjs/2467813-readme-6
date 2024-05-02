@@ -25,7 +25,7 @@ export abstract class BaseMongoRepository<
     >;
 
     const result = this.entityFactory.create(plainObject);
-
+    result.id = document.id ?? '';
     return result;
   }
 

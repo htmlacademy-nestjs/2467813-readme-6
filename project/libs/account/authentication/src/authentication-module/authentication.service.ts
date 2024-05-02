@@ -44,8 +44,8 @@ export class AuthenticationService {
 
     const userEntity = await new BlogUserEntity(blogUser).setPassword(password);
 
-    const result = await this.blogUserRepository.save(userEntity);
-    userEntity.id = result;
+    const resultId = await this.blogUserRepository.save(userEntity);
+    userEntity.id = resultId;
     return userEntity;
   }
 
@@ -92,7 +92,6 @@ export class AuthenticationService {
       throw new UnauthorizedException(AuthUser.PasswordWrong);
     }
 
-    existUser.id = userId;
     const updatedUser = await new BlogUserEntity(existUser).setPassword(
       newPassword
     );
