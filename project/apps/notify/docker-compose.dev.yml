@@ -34,14 +34,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${NOTIFY_MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: ${NOTIFY_MONGO_DB_NAME}
     ports:
-      - 27020:27017
+      - ${NOTIFY_MONGO_PORT}:27017
     volumes:
       - readme.notify.mongo:/data/db
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb://${NOTIFY_MONGO_USER}:${NOTIFY_MONGO_PASSWORD}@localhost:27020/?authSource=${NOTIFY_MONGO_DB_NAME} --quiet
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    # healthcheck:
+    #   test: echo 'db.runCommand("ping").ok' | mongo mongodb://${NOTIFY_MONGO_USER}:${NOTIFY_MONGO_PASSWORD}@localhost:27020/?authSource=${NOTIFY_MONGO_DB_NAME} --quiet
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
 
   readme.notify.mongo.ui:
     image: mongo-express:1.0.2-20

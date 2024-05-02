@@ -173,8 +173,6 @@ DB_MONGO_PORT=value - Порт пользователя в базе данных
 DB_MONGO_NAME=value - Название базы данных (MongoDB)
 DB_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
 
-MONGO_EXTERNAL_PORT=value - Внешний порт пользователя в базе данных (MongoDB)
-
 JWT_ACCESS_TOKEN_SECRET=value - секрет для доступа токена
 JWT_ACCESS_TOKEN_EXPIRES_IN=value - время жизни доступа токена
 JWT_REFRESH_TOKEN_SECRET=value - секрет для доступа рефреш токена
@@ -214,8 +212,6 @@ FILE_MONGO_PORT=value - Порт пользователя в базе данны
 FILE_MONGO_DB_NAME=value - Название базы данных (MongoDB)
 FILE_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
 
-MONGO_EXTERNAL_PORT=value - Внешний порт пользователя в базе данных (MongoDB)
-
 UPLOAD_DIRECTORY_PATH=value - путь для загрузки файлов
 SERVE_ROOT=value - место хранения статических файлов
 
@@ -241,8 +237,6 @@ NOTIFY_MONGO_PASSWORD=value - Пароль пользователя в базе 
 NOTIFY_MONGO_PORT=value - Порт пользователя в базе данных (MongoDB)
 NOTIFY_MONGO_DB_NAME=value - Название базы данных (MongoDB)
 NOTIFY_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
-
-MONGO_EXTERNAL_PORT=value - Внешний порт пользователя в базе данных (MongoDB)
 
 PORT=value - Порт для входящих подключений
 

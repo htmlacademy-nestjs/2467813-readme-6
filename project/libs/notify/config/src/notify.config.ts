@@ -59,7 +59,7 @@ function getConfig(): INotifyConfig {
     db: {
       host: process.env.NOTIFY_MONGO_HOST,
       port: parseInt(
-        process.env.MONGO_EXTERNAL_PORT ?? DefaultPort.MongoPort.toString(),
+        process.env.NOTIFY_MONGO_PORT ?? DefaultPort.MongoPort.toString(),
         DECIMAL_SYSTEM
       ),
       name: process.env.NOTIFY_MONGO_DB_NAME,
@@ -89,7 +89,7 @@ function getConfig(): INotifyConfig {
       from: process.env.MAIL_FROM,
     },
   };
-
+  console.log(config);
   validateConfig(config);
   return config;
 }
