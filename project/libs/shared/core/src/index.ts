@@ -11,6 +11,7 @@ export { IUser } from './lib/types/user.interface';
 export { IAuthUser } from './lib/types/auth-user.interface';
 export { IComment } from './lib/types/comment.interface';
 export { IPost } from './lib/types/post.interface';
+export { ILike } from './lib/types/like.interface';
 
 export { IFile } from './lib/types/file.interface';
 export { IStoredFile } from './lib/types/stored-file.interface';

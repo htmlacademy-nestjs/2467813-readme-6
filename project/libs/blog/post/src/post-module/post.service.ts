@@ -9,10 +9,15 @@ import { PostFactory } from './post.factory';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { getMessageNotFoundDocument } from '@project/helpers';
+import { CreateLikeDto } from '../dto/create-like.dto';
+import { LikeService } from '@project/likes';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly postRepository: PostRepository) {}
+  constructor(
+    private readonly postRepository: PostRepository,
+    private readonly likeService: LikeService
+  ) {}
 
   public async getAllPosts(
     query?: PostQuery
@@ -57,5 +62,11 @@ export class PostService {
     await this.postRepository.update(existsPost);
 
     return existsPost;
+  }
+
+  public async createOrDeleteLike(id: string, dto: CreateLikeDto) {
+    const existsPost = await this.postRepository.findById(id);
+
+    return await this.likeService.toggleLikes(dto.userId, existsPost.id);
   }
 }

@@ -21,10 +21,12 @@ import { PostRdo } from '../rdo/post.rdo';
 import { PostWithPaginationRdo } from '../rdo/post-with-pagination.rdo';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { AppRoutes, AuthToken, SortDirection } from '@project/constant';
+import { AppRoutes, AuthToken, Path, SortDirection } from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PostResponseMessage } from '../const';
+import { LikeResponseMessage, PostResponseMessage } from '../const';
 import { PostGuard } from '../guard/post.guard';
+import { CreateLikeDto } from '../dto/create-like.dto';
+import { LikeRdo } from '../rdo/like.rdo';
 
 @ApiTags(AppRoutes.Posts)
 @Controller(AppRoutes.Posts)
@@ -155,5 +157,24 @@ export class PostController {
   public async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
     const updatedPost = await this.postService.updatePost(id, dto);
     return fillDto(PostRdo, updatedPost.toPOJO());
+  }
+
+  @ApiResponse({
+    type: LikeRdo,
+    status: HttpStatus.CREATED,
+    description: LikeResponseMessage.LikeSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @Post(`/:id/${Path.Likes}`)
+  public async isLike(@Param('id') id: string, @Body() dto: CreateLikeDto) {
+    const isLike = await this.postService.createOrDeleteLike(id, dto);
+
+    return fillDto(LikeRdo, {
+      isLike,
+      postId: id,
+    });
   }
 }

@@ -14,6 +14,7 @@ export const AppRoutes = {
 export const Path = {
   Register: 'register',
   Comments: 'comments',
+  Likes: 'likes',
   NewPassword: 'new-password',
   Login: 'login',
   Upload: 'upload',
