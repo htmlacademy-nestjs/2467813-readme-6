@@ -24,8 +24,7 @@ import { SpaceName } from '@project/constant';
     ]),
     RabbitMQModule.forRootAsync(
       RabbitMQModule,
-      // getRabbitMQOptions(`${SpaceName.AppNotify}.rabbit`)
-      getRabbitMQOptions('application.rabbit')
+      getRabbitMQOptions(`${SpaceName.AppNotify}.rabbit`)
     ),
     MailModule,
   ],

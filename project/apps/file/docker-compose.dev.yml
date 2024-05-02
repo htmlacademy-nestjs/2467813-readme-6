@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${FILE_MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: ${FILE_MONGO_DB_NAME}
     ports:
-      - ${MONGO_EXTERNAL_PORT}:27017
+      - 27018:27017
       # - ${MONGO_EXTERNAL_PORT}:${DB_MONGO_PORT}
     volumes:
       - readme.file.mongo:/data/db

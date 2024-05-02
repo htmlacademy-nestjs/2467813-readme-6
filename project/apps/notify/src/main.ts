@@ -23,9 +23,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(AppRoutes.Swagger, app, document);
 
-  // const configService = app.get(ConfigService);
-  // const port = configService.get(`${SpaceName.AppNotify}.port`);
-  const port = process.env.PORT || 3010;
+  const configService = app.get(ConfigService);
+  const port = configService.get(`${SpaceName.AppNotify}.port`);
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${AppRoutes.Api}`

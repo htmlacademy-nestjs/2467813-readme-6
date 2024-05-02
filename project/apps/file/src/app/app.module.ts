@@ -9,7 +9,7 @@ import { getMongooseOptions } from '@project/helpers';
   imports: [
     FileConfigModule,
     FileUploaderModule,
-    MongooseModule.forRootAsync(getMongooseOptions(SpaceName.AppFile)),
+    MongooseModule.forRootAsync(getMongooseOptions(`${SpaceName.AppFile}.db`)),
   ],
   controllers: [],
   providers: [],
