@@ -89,7 +89,7 @@ function getConfig(): INotifyConfig {
       from: process.env.MAIL_FROM,
     },
   };
-  console.log(config);
+
   validateConfig(config);
   return config;
 }

@@ -133,7 +133,7 @@ docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/
 
 #### Локальный запуск базы данных MongoDB для `file`
 
-Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `file.env`
 
 ```bash
 docker compose --file ./apps/file/docker-compose.dev.yml --env-file ./apps/file/file.env --project-name "readme-file" up -d

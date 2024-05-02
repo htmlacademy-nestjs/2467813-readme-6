@@ -13,11 +13,11 @@ services:
 
     volumes:
       - readme.mongo.user:/data/db
-    # healthcheck:
-    #   test: echo 'db.runCommand("ping").ok' | mongo mongodb://${DB_MONGO_USER}:${DB_MONGO_PASSWORD}@localhost:${DB_MONGO_PORT}/?authSource=${DB_MONGO_NAME} --quiet
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/${DB_MONGO_NAME} --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   readme.user.mongo.ui:
     image: mongo-express:1.0.2-20
