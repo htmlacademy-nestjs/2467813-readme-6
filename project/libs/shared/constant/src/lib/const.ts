@@ -28,7 +28,6 @@ export const SpaceName = {
   AppUser: 'app.user',
   AppFile: 'app.file',
   AppNotify: 'app.notify',
-  Notify: 'notify',
   Rabbit: 'rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
