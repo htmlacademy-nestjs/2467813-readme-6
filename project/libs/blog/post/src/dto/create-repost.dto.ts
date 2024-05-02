@@ -2,18 +2,18 @@ import { IsBoolean, IsMongoId, IsString } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  CreateLikeMessages,
+  CreateRepostMessages,
   LikeValidateMessage,
   OpenApiMessages,
 } from '../const';
 
-export class CreateLikeDto {
+export class CreateRepostDto {
   @ApiProperty({
-    description: OpenApiMessages.isLike.description,
-    example: OpenApiMessages.isLike.example,
+    description: OpenApiMessages.isRepost.description,
+    example: OpenApiMessages.isRepost.example,
   })
-  @IsBoolean({ message: CreateLikeMessages.isLike.invalidFormat })
-  public isLike: boolean;
+  @IsBoolean({ message: CreateRepostMessages.isRepost.invalidFormat })
+  public isRepost: boolean;
 
   @ApiProperty({
     description: OpenApiMessages.userId.description,

@@ -11,12 +11,15 @@ import { UpdatePostDto } from '../dto/update-post.dto';
 import { getMessageNotFoundDocument } from '@project/helpers';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeService } from '@project/likes';
+import { CreateRepostDto } from '../dto/create-repost.dto';
+import { RepostService } from '@project/repost';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly postRepository: PostRepository,
-    private readonly likeService: LikeService
+    private readonly likeService: LikeService,
+    private readonly repostService: RepostService
   ) {}
 
   public async getAllPosts(
@@ -68,5 +71,11 @@ export class PostService {
     const existsPost = await this.postRepository.findById(id);
 
     return await this.likeService.toggleLikes(dto.userId, existsPost.id);
+  }
+
+  public async createOrDeleteRepost(id: string, dto: CreateRepostDto) {
+    const existsPost = await this.postRepository.findById(id);
+
+    return await this.repostService.toggleRepost(dto.userId, existsPost.id);
   }
 }

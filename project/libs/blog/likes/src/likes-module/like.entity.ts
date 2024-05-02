@@ -4,19 +4,19 @@ export class LikeEntity extends Entity implements IStorableEntity<ILike> {
   public postId?: string;
   public userId: string;
 
-  constructor(comment?: ILike) {
+  constructor(like?: ILike) {
     super();
-    this.populate(comment);
+    this.populate(like);
   }
 
-  public populate(comment?: ILike): void {
-    if (!comment) {
+  public populate(like?: ILike): void {
+    if (!like) {
       return;
     }
 
-    this.id = comment.id ?? undefined;
-    this.postId = comment.postId ?? undefined;
-    this.userId = comment.userId;
+    this.id = like.id ?? undefined;
+    this.postId = like.postId ?? undefined;
+    this.userId = like.userId;
   }
 
   public toPOJO(): ILike {

@@ -95,4 +95,8 @@ export const OpenApiMessages = {
     description: 'isLike like',
     example: true,
   },
+  isRepost: {
+    description: 'isRepost repost',
+    example: true,
+  },
 };

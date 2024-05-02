@@ -15,6 +15,7 @@ export const Path = {
   Register: 'register',
   Comments: 'comments',
   Likes: 'likes',
+  Reposts: 'reposts',
   NewPassword: 'new-password',
   Login: 'login',
   Upload: 'upload',

@@ -115,12 +115,30 @@ export const CreateLikeMessages = {
   },
 } as const;
 
+export const CreateRepostMessages = {
+  isRepost: {
+    invalidFormat: 'isRepost is required',
+  },
+  postId: {
+    invalidFormat: 'postId field must be a valid id',
+  },
+  userId: {
+    invalidFormat: 'userId field must be a valid id',
+  },
+} as const;
+
 export const LikeValidateMessage = {
   InvalidID: 'Invalid author id',
 } as const;
 
 export const LikeResponseMessage = {
   LikeSuccess: 'Создание/Удаление нового лайка.',
+  NotFound: 'Поста с указанным идентификатором не найдено',
+  IsNotLogged: 'The token is invalid or expired.',
+} as const;
+
+export const RepostResponseMessage = {
+  RepostSuccess: 'Создание/Удаление нового репоста.',
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',
 } as const;

@@ -23,10 +23,16 @@ import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { AppRoutes, AuthToken, Path, SortDirection } from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { LikeResponseMessage, PostResponseMessage } from '../const';
+import {
+  LikeResponseMessage,
+  PostResponseMessage,
+  RepostResponseMessage,
+} from '../const';
 import { PostGuard } from '../guard/post.guard';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeRdo } from '../rdo/like.rdo';
+import { RepostRdo } from '../rdo/repost.rdo';
+import { CreateRepostDto } from '../dto/create-repost.dto';
 
 @ApiTags(AppRoutes.Posts)
 @Controller(AppRoutes.Posts)
@@ -178,6 +184,29 @@ export class PostController {
 
     return fillDto(LikeRdo, {
       isLike,
+      postId: id,
+    });
+  }
+
+  @ApiResponse({
+    type: RepostRdo,
+    status: HttpStatus.CREATED,
+    description: RepostResponseMessage.RepostSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @Post(`/:id/${Path.Reposts}`)
+  public async isRepost(@Param('id') id: string, @Body() dto: CreateRepostDto) {
+    const isRepost = await this.postService.createOrDeleteRepost(id, dto);
+
+    return fillDto(RepostRdo, {
+      isRepost,
       postId: id,
     });
   }
