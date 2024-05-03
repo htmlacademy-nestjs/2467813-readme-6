@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { ITokenPayload } from '@project/core';
+import { SpaceName } from '@project/constant';
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy) {
@@ -11,7 +12,9 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('jwt.accessTokenSecret'),
+      secretOrKey: configService.get<string>(
+        `${SpaceName.Jwt}.accessTokenSecret`
+      ),
     });
   }
 

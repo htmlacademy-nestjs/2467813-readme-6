@@ -33,6 +33,7 @@ export const SpaceName = {
   Rabbit: 'rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
+  Local: 'local',
 } as const;
 
 export const TypePost = {
@@ -51,6 +52,11 @@ export const DefaultPort = {
   MongoPort: 27_017,
   RabbitPort: 5_672,
   MailSMTP: 25,
+} as const;
+
+export const Jwt = {
+  algorithmHs256: 'HS256',
+  expired: '2d',
 } as const;
 
 export const PathEnvironments = {

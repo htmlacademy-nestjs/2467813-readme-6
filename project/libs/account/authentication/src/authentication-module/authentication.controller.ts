@@ -7,12 +7,12 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AppRoutes, Path, AuthToken } from '@project/constant';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthUser, AuthenticationResponseMessage } from '../const';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
@@ -22,6 +22,8 @@ import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { fillDto } from '@project/helpers';
 import { NotifyService } from '@project/notify-module';
+import { IRequestWithUser } from '../types/request-with-user.interface';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -62,13 +64,12 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @UseGuards(LocalAuthGuard)
   @Post(Path.Login)
-  public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-
-    const userToken = await this.authService.createUserToken(verifiedUser);
+  public async login(@Req() { user }: IRequestWithUser) {
+    const userToken = await this.authService.createUserToken(user);
     return fillDto(LoggedUserRdo, {
-      ...verifiedUser.toPOJO(),
+      ...user.toPOJO(),
       ...userToken,
     });
   }
