@@ -3,11 +3,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigType } from '@nestjs/config';
 
-import { ITokenPayload } from '@project/core';
+import { IRefreshTokenPayload } from '@project/core';
 
 import { AuthenticationService } from '../authentication-module/authentication.service';
 import { jwtConfig } from '@project/config';
 import { SpaceName } from '@project/constant';
+import { RefreshTokenService } from '../refresh-token-module/refresh-token.service';
+import { TokenNotExistsException } from '../exceptions/token-not-exists.exception';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
@@ -17,7 +19,8 @@ export class JwtRefreshStrategy extends PassportStrategy(
   constructor(
     @Inject(jwtConfig.KEY)
     private readonly jwtOptions: ConfigType<typeof jwtConfig>,
-    private readonly authService: AuthenticationService
+    private readonly authService: AuthenticationService,
+    private readonly refreshTokenService: RefreshTokenService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -25,7 +28,14 @@ export class JwtRefreshStrategy extends PassportStrategy(
     });
   }
 
-  public async validate(payload: ITokenPayload) {
+  public async validate(payload: IRefreshTokenPayload) {
+    if (!(await this.refreshTokenService.isExists(payload.tokenId))) {
+      throw new TokenNotExistsException(payload.tokenId);
+    }
+
+    await this.refreshTokenService.deleteRefreshSession(payload.tokenId);
+    await this.refreshTokenService.deleteExpiredRefreshTokens();
+
     return this.authService.getUserByEmail(payload.email);
   }
 }
