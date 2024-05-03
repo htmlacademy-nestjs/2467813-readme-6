@@ -14,7 +14,7 @@ GET http://localhost:3001/api/posts/7f6faa05-10ef-4ca5-aaeb-63190d832170 HTTP/1.
 
 ###
 
-# Create a new post 1
+# Create a new post 1 text
 POST http://localhost:3001/api/posts HTTP/1.1
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ###
 
-# Create a new post 2
+# Create a new post 2 quote
 POST http://localhost:3001/api/posts HTTP/1.1
 Content-Type: application/json
 
@@ -40,6 +40,21 @@ Content-Type: application/json
   "textQuote": "textQuote textQuote textQuote textQuote textQuote textQuote",
   "quoteAuthor": "quoteAuthor",
   "tags":["quote","some"]
+}
+
+###
+
+# Create a new post 3 link
+POST http://localhost:3001/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "663362521895e601eb7e41c1",
+  "title": "Some link Some link Some link Some link",
+  "typePost": "link",
+  "link": "http://localhost:3001/api/posts",
+  "linkDescription": "",
+  "tags":["link","some"]
 }
 
 ###

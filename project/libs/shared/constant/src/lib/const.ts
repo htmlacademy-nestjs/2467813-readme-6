@@ -74,7 +74,13 @@ export const AuthToken = {
 
 export const TypePostList: TTypePost[] = Object.values(TypePost);
 
-export const AllowedKeys = ['typePost', 'userId', 'title', 'tags'];
+export const AllowedKeys = [
+  'typePost',
+  'userId',
+  'title',
+  'tags',
+  'linkDescription',
+];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
 export const RequiredKeysPhoto = ['imageUrl'];
