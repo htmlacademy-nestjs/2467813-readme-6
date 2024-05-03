@@ -37,6 +37,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
   "newPassword": "123456"
 }
 
+
+###
+
+# Get new JWT pair
+POST http://localhost:3000/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNDc0NDUwOSwiZXhwIjoxNzE3MzM2NTA5fQ.JMtsdn16OeqakHQ84wHx1tca4rP4B78qZagejpvt8Q8
+
+
 ###
 
 # Demo route for Pipe

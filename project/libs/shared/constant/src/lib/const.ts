@@ -18,6 +18,7 @@ export const Path = {
   Reposts: 'reposts',
   NewPassword: 'new-password',
   Login: 'login',
+  Refresh: 'refresh',
   Upload: 'upload',
 } as const;
 
@@ -33,6 +34,7 @@ export const SpaceName = {
   Rabbit: 'rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
+  JwtRefresh: 'jwt-refresh',
   Local: 'local',
 } as const;
 

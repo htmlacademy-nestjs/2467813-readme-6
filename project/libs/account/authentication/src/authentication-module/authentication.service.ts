@@ -2,6 +2,7 @@ import {
   ConflictException,
   HttpException,
   HttpStatus,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -15,6 +16,8 @@ import { JwtService } from '@nestjs/jwt';
 import { IToken, ITokenPayload, IUser } from '@project/core';
 import { UpdateUserPassword } from '../dto/update-user-password.dto';
 import { getMessageNotFoundDocument } from '@project/helpers';
+import { jwtConfig } from '@project/config';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class AuthenticationService {
@@ -22,7 +25,9 @@ export class AuthenticationService {
 
   constructor(
     private readonly blogUserRepository: BlogUserRepository,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
@@ -75,6 +80,16 @@ export class AuthenticationService {
     return user;
   }
 
+  public async getUserByEmail(email: string) {
+    const existUser = await this.blogUserRepository.findByEmail(email);
+
+    if (!existUser) {
+      throw new NotFoundException(getMessageNotFoundDocument('User', email));
+    }
+
+    return existUser;
+  }
+
   public async changePassword(userId: string, dto: UpdateUserPassword) {
     const { password, newPassword } = dto;
 
@@ -109,8 +124,14 @@ export class AuthenticationService {
 
     try {
       const accessToken = await this.jwtService.signAsync(payload);
+      const refreshToken = await this.jwtService.signAsync(payload, {
+        secret: this.jwtOptions.refreshTokenSecret,
+        expiresIn: this.jwtOptions.refreshTokenExpiresIn,
+      });
+
       return {
         accessToken,
+        refreshToken,
       };
     } catch (error) {
       this.logger.error('[Token generation error]: ' + error.message);

@@ -6,6 +6,8 @@ export { IPaginationResult } from './lib/types/pagination.interface';
 
 export { IToken } from './lib/types/token.interface';
 export { ITokenPayload } from './lib/types/token-payload.interface';
+export { IJwtToken } from './lib/types/jwt-token.interface';
+export { IRefreshTokenPayload } from './lib/types/refresh-token-payload.interface';
 
 export { IUser } from './lib/types/user.interface';
 export { IAuthUser } from './lib/types/auth-user.interface';

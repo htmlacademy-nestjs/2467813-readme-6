@@ -25,6 +25,7 @@ export const AuthenticationResponseMessage = {
   UserExist: 'User with the email already exists',
   UserCreated: 'The new user has been successfully created.',
   UpdateUserPassword: 'The user has successfully updated the password.',
+  NewTokens: 'Get a new access/refresh tokens.',
 } as const;
 
 export const CreateUserMessages = {

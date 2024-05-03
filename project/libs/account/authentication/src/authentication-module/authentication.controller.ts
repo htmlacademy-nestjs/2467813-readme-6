@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   HttpStatus,
   Param,
   Patch,
@@ -24,6 +25,7 @@ import { fillDto } from '@project/helpers';
 import { NotifyService } from '@project/notify-module';
 import { IRequestWithUser } from '../types/request-with-user.interface';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -115,6 +117,17 @@ export class AuthenticationController {
   ) {
     const updatedUser = await this.authService.changePassword(id, dto);
     return fillDto(UserRdo, updatedUser.toPOJO() as any);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post(Path.Refresh)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.NewTokens,
+  })
+  public async refreshToken(@Req() { user }: IRequestWithUser) {
+    return this.authService.createUserToken(user);
   }
 
   @UseGuards(JwtAuthGuard)
