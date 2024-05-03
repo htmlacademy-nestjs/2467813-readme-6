@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Body,
   Controller,
@@ -50,7 +49,7 @@ export class AuthenticationController {
     const { email, firstName, lastName } = newUser;
     await this.notifyService.registerSubscriber({ email, firstName, lastName });
 
-    return fillDto(UserRdo, newUser.toPOJO() as any);
+    return fillDto(UserRdo, newUser.toPOJO());
   }
 
   @ApiResponse({
@@ -116,7 +115,7 @@ export class AuthenticationController {
     @Body() dto: UpdateUserPassword
   ) {
     const updatedUser = await this.authService.changePassword(id, dto);
-    return fillDto(UserRdo, updatedUser.toPOJO() as any);
+    return fillDto(UserRdo, updatedUser.toPOJO());
   }
 
   @UseGuards(JwtRefreshGuard)

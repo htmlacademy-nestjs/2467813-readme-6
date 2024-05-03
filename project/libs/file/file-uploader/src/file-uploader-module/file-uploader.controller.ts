@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'multer';
 import { Express } from 'express';
 import {
@@ -34,7 +33,7 @@ export class FileUploaderController {
   @UseInterceptors(FileInterceptor('file'))
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const fileEntity = await this.fileUploaderService.saveFile(file);
-    return fillDto(UploadedFileRdo, fileEntity.toPOJO() as any);
+    return fillDto(UploadedFileRdo, fileEntity.toPOJO());
   }
 
   @ApiResponse({
@@ -49,6 +48,6 @@ export class FileUploaderController {
   @Get('/:fileId')
   public async show(@Param('fileId', MongoIdValidationPipe) fileId: string) {
     const existFile = await this.fileUploaderService.getFile(fileId);
-    return fillDto(UploadedFileRdo, existFile as any);
+    return fillDto(UploadedFileRdo, existFile);
   }
 }
