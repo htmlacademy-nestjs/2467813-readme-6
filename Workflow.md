@@ -15,12 +15,30 @@ npm install
 ### Сценарии
 
 После создания проекта вам доступны следующие сценарии.
-Откройте терминал в директории `project`. Чтобы запустить проект вам необходимо запустить сервис к примеру `npx run user:serve` где `user` это приложение в директории `project\apps`
+Откройте терминал в директории `project`. Чтобы запустить проект вам необходимо запустить сервис к примеру `npx run <service_name>:serve` где `service_name` это приложение в директории `project\apps`
 
 #### Запуск проекта
 
 ```bash
 npx nx run user:serve
+```
+
+or
+
+```bash
+npx nx run blog:serve
+```
+
+or
+
+```bash
+npx nx run notify:serve
+```
+
+or
+
+```bash
+npx nx run file:serve
 ```
 
 В процессе запуска проекта будет выполнен процесс «Сборки проекта» и запуска результирующего кода.
@@ -53,6 +71,12 @@ npx nx run blog:db:generate
 
 ```bash
 npx nx run blog:db:seed
+```
+
+#### Создание микросервиса
+
+```bash
+npx nx g @nx/nest:application user
 ```
 
 #### Создание модуля библиотеки
@@ -91,7 +115,7 @@ npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.pris
 - `--schema` — путь к схеме
 - `--skip-generate` — пропустить формирование клиента.
 
-#### Локальный запуск базы данных MongoDB
+#### Локальный запуск базы данных MongoDB для `user`
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `user.env`
 
@@ -99,12 +123,28 @@ npx prisma migrate dev --name "Added model for Post" --schema prisma/schema.pris
 docker compose --file ./apps/user/docker-compose.dev.yml --env-file ./apps/user/user.env --project-name "readme-user" up -d
 ```
 
-#### Локальный запуск базы данных PostgreSql
+#### Локальный запуск базы данных PostgreSql для `blog`
 
 Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `blog.env`
 
 ```bash
 docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name "readme-blog" up -d
+```
+
+#### Локальный запуск базы данных MongoDB для `file`
+
+Для запуска база данных у вас на машине должен быть установлен docker и заполненный файл `file.env`
+
+```bash
+docker compose --file ./apps/file/docker-compose.dev.yml --env-file ./apps/file/file.env --project-name "readme-file" up -d
+```
+
+#### Локальный запуск fake-smtp-server, RabbitMQ и базы данных MongoDB для `notify`
+
+Для запуска fake-smtp-server, RabbitMQ и базы данных MongoDB у вас на машине должен быть установлен docker и заполненный файл `notify.env`
+
+```bash
+docker compose --file ./apps/notify/docker-compose.dev.yml --env-file ./apps/notify/notify.env --project-name "readme-notify" up -d
 ```
 
 ## Структура проекта
@@ -139,20 +179,72 @@ JWT_REFRESH_TOKEN_SECRET=value - секрет для доступа рефреш
 JWT_REFRESH_TOKEN_EXPIRES_IN=value - время жизни доступа рефреш токена
 
 PORT=value - Порт для входящих подключений
+
+RABBIT_HOST=value - IP-адрес сервера (RabbitMQ)
+RABBIT_USER=alue - Имя пользователя (RabbitMQ)
+RABBIT_PASSWORD=value - Пароль пользователя (RabbitMQ)
+RABBIT_PORT=value - Порт пользователя (RabbitMQ)
+RABBIT_QUEUE=value - Название очереди (RabbitMQ)
+RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
 ```
 
 #### Переменных окружения проекта `blog`
 
 ```bash
-DB_POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
-DB_POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
-DB_POSTGRES_NAME=value - Имя базы данных (PostgreSql)
-DB_POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
+POSTGRES_USER=value - Имя пользователя в базе данных (PostgreSql)
+POSTGRES_PASSWORD=value - Пароль пользователя в базе данных (PostgreSql)
+POSTGRES_NAME=value - Имя базы данных (PostgreSql)
+POSTGRES_PORT=value - Порт пользователя в базе данных (PostgreSql)
 
 PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
 PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
 
 PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения проекта `file`
+
+```bash
+FILE_MONGO_HOST=value - IP-адрес сервера базы данных (MongoDB)
+FILE_MONGO_USER=value - Имя пользователя в базе данных (MongoDB)
+FILE_MONGO_PASSWORD=value - Пароль пользователя в базе данных (MongoDB)
+FILE_MONGO_PORT=value - Порт пользователя в базе данных (MongoDB)
+FILE_MONGO_DB_NAME=value - Название базы данных (MongoDB)
+FILE_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
+
+UPLOAD_DIRECTORY_PATH=value - путь для загрузки файлов
+SERVE_ROOT=value - место хранения статических файлов
+
+PORT=value - Порт для входящих подключений
+```
+
+#### Переменных окружения проекта `notify`
+
+```bash
+RABBITMQ_DEFAULT_USER=value - Имя пользователя в RabbitMQ
+RABBITMQ_DEFAULT_PASS=value - Пароль пользователя в RabbitMQ
+
+RABBIT_HOST=value - IP-адрес сервера (RabbitMQ)
+RABBIT_USER=alue - Имя пользователя (RabbitMQ)
+RABBIT_PASSWORD=value - Пароль пользователя (RabbitMQ)
+RABBIT_PORT=value - Порт пользователя (RabbitMQ)
+RABBIT_QUEUE=value - Название очереди (RabbitMQ)
+RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
+
+NOTIFY_MONGO_HOST=value - IP-адрес сервера базы данных (MongoDB)
+NOTIFY_MONGO_USER=value - Имя пользователя в базе данных (MongoDB)
+NOTIFY_MONGO_PASSWORD=value - Пароль пользователя в базе данных (MongoDB)
+NOTIFY_MONGO_PORT=value - Порт пользователя в базе данных (MongoDB)
+NOTIFY_MONGO_DB_NAME=value - Название базы данных (MongoDB)
+NOTIFY_MONGO_AUTH_BASE=value - Название базы данных для аутентификация (MongoDB)
+
+PORT=value - Порт для входящих подключений
+
+MAIL_SMTP_HOST=value - адрес SMTP сервера
+MAIL_SMTP_PORT=value - порт, через который будет осуществляться подключение к SMTP серверу
+MAIL_USER_NAME=value -  имя пользователя для аутентификации на SMTP сервере
+MAIL_USER_PASSWORD=value - пароль для аутентификации на SMTP сервере
+MAIL_FROM=value -  адрес электронной почты
 ```
 
 #### Переменных окружения prisma

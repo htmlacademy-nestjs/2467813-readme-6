@@ -28,7 +28,7 @@ export abstract class BasePostgresRepository<
     throw new Error('Not implemented');
   }
 
-  public async update(entity: T): Promise<void> {
+  public async update(entity: T): Promise<T> {
     throw new Error('Not implemented');
   }
 

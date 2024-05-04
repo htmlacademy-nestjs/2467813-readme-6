@@ -13,6 +13,8 @@ export const AuthUser = {
   NotFound: 'User not found',
   PasswordWrong: 'User password is wrong',
   IsNotLogged: 'The token is invalid or expired.',
+  ComparePassword: 'The new password is the same as the old one.',
+  TokenError: 'Ошибка при создании токена.',
 } as const;
 
 export const AuthenticationResponseMessage = {

@@ -6,21 +6,17 @@ import {
   Environments,
   TEnvironment,
   SpaceName,
+  IAppConfig,
 } from '@project/constant';
-
-export interface IApplicationConfig {
-  environment: string;
-  port: number;
-}
 
 const validationSchema = Joi.object({
   environment: Joi.string()
     .valid(...Environments)
     .required(),
-  port: Joi.number().port().default(DefaultPort.AppPort),
+  port: Joi.number().port().default(DefaultPort.AppPortUser),
 });
 
-function validateConfig(config: IApplicationConfig): void {
+function validateConfig(config: IAppConfig): void {
   const { error } = validationSchema.validate(config, {
     abortEarly: true,
   });
@@ -29,11 +25,11 @@ function validateConfig(config: IApplicationConfig): void {
   }
 }
 
-function getConfig(): IApplicationConfig {
-  const config: IApplicationConfig = {
+function getConfig(): IAppConfig {
+  const config: IAppConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
-      process.env.PORT || `${DefaultPort.AppPort}`,
+      process.env.PORT || `${DefaultPort.AppPortUser}`,
       DECIMAL_SYSTEM
     ),
   };
@@ -42,4 +38,4 @@ function getConfig(): IApplicationConfig {
   return config;
 }
 
-export default registerAs(SpaceName.Application, getConfig);
+export default registerAs(SpaceName.AppUser, getConfig);

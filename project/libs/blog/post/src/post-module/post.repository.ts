@@ -8,6 +8,7 @@ import { PrismaClientService } from '@project/models';
 import { PostEntity } from './post.entity';
 import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
@@ -73,7 +74,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     });
 
     if (!document) {
-      throw new NotFoundException(`Post with id ${id} not found.`);
+      throw new NotFoundException(getMessageNotFoundDocument('Post', id));
     }
 
     const postEntity = this.createEntityFromDocument(document as IPost);
@@ -82,7 +83,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     return postEntity;
   }
 
-  public async update(entity: PostEntity): Promise<void> {
+  public async update(entity: PostEntity): Promise<PostEntity> {
     const pojoEntity = entity.toPOJO();
     await this.client.post.update({
       where: {
@@ -103,6 +104,8 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         tags: pojoEntity.tags,
       },
     });
+
+    return;
   }
 
   public async find(query?: PostQuery): Promise<IPaginationResult<PostEntity>> {

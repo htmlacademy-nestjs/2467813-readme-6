@@ -1,38 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { OpenApiMessages } from '../const';
 
 export class CommentRdo {
   @ApiProperty({
-    description: 'The uniq comment ID',
-    example: '4e182f32-1497-4663-8e9b-7b06187c27cd',
+    description: OpenApiMessages.id.description,
+    example: OpenApiMessages.id.example,
   })
   @Expose()
   public id: string;
 
   @ApiProperty({
-    description: 'The uniq user ID',
-    example: '6621683a9775bcf7c8f2606b',
+    description: OpenApiMessages.userId.description,
+    example: OpenApiMessages.userId.example,
   })
   @Expose()
   public userId: string;
 
   @ApiProperty({
-    description: 'The uniq post ID',
-    example: '4e182f32-1497-4663-8e9b-7b06187c27cd',
+    description: OpenApiMessages.postId.description,
+    example: OpenApiMessages.postId.example,
   })
   @Expose()
   public postId: string;
 
   @ApiProperty({
-    description: 'createdAt createdAt',
-    example: '2024-04-23 10:04:27.508',
+    description: OpenApiMessages.createdAt.description,
+    example: OpenApiMessages.createdAt.example,
   })
   @Expose()
   public createdAt: Date;
 
   @ApiProperty({
-    description: 'Comment message',
-    example: 'message',
+    description: OpenApiMessages.message.description,
+    example: OpenApiMessages.message.example,
   })
   @Expose()
   public message: string;

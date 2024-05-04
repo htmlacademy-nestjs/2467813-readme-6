@@ -1,38 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { OpenApiMessages } from '../const';
 
 export class UserRdo {
   @ApiProperty({
-    description: 'The uniq user ID',
-    example: 'd45dc925-bbb2-455f-8a07-ff5ca27674a0',
+    description: OpenApiMessages.id.description,
+    example: OpenApiMessages.id.example,
   })
   @Expose()
   public id: string;
 
   @ApiProperty({
-    description: 'User avatar path',
-    example: '/images/user.png',
+    description: OpenApiMessages.avatarPath.description,
+    example: OpenApiMessages.avatarPath.example,
   })
   @Expose()
   public avatarPath: string;
 
   @ApiProperty({
-    description: 'User unique address',
-    example: 'example@email.ru',
+    description: OpenApiMessages.email.description,
+    example: OpenApiMessages.email.example,
   })
   @Expose()
   public email: string;
 
   @ApiProperty({
-    description: 'User first name',
-    example: 'Mikhail',
+    description: OpenApiMessages.firstName.description,
+    example: OpenApiMessages.firstName.example,
   })
   @Expose()
   public firstName: string;
 
   @ApiProperty({
-    description: 'User unique address',
-    example: 'example@email.ru',
+    description: OpenApiMessages.lastName.description,
+    example: OpenApiMessages.lastName.example,
   })
   @Expose()
   public lastName: string;

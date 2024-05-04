@@ -1,18 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
-import { CreateUserMessages, Name, Password } from '../const';
+import { CreateUserMessages, Name, OpenApiMessages, Password } from '../const';
 
 export class CreateUserDto {
   @ApiProperty({
-    description: 'User unique address',
-    example: 'example@email.ru',
+    description: OpenApiMessages.email.description,
+    example: OpenApiMessages.email.example,
   })
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
   public email: string;
 
   @ApiProperty({
-    description: 'User first name',
-    example: 'Mikhail',
+    description: OpenApiMessages.firstName.description,
+    example: OpenApiMessages.firstName.example,
   })
   @IsString({ message: CreateUserMessages.firstName.invalidFormat })
   @Length(Name.Min, Name.Max, {
@@ -21,8 +21,8 @@ export class CreateUserDto {
   public firstName: string;
 
   @ApiProperty({
-    description: 'User last name',
-    example: 'Yanov',
+    description: OpenApiMessages.lastName.description,
+    example: OpenApiMessages.lastName.example,
   })
   @IsString({ message: CreateUserMessages.lastName.invalidFormat })
   @Length(Name.Min, Name.Max, {
@@ -31,16 +31,16 @@ export class CreateUserDto {
   public lastName: string;
 
   @ApiProperty({
-    description: 'User avatar path',
-    example: '/images/user.png',
+    description: OpenApiMessages.avatarPath.description,
+    example: OpenApiMessages.avatarPath.example,
   })
   @IsString()
   @IsOptional()
   public avatarPath?: string;
 
   @ApiProperty({
-    description: 'User password',
-    example: '123456',
+    description: OpenApiMessages.password.description,
+    example: OpenApiMessages.password.example,
   })
   @IsString({ message: CreateUserMessages.password.invalidFormat })
   @Length(Password.Min, Password.Max, {

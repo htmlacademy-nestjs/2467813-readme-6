@@ -1,109 +1,110 @@
 import { Expose } from 'class-transformer';
 import { TTypePost } from '@project/constant';
 import { ApiProperty } from '@nestjs/swagger';
+import { OpenApiMessages } from '../const';
 
 export class PostRdo {
   @ApiProperty({
-    description: 'The uniq post ID',
-    example: '4e182f32-1497-4663-8e9b-7b06187c27cd',
+    description: OpenApiMessages.id.description,
+    example: OpenApiMessages.id.example,
   })
   @Expose()
   public id: string;
 
   @ApiProperty({
-    description: 'The uniq user ID',
-    example: '6621683a9775bcf7c8f2606b',
+    description: OpenApiMessages.userId.description,
+    example: OpenApiMessages.userId.example,
   })
   @Expose()
   public userId: string;
 
   @ApiProperty({
-    description: 'Post typePost',
-    example: 'text',
+    description: OpenApiMessages.typePost.description,
+    example: OpenApiMessages.typePost.example,
   })
   @Expose()
   public typePost: TTypePost;
 
   @ApiProperty({
-    description: 'Post createdAt',
-    example: '2024-04-23 10:04:27.508',
+    description: OpenApiMessages.createdAt.description,
+    example: OpenApiMessages.createdAt.example,
   })
   @Expose()
   public createdAt: string;
 
   @ApiProperty({
-    description: 'Post updatedAt',
-    example: '2024-04-23 10:04:27.508',
+    description: OpenApiMessages.updatedAt.description,
+    example: OpenApiMessages.updatedAt.example,
   })
   @Expose()
   public updatedAt: string;
 
   @ApiProperty({
-    description: 'Post title',
-    example: 'Some title',
+    description: OpenApiMessages.title.description,
+    example: OpenApiMessages.title.example,
   })
   @Expose()
   public title: string;
 
   @ApiProperty({
-    description: 'Post announcementPublic',
-    example: 'announcementPublic',
+    description: OpenApiMessages.announcementPublic.description,
+    example: OpenApiMessages.announcementPublic.example,
   })
   @Expose()
   public announcementPublic?: string;
 
   @ApiProperty({
-    description: 'Post textPublic',
-    example: 'textPublic',
+    description: OpenApiMessages.textPublic.description,
+    example: OpenApiMessages.textPublic.example,
   })
   @Expose()
   public textPublic?: string;
 
   @ApiProperty({
-    description: 'Post videoUrl',
-    example: 'videoUrl',
+    description: OpenApiMessages.videoUrl.description,
+    example: OpenApiMessages.videoUrl.example,
   })
   @Expose()
   public videoUrl?: string;
 
   @ApiProperty({
-    description: 'Post imageUrl',
-    example: 'imageUrl',
+    description: OpenApiMessages.imageUrl.description,
+    example: OpenApiMessages.imageUrl.example,
   })
   @Expose()
   public imageUrl?: string;
 
   @ApiProperty({
-    description: 'Post textQuote',
-    example: 'textQuote',
+    description: OpenApiMessages.textQuote.description,
+    example: OpenApiMessages.textQuote.example,
   })
   @Expose()
   public textQuote?: string;
 
   @ApiProperty({
-    description: 'Post quoteAuthor',
-    example: 'quoteAuthor',
+    description: OpenApiMessages.quoteAuthor.description,
+    example: OpenApiMessages.quoteAuthor.example,
   })
   @Expose()
   public quoteAuthor?: string;
 
   @ApiProperty({
-    description: 'Post link',
-    example: 'link',
+    description: OpenApiMessages.link.description,
+    example: OpenApiMessages.link.example,
   })
   @Expose()
   public link?: string;
 
   @ApiProperty({
-    description: 'Post linkDescription',
-    example: 'linkDescription',
+    description: OpenApiMessages.linkDescription.description,
+    example: OpenApiMessages.linkDescription.example,
   })
   @Expose()
   public linkDescription?: string;
 
   @ApiProperty({
-    description: 'Post isPublished',
-    example: true,
+    description: OpenApiMessages.isPublished.description,
+    example: OpenApiMessages.isPublished.example,
   })
   @Expose()
   public isPublished: boolean;
@@ -118,8 +119,8 @@ export class PostRdo {
   public likes: number;
 
   @ApiProperty({
-    description: 'Post comments',
-    example: 2,
+    description: OpenApiMessages.comments.description,
+    example: OpenApiMessages.comments.example,
   })
   @Expose()
   public comments: number;
@@ -128,8 +129,8 @@ export class PostRdo {
   public reposts: number;
 
   @ApiProperty({
-    description: 'Post tags',
-    example: '["tags"]',
+    description: OpenApiMessages.tags.description,
+    example: OpenApiMessages.tags.description,
   })
   @Expose()
   public tags?: string[];

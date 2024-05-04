@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Body,
   Controller,
@@ -20,11 +21,15 @@ import { UpdateUserPassword } from '../dto/update-user-password.dto';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { fillDto } from '@project/helpers';
+import { NotifyService } from '@project/notify-module';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
 export class AuthenticationController {
-  constructor(private readonly authService: AuthenticationService) {}
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly notifyService: NotifyService
+  ) {}
 
   @ApiResponse({
     type: CreateUserDto,
@@ -38,7 +43,10 @@ export class AuthenticationController {
   @Post(Path.Register)
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
-    return newUser.toPOJO();
+    const { email, firstName, lastName } = newUser;
+    await this.notifyService.registerSubscriber({ email, firstName, lastName });
+
+    return fillDto(UserRdo, newUser.toPOJO() as any);
   }
 
   @ApiResponse({
@@ -100,9 +108,12 @@ export class AuthenticationController {
   })
   @UseGuards(JwtAuthGuard)
   @Patch(`:id/${Path.NewPassword}`)
-  public async updatePassword(@Param('id', MongoIdValidationPipe) id: string) {
-    // FIXME:ИМПЛЕМЕНТИРОВАТЬ РУЧКУ
-    throw new Error('Not implemented');
+  public async updatePassword(
+    @Param('id', MongoIdValidationPipe) id: string,
+    @Body() dto: UpdateUserPassword
+  ) {
+    const updatedUser = await this.authService.changePassword(id, dto);
+    return fillDto(UserRdo, updatedUser.toPOJO() as any);
   }
 
   @UseGuards(JwtAuthGuard)
