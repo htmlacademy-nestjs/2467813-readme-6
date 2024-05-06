@@ -59,7 +59,10 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     });
   }
 
-  public async findById(id: string, userId?: string): Promise<PostEntity> {
+  public async findById(
+    id: string,
+    currentUserId?: string
+  ): Promise<PostEntity> {
     const document = await this.client.post.findFirst({
       where: {
         id,
@@ -74,7 +77,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         },
         likes: {
           where: {
-            userId: userId ?? '',
+            userId: currentUserId ?? '',
           },
           select: {
             id: true,
@@ -82,7 +85,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         },
         reposts: {
           where: {
-            userId: userId ?? '',
+            userId: currentUserId ?? '',
           },
           select: {
             id: true,
@@ -135,13 +138,15 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
 
   public async find(
     query?: PostQuery,
-    userId?: string
+    currentUserId?: string
   ): Promise<IPaginationResult<PostEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
+
+    where.isPublished = true;
 
     if (query?.userId) {
       where.userId = query.userId;
@@ -167,7 +172,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           },
           likes: {
             where: {
-              userId: userId ?? '',
+              userId: currentUserId ?? '',
             },
             select: {
               id: true,
@@ -175,7 +180,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           },
           reposts: {
             where: {
-              userId: userId ?? '',
+              userId: currentUserId ?? '',
             },
             select: {
               id: true,
