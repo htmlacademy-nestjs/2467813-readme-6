@@ -109,12 +109,24 @@ export class PostRdo {
   @Expose()
   public isPublished: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.isRepost.description,
+    example: OpenApiMessages.isRepost.example,
+  })
   @Expose()
   public isRepost?: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.isLike.description,
+    example: OpenApiMessages.isLike.example,
+  })
   @Expose()
   public isLike?: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.likes.description,
+    example: OpenApiMessages.likes.example,
+  })
   @Expose()
   public likes: number;
 
@@ -125,12 +137,16 @@ export class PostRdo {
   @Expose()
   public comments: number;
 
+  @ApiProperty({
+    description: OpenApiMessages.reposts.description,
+    example: OpenApiMessages.reposts.example,
+  })
   @Expose()
   public reposts: number;
 
   @ApiProperty({
     description: OpenApiMessages.tags.description,
-    example: OpenApiMessages.tags.description,
+    example: OpenApiMessages.tags.example,
   })
   @Expose()
   public tags?: string[];

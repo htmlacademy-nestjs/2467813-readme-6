@@ -1,11 +1,11 @@
 # Get all posts
-GET http://localhost:3001/api/posts HTTP/1.1
+GET http://localhost:3001/api/posts  HTTP/1.1
 
 ###
 
 # Get posts with filter
 
-GET http://localhost:3001/api/posts?limit=3&sortDirection=desc&page=1 HTTP/1.1
+GET http://localhost:3001/api/posts?limit=3&sortDirection=desc&page=1&search=text  HTTP/1.1
 
 ###
 

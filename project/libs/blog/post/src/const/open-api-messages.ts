@@ -61,7 +61,7 @@ export const OpenApiMessages = {
   },
   tags: {
     description: 'Post tags',
-    example: '["tags"]',
+    example: '["tag"]',
   },
   entities: {
     description: 'Post list entities',
@@ -87,13 +87,22 @@ export const OpenApiMessages = {
     description: 'Post isPublished',
     example: true,
   },
+
   comments: {
     description: 'Post comments',
     example: 2,
   },
+  likes: {
+    description: 'Post likes',
+    example: 1,
+  },
+  reposts: {
+    description: 'Post reposts',
+    example: 4,
+  },
   isLike: {
     description: 'isLike like',
-    example: true,
+    example: false,
   },
   isRepost: {
     description: 'isRepost repost',
