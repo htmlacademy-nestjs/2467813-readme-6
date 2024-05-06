@@ -4,7 +4,6 @@ import {
   ArrayUnique,
   IsArray,
   IsBoolean,
-  IsLowercase,
   IsOptional,
   IsString,
   Length,
@@ -24,6 +23,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
+import { ToLowerCase } from '@project/helpers';
 
 export class UpdatePostDto {
   @ApiProperty({
@@ -151,7 +151,7 @@ export class UpdatePostDto {
   })
   @ArrayMaxSize(8)
   @ArrayUnique()
-  @IsLowercase({ each: true })
+  @ToLowerCase()
   @MaxLength(Tags.Max, {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,

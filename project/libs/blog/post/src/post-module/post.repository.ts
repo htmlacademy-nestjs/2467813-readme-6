@@ -182,6 +182,10 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           _count: query.sortDirection,
         },
       });
+    } else if (query?.sortOption === SortOption.Date) {
+      orderBy.push({
+        createdAt: query.sortDirection,
+      });
     } else {
       orderBy.push({
         createdAt: query.sortDirection,

@@ -21,7 +21,14 @@ import { PostRdo } from '../rdo/post.rdo';
 import { PostWithPaginationRdo } from '../rdo/post-with-pagination.rdo';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { AppRoutes, AuthToken, Path, SortDirection } from '@project/constant';
+import {
+  AppRoutes,
+  AuthToken,
+  Path,
+  SortDirection,
+  SortOption,
+  TypePost,
+} from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   LikeResponseMessage,
@@ -69,8 +76,28 @@ export class PostController {
     description: PostResponseMessage.PostListSuccess,
   })
   @ApiQuery({
-    name: 'limit',
-    type: 'number',
+    name: 'tags',
+    isArray: true,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'typePost',
+    enum: TypePost,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'isPublished',
+    type: 'boolean',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'sortOption',
+    enum: SortOption,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: 'string',
     required: false,
   })
   @ApiQuery({
@@ -80,6 +107,11 @@ export class PostController {
   })
   @ApiQuery({
     name: 'page',
+    type: 'number',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
     type: 'number',
     required: false,
   })
