@@ -71,3 +71,7 @@ export function parseTime(time: string): TimeAndUnit {
     unit,
   };
 }
+
+export function getFullServerPath(host: string, port: number) {
+  return `http://${host}:${port}`;
+}

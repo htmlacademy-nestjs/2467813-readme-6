@@ -1,6 +1,13 @@
 import { TTypePost } from './types/type-post.type';
+import { getFullServerPath } from '@project/helpers';
 
 export const DECIMAL_SYSTEM = 10;
+export const DEFAULT_HOST = 'localhost';
+
+export const HttpClient = {
+  MaxRedirects: 5,
+  Timeout: 3_000,
+} as const;
 
 export const AppRoutes = {
   Api: 'api',
@@ -9,6 +16,7 @@ export const AppRoutes = {
   Posts: 'posts',
   Comments: 'comments',
   Files: 'files',
+  Users: 'users',
 } as const;
 
 export const Path = {
@@ -51,9 +59,25 @@ export const DefaultPort = {
   AppPortBlog: 3_001,
   AppPortFile: 3_002,
   AppPortNotify: 3_003,
+  AppPortApp: 3_004,
   MongoPort: 27_017,
   RabbitPort: 5_672,
   MailSMTP: 25,
+} as const;
+
+export const ApplicationServiceURL = {
+  Users: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortUser)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Auth}`,
+  Blog: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortBlog)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Posts}`,
+  Notify: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortNotify)}/${
+    AppRoutes.Api
+  }`,
+  File: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortFile)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Files}`,
 } as const;
 
 export const Jwt = {

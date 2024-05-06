@@ -7,15 +7,21 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
+import { AppRoutes, DEFAULT_HOST, DefaultPort } from '@project/constant';
+import { getFullServerPath } from '@project/helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
+  app.setGlobalPrefix(AppRoutes.Api);
+
+  const port = process.env.PORT || DefaultPort.AppPortApp;
   await app.listen(port);
+
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: ${getFullServerPath(
+      DEFAULT_HOST,
+      Number(port)
+    )}/${AppRoutes.Api}`
   );
 }
 
