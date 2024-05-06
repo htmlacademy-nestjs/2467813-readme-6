@@ -11,6 +11,7 @@ import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
 import { getMessageNotFoundDocument } from '@project/helpers';
 import { SortOption } from '@project/constant';
+import { PostCount } from '../const';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
@@ -146,20 +147,28 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
   ): Promise<IPaginationResult<PostEntity>> {
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    const take = query?.limit;
+    let take = query?.limit;
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput[] = [];
-
-    if (query?.tags && query.tags.length > 0) {
-      where.tags = {
-        hasSome: query.tags,
-      };
-    }
 
     if (currentUserId) {
       where.isPublished = query?.isPublished ?? true;
     } else {
       where.isPublished = true;
+    }
+
+    if (query?.search) {
+      where.title = {
+        contains: query?.search,
+        mode: 'insensitive',
+      };
+      take = PostCount.SearchDefault;
+    }
+
+    if (query?.tags && query.tags.length > 0) {
+      where.tags = {
+        hasSome: query.tags,
+      };
     }
 
     if (query?.userId) {

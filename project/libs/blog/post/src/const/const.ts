@@ -2,6 +2,7 @@ import { TypePost } from '@project/constant';
 
 export const PostCount = {
   Default: 25,
+  SearchDefault: 20,
   PageDefault: 1,
 } as const;
 

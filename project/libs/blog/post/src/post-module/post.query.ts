@@ -62,4 +62,8 @@ export class PostQuery {
   @IsString({ each: true })
   @IsOptional()
   public tags?: string[];
+
+  @IsString()
+  @IsOptional()
+  public search?: string;
 }
