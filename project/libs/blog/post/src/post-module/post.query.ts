@@ -13,6 +13,8 @@ import {
   SortOption,
   TSortDirection,
   TSortOption,
+  TTypePost,
+  TypePost,
 } from '@project/constant';
 
 import { PostCount } from '../const';
@@ -51,4 +53,8 @@ export class PostQuery {
   @IsBoolean()
   @IsOptional()
   public isPublished?: boolean;
+
+  @IsIn(Object.values(TypePost))
+  @IsOptional()
+  public typePost?: TTypePost;
 }
