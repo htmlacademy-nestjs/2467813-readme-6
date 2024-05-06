@@ -133,6 +133,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         link: pojoEntity.link,
         linkDescription: pojoEntity.linkDescription,
         tags: pojoEntity.tags,
+        isPublished: pojoEntity.isPublished,
       },
     });
 
@@ -148,6 +149,12 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     const take = query?.limit;
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput[] = [];
+
+    if (query?.tags && query.tags.length > 0) {
+      where.tags = {
+        hasSome: query.tags,
+      };
+    }
 
     if (currentUserId) {
       where.isPublished = query?.isPublished ?? true;

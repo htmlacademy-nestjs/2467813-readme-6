@@ -3,6 +3,7 @@ import {
   ArrayNotEmpty,
   ArrayUnique,
   IsArray,
+  IsBoolean,
   IsLowercase,
   IsOptional,
   IsString,
@@ -130,6 +131,14 @@ export class UpdatePostDto {
     message: CreatePostValidationMessage.linkDescription.lengthField,
   })
   public linkDescription?: string;
+
+  @ApiProperty({
+    description: OpenApiMessages.isPublished.description,
+    example: OpenApiMessages.isPublished.example,
+  })
+  @IsOptional()
+  @IsBoolean()
+  public isPublished?: boolean;
 
   @ApiProperty({
     description: OpenApiMessages.tags.description,

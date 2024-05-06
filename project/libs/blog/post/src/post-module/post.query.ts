@@ -57,4 +57,9 @@ export class PostQuery {
   @IsIn(Object.values(TypePost))
   @IsOptional()
   public typePost?: TTypePost;
+
+  @Transform(({ value }) => value.split(',').filter((tag) => tag.trim() !== ''))
+  @IsString({ each: true })
+  @IsOptional()
+  public tags?: string[];
 }

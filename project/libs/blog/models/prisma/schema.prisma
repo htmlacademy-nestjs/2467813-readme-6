@@ -36,6 +36,7 @@ model Post {
   likes    Like[]
   reposts  Repost[]
 
+  @@index([title, tags])
   @@map("posts")
 }
 
