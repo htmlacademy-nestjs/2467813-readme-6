@@ -1,7 +1,14 @@
 import { Transform } from 'class-transformer';
-import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsIn,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsBoolean,
+} from 'class-validator';
 
 import {
+  BooleanEnum,
   SortDirection,
   SortOption,
   TSortDirection,
@@ -31,4 +38,17 @@ export class PostQuery {
   @IsString()
   @IsOptional()
   public userId?: string;
+
+  @Transform(({ value }) => {
+    if (value === BooleanEnum.True) {
+      return true;
+    } else if (value === BooleanEnum.False) {
+      return false;
+    } else {
+      return value;
+    }
+  })
+  @IsBoolean()
+  @IsOptional()
+  public isPublished?: boolean;
 }

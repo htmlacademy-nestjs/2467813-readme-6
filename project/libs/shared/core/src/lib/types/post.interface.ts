@@ -15,7 +15,7 @@ export interface IPost {
   quoteAuthor?: string;
   link?: string;
   linkDescription?: string;
-  isPublished: boolean;
+  isPublished?: boolean;
   isRepost?: boolean;
   isLike?: boolean;
   originalPostId?: string;

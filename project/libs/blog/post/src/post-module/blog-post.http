@@ -66,7 +66,8 @@ Content-Type: application/json
   "typePost": "link",
   "link": "http://localhost:3001/api/posts",
   "linkDescription": "",
-  "tags":["link","some"]
+  "tags":["link","some"],
+  "isPublished":false
 }
 
 ###

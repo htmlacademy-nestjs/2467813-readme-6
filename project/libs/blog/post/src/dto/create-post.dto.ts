@@ -10,6 +10,7 @@ import {
   IsMongoId,
   IsOptional,
   IsString,
+  IsBoolean,
   Length,
   MaxLength,
   MinLength,
@@ -151,6 +152,14 @@ export class CreatePostDto {
     message: CreatePostValidationMessage.linkDescription.lengthField,
   })
   public linkDescription?: string;
+
+  @ApiProperty({
+    description: OpenApiMessages.isPublished.description,
+    example: OpenApiMessages.isPublished.example,
+  })
+  @IsOptional()
+  @IsBoolean()
+  public isPublished?: boolean;
 
   @ApiProperty({
     description: OpenApiMessages.tags.description,

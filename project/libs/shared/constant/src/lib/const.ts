@@ -101,6 +101,11 @@ export const SortDirection = {
   Desc: 'desc',
 } as const;
 
+export const BooleanEnum = {
+  True: 'true',
+  False: 'false',
+} as const;
+
 export const SortOption = {
   Date: 'Date',
   Likes: 'Likes',
@@ -120,6 +125,7 @@ export const AllowedKeys = [
   'title',
   'tags',
   'linkDescription',
+  'isPublished',
 ];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];

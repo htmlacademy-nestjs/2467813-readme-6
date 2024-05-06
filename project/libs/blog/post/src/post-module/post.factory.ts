@@ -25,6 +25,7 @@ export class PostFactory implements IEntityFactory<PostEntity> {
     entity.link = dto.link;
     entity.linkDescription = dto.linkDescription;
     entity.tags = dto.tags;
+    entity.isPublished = dto.isPublished;
 
     return entity;
   }
