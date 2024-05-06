@@ -14,6 +14,7 @@ import {
   MaxLength,
   MinLength,
   ValidateIf,
+  IsUrl,
 } from 'class-validator';
 import {
   AnnouncementPublic,
@@ -89,11 +90,9 @@ export class CreatePostDto {
     example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
-  // @IsString({
-  //   message: CreatePostValidationMessage.videoUrl.invalidFormat,
-  // })
+  @IsString()
   @IsYoutubeUrl({
-    message: 'The URL must be a valid YouTube video URL',
+    message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
 
@@ -141,6 +140,12 @@ export class CreatePostDto {
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
+  @IsUrl(
+    {},
+    {
+      message: CreatePostValidationMessage.link.isUrl,
+    }
+  )
   public link?: string;
 
   @ApiProperty({

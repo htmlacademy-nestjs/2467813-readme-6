@@ -64,7 +64,7 @@ Content-Type: application/json
   "userId": "663362521895e601eb7e41c1",
   "title": "Some link Some link Some link Some link",
   "typePost": "link",
-  "link": "http://localhost:3001/api/posts",
+  "link": "https://htmlacademy.ru",
   "linkDescription": "",
   "tags":["link","some"],
   "isPublished":false

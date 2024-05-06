@@ -6,6 +6,7 @@ import {
   IsBoolean,
   IsOptional,
   IsString,
+  IsUrl,
   Length,
   MaxLength,
   MinLength,
@@ -23,7 +24,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
-import { ToLowerCase } from '@project/helpers';
+import { IsYoutubeUrl, ToLowerCase } from '@project/helpers';
 
 export class UpdatePostDto {
   @ApiProperty({
@@ -68,7 +69,8 @@ export class UpdatePostDto {
     example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
-  @IsString({
+  @IsString()
+  @IsYoutubeUrl({
     message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
@@ -117,6 +119,12 @@ export class UpdatePostDto {
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
+  @IsUrl(
+    {},
+    {
+      message: CreatePostValidationMessage.link.isUrl,
+    }
+  )
   public link?: string;
 
   @ApiProperty({
