@@ -135,6 +135,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         linkDescription: pojoEntity.linkDescription,
         tags: pojoEntity.tags,
         isPublished: pojoEntity.isPublished,
+        updatedAt: new Date(),
       },
     });
 
@@ -193,11 +194,11 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       });
     } else if (query?.sortOption === SortOption.Date) {
       orderBy.push({
-        createdAt: query.sortDirection,
+        updatedAt: query.sortDirection,
       });
     } else {
       orderBy.push({
-        createdAt: query.sortDirection,
+        updatedAt: query.sortDirection,
       });
     }
 
