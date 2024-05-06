@@ -32,6 +32,7 @@ import {
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   LikeResponseMessage,
+  OpenApiMessages,
   PostResponseMessage,
   RepostResponseMessage,
 } from '../const';
@@ -76,42 +77,42 @@ export class PostController {
     description: PostResponseMessage.PostListSuccess,
   })
   @ApiQuery({
-    name: 'tags',
+    name: OpenApiMessages.tags.name,
     isArray: true,
     required: false,
   })
   @ApiQuery({
-    name: 'typePost',
+    name: OpenApiMessages.typePost.name,
     enum: TypePost,
     required: false,
   })
   @ApiQuery({
-    name: 'isPublished',
+    name: OpenApiMessages.isPublished.name,
     type: 'boolean',
     required: false,
   })
   @ApiQuery({
-    name: 'sortOption',
+    name: OpenApiMessages.sortOption.name,
     enum: SortOption,
     required: false,
   })
   @ApiQuery({
-    name: 'userId',
+    name: OpenApiMessages.userId.name,
     type: 'string',
     required: false,
   })
   @ApiQuery({
-    name: 'sortDirection',
+    name: OpenApiMessages.sortDirection.name,
     enum: SortDirection,
     required: false,
   })
   @ApiQuery({
-    name: 'page',
+    name: OpenApiMessages.page.name,
     type: 'number',
     required: false,
   })
   @ApiQuery({
-    name: 'limit',
+    name: OpenApiMessages.limit.name,
     type: 'number',
     required: false,
   })

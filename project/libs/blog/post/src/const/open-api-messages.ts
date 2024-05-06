@@ -10,6 +10,7 @@ export const OpenApiMessages = {
   userId: {
     description: 'The unique userId MongoDB',
     example: '6621683a9775bcf7c8f2606b',
+    name: 'userId',
   },
   createdAt: {
     description: 'Post createdAt',
@@ -26,6 +27,7 @@ export const OpenApiMessages = {
   typePost: {
     description: 'type must be video, text, quote, photo or link',
     example: 'text',
+    name: 'typePost',
   },
   announcementPublic: {
     description: 'Post announcementPublic',
@@ -62,6 +64,7 @@ export const OpenApiMessages = {
   tags: {
     description: 'Post tags',
     example: '["tag"]',
+    name: 'tags',
   },
   entities: {
     description: 'Post list entities',
@@ -86,8 +89,8 @@ export const OpenApiMessages = {
   isPublished: {
     description: 'Post isPublished',
     example: true,
+    name: 'isPublished',
   },
-
   comments: {
     description: 'Post comments',
     example: 2,
@@ -107,5 +110,17 @@ export const OpenApiMessages = {
   isRepost: {
     description: 'isRepost repost',
     example: true,
+  },
+  sortOption: {
+    name: 'sortOption',
+  },
+  sortDirection: {
+    name: 'sortDirection',
+  },
+  page: {
+    name: 'page',
+  },
+  limit: {
+    name: 'limit',
   },
 };
