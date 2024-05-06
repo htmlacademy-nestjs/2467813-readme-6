@@ -17,6 +17,7 @@ export const AppRoutes = {
   Comments: 'comments',
   Files: 'files',
   Users: 'users',
+  Blog: 'blog',
 } as const;
 
 export const Path = {
@@ -27,6 +28,7 @@ export const Path = {
   NewPassword: 'new-password',
   Login: 'login',
   Refresh: 'refresh',
+  Check: 'check',
   Upload: 'upload',
 } as const;
 

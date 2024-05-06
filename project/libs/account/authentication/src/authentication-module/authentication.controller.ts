@@ -25,6 +25,7 @@ import { NotifyService } from '@project/notify-module';
 import { IRequestWithUser } from '../types/request-with-user.interface';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
+import { IRequestWithTokenPayload } from '../types/request-with-token-payload.interface';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -127,6 +128,12 @@ export class AuthenticationController {
   })
   public async refreshToken(@Req() { user }: IRequestWithUser) {
     return this.authService.createUserToken(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(Path.Check)
+  public async checkToken(@Req() { user: payload }: IRequestWithTokenPayload) {
+    return payload;
   }
 
   @UseGuards(JwtAuthGuard)

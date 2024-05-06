@@ -47,6 +47,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
+# Check user token
+POST http://localhost:3000/api/auth/check HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNDk4ODM5NSwiZXhwIjoxNzE1MTYxMTk1fQ.ueyPrKgHA-pATnKcn_YgAFxZmknYRiJsnPJRonryT_M
+
+###
+
 # Demo route for Pipe
 GET http://localhost:3000/api/auth/demo/1 HTTP/1.1.
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxMzg5ODQ3MCwiZXhwIjoxNzEzODk4NzcwfQ.dHBysC0IIxCaeKQ6zM5lXylbRB4VdMb0__VcUGl9mL8

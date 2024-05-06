@@ -1,11 +1,15 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseFilters } from '@nestjs/common';
 
 import { LoginUserDto } from '@project/authentication';
 
 import { AppRoutes, ApplicationServiceURL, Path } from '@project/constant';
+import { AxiosExceptionFilter } from './filters/axios-exception.filter';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(AppRoutes.Users)
 @Controller(AppRoutes.Users)
+@UseFilters(AxiosExceptionFilter)
 export class UsersController {
   constructor(private readonly httpService: HttpService) {}
 
