@@ -3,8 +3,12 @@ export const OpenApiMessages = {
     description: 'The uniq post ID',
     example: '4e182f32-1497-4663-8e9b-7b06187c27cd',
   },
+  postId: {
+    description: 'The uniq post ID',
+    example: '4e182f32-1497-4663-8e9b-7b06187c27cd',
+  },
   userId: {
-    description: 'Post unique userId MongoDB',
+    description: 'The unique userId MongoDB',
     example: '6621683a9775bcf7c8f2606b',
   },
   createdAt: {
@@ -86,5 +90,13 @@ export const OpenApiMessages = {
   comments: {
     description: 'Post comments',
     example: 2,
+  },
+  isLike: {
+    description: 'isLike like',
+    example: true,
+  },
+  isRepost: {
+    description: 'isRepost repost',
+    example: true,
   },
 };

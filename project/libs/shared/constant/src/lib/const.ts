@@ -14,8 +14,11 @@ export const AppRoutes = {
 export const Path = {
   Register: 'register',
   Comments: 'comments',
+  Likes: 'likes',
+  Reposts: 'reposts',
   NewPassword: 'new-password',
   Login: 'login',
+  Refresh: 'refresh',
   Upload: 'upload',
 } as const;
 
@@ -28,10 +31,11 @@ export const SpaceName = {
   AppUser: 'app.user',
   AppFile: 'app.file',
   AppNotify: 'app.notify',
-  Notify: 'notify',
   Rabbit: 'rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
+  JwtRefresh: 'jwt-refresh',
+  Local: 'local',
 } as const;
 
 export const TypePost = {
@@ -50,6 +54,11 @@ export const DefaultPort = {
   MongoPort: 27_017,
   RabbitPort: 5_672,
   MailSMTP: 25,
+} as const;
+
+export const Jwt = {
+  algorithmHs256: 'HS256',
+  expired: '2d',
 } as const;
 
 export const PathEnvironments = {
@@ -73,7 +82,13 @@ export const AuthToken = {
 
 export const TypePostList: TTypePost[] = Object.values(TypePost);
 
-export const AllowedKeys = ['typePost', 'userId', 'title', 'tags'];
+export const AllowedKeys = [
+  'typePost',
+  'userId',
+  'title',
+  'tags',
+  'linkDescription',
+];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
 export const RequiredKeysPhoto = ['imageUrl'];

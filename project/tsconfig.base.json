@@ -30,11 +30,13 @@
       "@project/file-config": ["libs/file/config/src/index.ts"],
       "@project/file-uploader": ["libs/file/file-uploader/src/index.ts"],
       "@project/helpers": ["libs/shared/helpers/src/index.ts"],
+      "@project/likes": ["libs/blog/likes/src/index.ts"],
       "@project/models": ["libs/blog/models/src/index.ts"],
       "@project/notify-config": ["libs/notify/config/src/index.ts"],
       "@project/notify-module": ["libs/account/notify/src/index.ts"],
       "@project/pipes": ["libs/shared/pipes/src/index.ts"],
-      "@project/post": ["libs/blog/post/src/index.ts"]
+      "@project/post": ["libs/blog/post/src/index.ts"],
+      "@project/repost": ["libs/blog/repost/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

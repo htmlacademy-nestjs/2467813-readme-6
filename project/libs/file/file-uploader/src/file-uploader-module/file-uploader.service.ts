@@ -20,6 +20,7 @@ import { FileUploaderRepository } from './file-uploader.repository';
 import { IStoredFile } from '@project/core';
 import { FileUploaderEntity } from './file-uploader.entity';
 import { FileUploaderFactory } from './file-uploader.factory';
+import { getMessageNotFoundDocument } from '@project/helpers';
 
 @Injectable()
 export class FileUploaderService {
@@ -90,7 +91,9 @@ export class FileUploaderService {
       updatedAt: undefined,
     });
 
-    await this.fileRepository.save(fileEntity);
+    const resultId = await this.fileRepository.save(fileEntity);
+
+    fileEntity.id = resultId;
     return fileEntity;
   }
 
@@ -98,7 +101,7 @@ export class FileUploaderService {
     const existFile = await this.fileRepository.findById(fileId);
 
     if (!existFile) {
-      throw new NotFoundException(`File with ${fileId} not found.`);
+      throw new NotFoundException(getMessageNotFoundDocument('File', fileId));
     }
 
     return existFile;
