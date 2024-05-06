@@ -1,4 +1,8 @@
-import { ClassTransformOptions, plainToInstance } from 'class-transformer';
+import {
+  ClassTransformOptions,
+  Transform,
+  plainToInstance,
+} from 'class-transformer';
 
 export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
 export type TimeAndUnit = {
@@ -74,4 +78,13 @@ export function parseTime(time: string): TimeAndUnit {
 
 export function getFullServerPath(host: string, port: number) {
   return `http://${host}:${port}`;
+}
+
+export function ToLowerCase() {
+  return Transform(({ value }) => {
+    if (Array.isArray(value)) {
+      return value.map((v) => (typeof v === 'string' ? v.toLowerCase() : v));
+    }
+    return typeof value === 'string' ? value.toLowerCase() : value;
+  });
 }

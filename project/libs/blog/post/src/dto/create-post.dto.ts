@@ -6,7 +6,6 @@ import {
   ArrayUnique,
   IsArray,
   IsIn,
-  IsLowercase,
   IsMongoId,
   IsOptional,
   IsString,
@@ -28,6 +27,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
+import { ToLowerCase } from '@project/helpers';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -165,14 +165,12 @@ export class CreatePostDto {
     description: OpenApiMessages.tags.description,
     example: OpenApiMessages.tags.example,
   })
-  @IsOptional()
   @ValidateIf((_, value) => value != null)
   @IsArray({
     message: CreatePostValidationMessage.tags.invalidFormat,
   })
   @ArrayMaxSize(8)
   @ArrayUnique()
-  @IsLowercase({ each: true })
   @MaxLength(Tags.Max, {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
@@ -181,6 +179,14 @@ export class CreatePostDto {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
+  @ToLowerCase()
   @ArrayNotEmpty()
+  @IsOptional()
   public tags?: string[];
+
+  public transformTagsToLowercase(): void {
+    if (this.tags) {
+      this.tags = this.tags.map((tag) => tag.toLowerCase());
+    }
+  }
 }
