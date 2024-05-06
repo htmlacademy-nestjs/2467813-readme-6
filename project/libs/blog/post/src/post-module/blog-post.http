@@ -9,6 +9,12 @@ GET http://localhost:3001/api/posts?limit=2&sortDirection=desc&page=1 HTTP/1.1
 
 ###
 
+# Get posts with filter 2
+
+GET http://localhost:3001/api/posts?limit=2&sortDirection=desc&page=1&userId=663362521895e601eb7e41c1 HTTP/1.1
+
+###
+
 # Get post by id
 GET http://localhost:3001/api/posts/c3fd591f-c1aa-4340-a995-93d7d4b259e7 HTTP/1.1
 

@@ -137,13 +137,15 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     query?: PostQuery,
     userId?: string
   ): Promise<IPaginationResult<PostEntity>> {
-    // 6638f11129c7b48cc03a297e
-    // 663362521895e601eb7e41c1
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput = {};
+
+    if (query?.userId) {
+      where.userId = query.userId;
+    }
 
     if (query?.sortDirection) {
       orderBy.createdAt = query.sortDirection;
