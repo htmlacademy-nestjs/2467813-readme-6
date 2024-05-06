@@ -113,7 +113,7 @@ export class PostRdo {
   public isRepost?: boolean;
 
   @Expose()
-  public originalPostId?: string;
+  public isLike?: boolean;
 
   @Expose()
   public likes: number;

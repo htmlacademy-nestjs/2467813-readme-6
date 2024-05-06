@@ -31,8 +31,6 @@ model Post {
   link               String?  @map("link")
   linkDescription    String?  @map("link_description")
   tags               String[] @map("tags")
-  isRepost           Boolean  @default(false) @map("is_repost")
-  originalPostId     String?  @map("original_post_id")
 
   comments Comment[]
   likes    Like[]

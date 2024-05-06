@@ -59,7 +59,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     });
   }
 
-  public async findById(id: string): Promise<PostEntity> {
+  public async findById(id: string, userId?: string): Promise<PostEntity> {
     const document = await this.client.post.findFirst({
       where: {
         id,
@@ -72,6 +72,22 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
             reposts: true,
           },
         },
+        likes: {
+          where: {
+            userId: userId ?? '',
+          },
+          select: {
+            id: true,
+          },
+        },
+        reposts: {
+          where: {
+            userId: userId ?? '',
+          },
+          select: {
+            id: true,
+          },
+        },
       },
     });
 
@@ -79,10 +95,16 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       throw new NotFoundException(getMessageNotFoundDocument('Post', id));
     }
 
-    const postEntity = this.createEntityFromDocument(document as IPost);
+    const { likes, reposts, ...postInfo } = document;
+    const postEntity = this.createEntityFromDocument(
+      postInfo as unknown as IPost
+    );
     postEntity.comments = document._count?.comments;
     postEntity.likes = document._count?.likes;
     postEntity.reposts = document._count?.reposts;
+    postEntity.isLike = likes.length > 0;
+    postEntity.isRepost = reposts.length > 0;
+
     return postEntity;
   }
 
@@ -111,7 +133,12 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     return;
   }
 
-  public async find(query?: PostQuery): Promise<IPaginationResult<PostEntity>> {
+  public async find(
+    query?: PostQuery,
+    userId?: string
+  ): Promise<IPaginationResult<PostEntity>> {
+    // 6638f11129c7b48cc03a297e
+    // 663362521895e601eb7e41c1
     const skip =
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
@@ -136,16 +163,37 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
               reposts: true,
             },
           },
+          likes: {
+            where: {
+              userId: userId ?? '',
+            },
+            select: {
+              id: true,
+            },
+          },
+          reposts: {
+            where: {
+              userId: userId ?? '',
+            },
+            select: {
+              id: true,
+            },
+          },
         },
       }),
       this.getPostCount(where),
     ]);
 
     const entities = records.map((record) => {
-      const postEntity = this.createEntityFromDocument(record as IPost);
+      const { likes, reposts, ...postInfo } = record;
+      const postEntity = this.createEntityFromDocument(
+        postInfo as unknown as IPost
+      );
       postEntity.comments = record._count?.comments;
       postEntity.likes = record._count?.likes;
       postEntity.reposts = record._count?.reposts;
+      postEntity.isLike = likes.length > 0;
+      postEntity.isRepost = reposts.length > 0;
       return postEntity;
     });
 

@@ -17,6 +17,7 @@ export interface IPost {
   linkDescription?: string;
   isPublished: boolean;
   isRepost?: boolean;
+  isLike?: boolean;
   originalPostId?: string;
   tags?: string[];
   likes?: number;

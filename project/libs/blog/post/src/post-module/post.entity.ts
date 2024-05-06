@@ -17,6 +17,7 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
   public linkDescription?: string;
   public isPublished?: boolean;
   public isRepost?: boolean;
+  public isLike?: boolean;
   public originalPostId?: string;
   public tags?: string[];
   public likes?: number;
@@ -49,6 +50,7 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
     this.linkDescription = post.linkDescription ?? undefined;
     this.isPublished = post.isPublished ?? undefined;
     this.isRepost = post.isRepost ?? undefined;
+    this.isLike = post.isLike ?? undefined;
     this.originalPostId = post.originalPostId ?? undefined;
     this.tags = post.tags ?? [];
     this.comments = post.comments ?? 0;
@@ -74,6 +76,7 @@ export class PostEntity extends Entity implements IStorableEntity<IPost> {
       linkDescription: this.linkDescription,
       isPublished: this.isPublished,
       isRepost: this.isRepost,
+      isLike: this.isLike,
       originalPostId: this.originalPostId,
       tags: this.tags,
       comments: this.comments,

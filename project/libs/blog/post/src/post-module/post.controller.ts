@@ -68,10 +68,6 @@ export class PostController {
     status: HttpStatus.OK,
     description: PostResponseMessage.PostListSuccess,
   })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: PostResponseMessage.IsNotLogged,
-  })
   @ApiQuery({
     name: 'limit',
     type: 'number',
