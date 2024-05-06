@@ -166,10 +166,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       where.userId = query.userId;
     }
 
-    if (query?.userId) {
-      where.userId = query.userId;
-    }
-
     if (query?.typePost) {
       where.typePost = query.typePost;
     }
