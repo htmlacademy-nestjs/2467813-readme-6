@@ -36,8 +36,8 @@ export const OpenApiMessages = {
     example: 'textPublic',
   },
   videoUrl: {
-    description: 'Post videoUrl',
-    example: 'videoUrl',
+    description: 'Post URL of the YouTube video',
+    example: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
   imageUrl: {
     description: 'Post imageUrl',

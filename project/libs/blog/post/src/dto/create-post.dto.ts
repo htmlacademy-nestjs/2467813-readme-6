@@ -27,7 +27,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
-import { ToLowerCase } from '@project/helpers';
+import { IsYoutubeUrl, ToLowerCase } from '@project/helpers';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -89,8 +89,11 @@ export class CreatePostDto {
     example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
-  @IsString({
-    message: CreatePostValidationMessage.videoUrl.invalidFormat,
+  // @IsString({
+  //   message: CreatePostValidationMessage.videoUrl.invalidFormat,
+  // })
+  @IsYoutubeUrl({
+    message: 'The URL must be a valid YouTube video URL',
   })
   public videoUrl?: string;
 
