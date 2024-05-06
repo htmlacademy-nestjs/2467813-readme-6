@@ -5,13 +5,19 @@ GET http://localhost:3001/api/posts HTTP/1.1
 
 # Get posts with filter
 
-GET http://localhost:3001/api/posts?limit=2&sortDirection=desc&page=1 HTTP/1.1
+GET http://localhost:3001/api/posts?limit=3&sortDirection=desc&page=1 HTTP/1.1
 
 ###
 
 # Get posts with filter 2
 
-GET http://localhost:3001/api/posts?limit=2&sortDirection=desc&page=1&userId=663362521895e601eb7e41c1 HTTP/1.1
+GET http://localhost:3001/api/posts?limit=3&sortDirection=asc&page=1&sortOption=Likes HTTP/1.1
+
+###
+
+# Get posts with filter 3
+
+GET http://localhost:3001/api/posts?limit=3&sortDirection=desc&page=1&userId=663362521895e601eb7e41c1 HTTP/1.1
 
 ###
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
@@ -9,6 +10,7 @@ import { PostEntity } from './post.entity';
 import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
 import { getMessageNotFoundDocument } from '@project/helpers';
+import { SortOption } from '@project/constant';
 
 @Injectable()
 export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
@@ -144,7 +146,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.PostWhereInput = {};
-    const orderBy: Prisma.PostOrderByWithRelationInput = {};
+    const orderBy: Prisma.PostOrderByWithRelationInput[] = [];
 
     where.isPublished = true;
 
@@ -152,8 +154,22 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       where.userId = query.userId;
     }
 
-    if (query?.sortDirection) {
-      orderBy.createdAt = query.sortDirection;
+    if (query?.sortOption === SortOption.Likes) {
+      orderBy.push({
+        likes: {
+          _count: query.sortDirection,
+        },
+      });
+    } else if (query?.sortOption === SortOption.Comments) {
+      orderBy.push({
+        comments: {
+          _count: query.sortDirection,
+        },
+      });
+    } else {
+      orderBy.push({
+        createdAt: query.sortDirection,
+      });
     }
 
     const [records, postCount] = await Promise.all([

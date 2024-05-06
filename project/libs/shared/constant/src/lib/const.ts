@@ -101,6 +101,12 @@ export const SortDirection = {
   Desc: 'desc',
 } as const;
 
+export const SortOption = {
+  Date: 'Date',
+  Likes: 'Likes',
+  Comments: 'Comments',
+} as const;
+
 export const AuthToken = {
   Name: 'AUTHORIZATION',
   Description: 'Token (формат: Bearer + "token")',

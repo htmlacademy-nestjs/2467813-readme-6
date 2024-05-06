@@ -1,7 +1,12 @@
 import { Transform } from 'class-transformer';
 import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
 
-import { SortDirection, TSortDirection } from '@project/constant';
+import {
+  SortDirection,
+  SortOption,
+  TSortDirection,
+  TSortOption,
+} from '@project/constant';
 
 import { PostCount } from '../const';
 
@@ -14,6 +19,10 @@ export class PostQuery {
   @IsIn(Object.values(SortDirection))
   @IsOptional()
   public sortDirection: TSortDirection = SortDirection.Desc;
+
+  @IsIn(Object.values(SortOption))
+  @IsOptional()
+  public sortOption?: TSortOption = SortOption.Date;
 
   @Transform(({ value }) => +value || PostCount.PageDefault)
   @IsOptional()
