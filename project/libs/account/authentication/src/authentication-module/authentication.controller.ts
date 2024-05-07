@@ -109,6 +109,7 @@ export class AuthenticationController {
     description: AuthToken.Description,
     required: true,
   })
+  @UseGuards(JwtAuthGuard)
   @Patch(`:id/${Path.NewPassword}`)
   public async updatePassword(
     @Param('id', MongoIdValidationPipe) id: string,

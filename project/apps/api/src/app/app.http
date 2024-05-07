@@ -32,8 +32,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
 
 {
-  "password": "1234567",
-  "newPassword": "123456"
+  "password": "123456",
+  "newPassword": "1234567"
 }
 
 ###

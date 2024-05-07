@@ -95,11 +95,18 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
   @Patch(Path.NewPassword)
-  public async updatePassword(@Body() dto: UpdateUserPassword) {
-    console.log(dto);
+  public async updatePassword(
+    @Body() dto: UpdateUserPassword,
+    @Req() req: Request
+  ) {
     const { data } = await this.httpService.axiosRef.patch(
       `${ApplicationServiceURL.Users}/${dto.userId}/${Path.NewPassword}`,
-      dto
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
     );
     return data;
   }
