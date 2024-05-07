@@ -23,9 +23,10 @@ export class PostService {
   ) {}
 
   public async getAllPosts(
-    query?: PostQuery
+    query?: PostQuery,
+    currentUserId?: string
   ): Promise<IPaginationResult<PostEntity>> {
-    return this.postRepository.find(query);
+    return this.postRepository.find(query, currentUserId);
   }
 
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {

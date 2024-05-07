@@ -116,8 +116,8 @@ GET http://localhost:{{PORT}}/api/blog  HTTP/1.1
 
 ###
 
-# Get all posts Authorization
-GET http://localhost:{{PORT}}/api/blog  HTTP/1.1
+# Get all posts Authorization filter
+GET http://localhost:{{PORT}}/api/blog?isPublished=false  HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
 
-###
+

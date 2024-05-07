@@ -133,6 +133,7 @@ export class BlogController {
         params: query,
         headers: {
           Authorization: req.headers['authorization'],
+          'X-User-Id': req.headers['X-User-Id'],
         },
       }
     );

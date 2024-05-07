@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 
@@ -117,8 +118,13 @@ export class PostController {
     required: false,
   })
   @Get()
-  public async index(@Query() query: PostQuery) {
-    const postsWithPagination = await this.postService.getAllPosts(query);
+  public async index(@Query() query: PostQuery, @Req() req: Request) {
+    const userId = req.headers['x-user-id'] ?? '';
+
+    const postsWithPagination = await this.postService.getAllPosts(
+      query,
+      userId
+    );
     const result = {
       ...postsWithPagination,
       entities: postsWithPagination.entities.map((post) => post.toPOJO()),
