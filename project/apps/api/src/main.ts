@@ -38,10 +38,9 @@ async function bootstrap() {
   await app.listen(port);
 
   Logger.log(
-    `🚀 Application is running on: ${getFullServerPath(
-      DEFAULT_HOST,
-      Number(port)
-    )}/${AppRoutes.Api}`
+    `🚀 Application is running on: ${getFullServerPath(DEFAULT_HOST, port)}/${
+      AppRoutes.Api
+    }`
   );
 }
 

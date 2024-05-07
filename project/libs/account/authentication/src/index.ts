@@ -6,3 +6,6 @@ export { UpdateUserPassword } from './dto/update-user-password.dto';
 
 export { LoggedUserRdo } from './rdo/logged-user.rdo';
 export { UserRdo } from './rdo/user.rdo';
+export { UpdateTokensRdo } from './rdo/update-tokens.rdo';
+
+export { AuthenticationResponseMessage, AuthUser } from './const/const';

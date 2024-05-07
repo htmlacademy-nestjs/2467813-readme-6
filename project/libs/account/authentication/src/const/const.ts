@@ -19,6 +19,7 @@ export const AuthUser = {
 
 export const AuthenticationResponseMessage = {
   LoggedSuccess: 'User has been successfully logged.',
+  UpdateTokens: 'tokens have been updated',
   LoggedError: 'Password or Login is wrong.',
   UserFound: 'User found',
   UserNotFound: 'User not found',

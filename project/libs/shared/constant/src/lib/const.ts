@@ -117,6 +117,7 @@ export const SortOption = {
 export const AuthToken = {
   Name: 'AUTHORIZATION',
   Description: 'Token (формат: Bearer + "token")',
+  DescriptionRefresh: 'Token (формат: Bearer + "refreshToken")',
 } as const;
 
 export const TypePostList: TTypePost[] = Object.values(TypePost);

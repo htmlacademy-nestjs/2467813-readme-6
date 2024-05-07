@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   ArgumentsHost,
   Catch,
@@ -14,8 +15,15 @@ export class AxiosExceptionFilter implements ExceptionFilter {
   catch(error: AxiosError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const status = error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR;
-    const message = error.response?.statusText || INTERNAL_SERVER_ERROR_MESSAGE;
+    const status = // @ts-ignore
+      error.response?.data?.statusCode ||
+      error.response?.status ||
+      HttpStatus.INTERNAL_SERVER_ERROR;
+    const message =
+      // @ts-ignore
+      error.response?.data?.message ||
+      error.response?.statusText ||
+      INTERNAL_SERVER_ERROR_MESSAGE;
 
     response.status(status).json({
       statusCode: status,

@@ -1,11 +1,36 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Post, Req, UseFilters } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Patch,
+  Post,
+  Req,
+  UseFilters,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 
-import { LoginUserDto } from '@project/authentication';
+import {
+  AuthUser,
+  AuthenticationResponseMessage,
+  LoggedUserRdo,
+  LoginUserDto,
+  UpdateTokensRdo,
+  UpdateUserPassword,
+  UserRdo,
+} from '@project/authentication';
 
-import { AppRoutes, ApplicationServiceURL, Path } from '@project/constant';
+import {
+  AppRoutes,
+  ApplicationServiceURL,
+  AuthToken,
+  Path,
+} from '@project/constant';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { InjectUserIdInterceptor } from '@project/interceptors';
+import { CheckAuthGuard } from './guards/check-auth.guard';
 
 @ApiTags(AppRoutes.Users)
 @Controller(AppRoutes.Users)
@@ -13,15 +38,42 @@ import { ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly httpService: HttpService) {}
 
+  @ApiResponse({
+    type: LoggedUserRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.LoggedSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthenticationResponseMessage.LoggedError,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: AuthenticationResponseMessage.UserNotFound,
+  })
   @Post(Path.Login)
-  public async login(@Body() loginUserDto: LoginUserDto) {
+  public async login(@Body() dto: LoginUserDto) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${Path.Login}`,
-      loginUserDto
+      dto
     );
     return data;
   }
 
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.DescriptionRefresh,
+    required: true,
+  })
+  @ApiResponse({
+    type: UpdateTokensRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.NewTokens,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthUser.IsNotLogged,
+  })
   @Post(Path.Refresh)
   public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
@@ -34,6 +86,28 @@ export class UsersController {
       }
     );
 
+    return data;
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthenticationResponseMessage.UpdateUserPassword,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
+  @Patch(Path.NewPassword)
+  public async updatePassword(@Body() dto: UpdateUserPassword) {
+    console.log(dto);
+    const { data } = await this.httpService.axiosRef.patch(
+      `${ApplicationServiceURL.Users}/${dto.userId}/${Path.NewPassword}`,
+      dto
+    );
     return data;
   }
 }
