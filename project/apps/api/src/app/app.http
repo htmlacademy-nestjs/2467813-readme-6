@@ -1,5 +1,6 @@
 @PORT = 3004
 
+# USERS
 ###
 
 # Create a new user
@@ -47,19 +48,65 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Get user by ID
 GET http://localhost:{{PORT}}/api/users/663362521895e601eb7e41c1 HTTP/1.1
 
+
+# POSTS
 ###
 
 # Create a new post 1 text
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNDk4OTgyOCwiZXhwIjoxNzE1MTYyNjI4fQ.Cx9zWTQ7ZqOAvbeABXUVRqnm9G54FUqgnKBHLsPRbj0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
 
 {
   "title": "Проверка text Проверка text Проверка text",
   "typePost": "text",
   "announcementPublic": "announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic",
   "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic",
-  "tags":["quote"]
+  "tags":["tagtext"]
+}
+
+###
+
+# Create a new post 2 quote
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+
+{
+  "title": "Some quote Some quote Some quote Some quote",
+  "typePost": "quote",
+  "textQuote": "textQuote textQuote textQuote textQuote textQuote textQuote",
+  "quoteAuthor": "quoteAuthor",
+  "tags":["quote","some"]
+}
+
+###
+
+# Create a new post 3 link
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+
+{
+  "title": "Some link Some link Some link Some link",
+  "typePost": "link",
+  "link": "https://htmlacademy.ru",
+  "linkDescription": "",
+  "tags":["link","some"]
+}
+
+###
+
+# Create a new post 4 video
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+
+{
+  "title": "Some video Some video Some video Some video",
+  "typePost": "video",
+  "videoUrl": "https://www.youtube.com/watch",
+  "tags":["video","some"]
 }
 
 ###

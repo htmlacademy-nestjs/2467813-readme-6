@@ -28,7 +28,7 @@ function getConfig(): IAppConfig {
   const config: IAppConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
-      process.env.PORT || `${DefaultPort.AppPortBlog}`,
+      process.env.PORT_BLOG || `${DefaultPort.AppPortBlog}`,
       DECIMAL_SYSTEM
     ),
   };

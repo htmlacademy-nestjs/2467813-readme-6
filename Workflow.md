@@ -221,7 +221,7 @@ POSTGRES_PORT=value - Порт пользователя в базе данных
 PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
 PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
 
-PORT=value - Порт для входящих подключений
+PORT_BLOG=value - Порт для входящих подключений
 ```
 
 #### Переменных окружения проекта `file`

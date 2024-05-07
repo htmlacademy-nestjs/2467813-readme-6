@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  HttpStatus,
   Post,
+  Req,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -10,10 +12,10 @@ import { HttpService } from '@nestjs/axios';
 
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { CheckAuthGuard } from './guards/check-auth.guard';
-import { AppRoutes, ApplicationServiceURL } from '@project/constant';
-import { CreatePostDto } from '@project/post';
+import { AppRoutes, ApplicationServiceURL, AuthToken } from '@project/constant';
+import { CreatePostDto, PostRdo, PostResponseMessage } from '@project/post';
 import { InjectUserIdInterceptor } from '@project/interceptors';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags(AppRoutes.Blog)
 @Controller(AppRoutes.Blog)
@@ -21,13 +23,32 @@ import { ApiTags } from '@nestjs/swagger';
 export class BlogController {
   constructor(private readonly httpService: HttpService) {}
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.CREATED,
+    description: PostResponseMessage.CreatedSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
-  @Post('/')
-  public async create(@Body() dto: CreatePostDto) {
+  @Post()
+  public async create(@Body() dto: CreatePostDto, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Blog}/`,
-      dto
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
     );
 
     return data;
