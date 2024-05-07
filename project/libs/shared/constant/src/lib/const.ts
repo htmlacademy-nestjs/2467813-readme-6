@@ -38,6 +38,7 @@ export const RabbitRouting = {
 
 export const SpaceName = {
   AppBlog: 'app.blog',
+  AppApi: 'app.api',
   AppUser: 'app.user',
   AppFile: 'app.file',
   AppNotify: 'app.notify',
@@ -92,6 +93,7 @@ export const PathEnvironments = {
   File: 'apps/file/file.env',
   User: 'apps/user/user.env',
   Blog: 'apps/blog/blog.env',
+  Api: 'apps/api/api.env',
 } as const;
 
 export const Environments = ['development', 'production', 'stage'] as const;
