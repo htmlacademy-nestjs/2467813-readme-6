@@ -35,6 +35,7 @@ import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { MongoIdValidationPipe } from '@project/pipes';
+import { UserDetailRdo } from './rdo/user-detail.rdo';
 
 @ApiTags(AppRoutes.Users)
 @Controller(AppRoutes.Users)
@@ -141,7 +142,7 @@ export class UsersController {
   }
 
   @ApiResponse({
-    type: UserRdo,
+    type: UserDetailRdo,
     status: HttpStatus.OK,
     description: AuthenticationResponseMessage.UserFound,
   })
@@ -154,6 +155,11 @@ export class UsersController {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.Users}/${id}`
     );
+    // FIXME: ДОБАВИТЬ загрузку Аватар пользователя
+    // FIXME: ДОБАВИТЬ
+    // Количество публикаций пользователя;
+    // Количество подписчиков;
+    // Уникальный идентификатор пользователя.
     return data;
   }
 }

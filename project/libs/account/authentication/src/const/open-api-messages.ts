@@ -19,6 +19,10 @@ export const OpenApiMessages = {
     description: 'User last name',
     example: 'Yanov',
   },
+  createdAt: {
+    description: 'User createdAt',
+    example: '2024-04-23 10:04:27.508',
+  },
   email: {
     description: 'User unique address',
     example: 'example@email.ru',

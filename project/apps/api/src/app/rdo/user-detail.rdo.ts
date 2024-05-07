@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { OpenApiMessages } from '@project/authentication';
 import { Expose } from 'class-transformer';
-import { OpenApiMessages } from '../const';
 
-export class UserRdo {
+export class UserDetailRdo {
   @ApiProperty({
     description: OpenApiMessages.id.description,
     example: OpenApiMessages.id.example,

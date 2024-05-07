@@ -9,3 +9,4 @@ export { UserRdo } from './rdo/user.rdo';
 export { UpdateTokensRdo } from './rdo/update-tokens.rdo';
 
 export { AuthenticationResponseMessage, AuthUser } from './const/const';
+export { OpenApiMessages } from './const/open-api-messages';
