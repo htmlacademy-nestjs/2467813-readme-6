@@ -14,6 +14,7 @@ import {
 import {
   AuthUser,
   AuthenticationResponseMessage,
+  CreateUserDto,
   LoggedUserRdo,
   LoginUserDto,
   UpdateTokensRdo,
@@ -39,6 +40,24 @@ export class UsersController {
   constructor(private readonly httpService: HttpService) {}
 
   @ApiResponse({
+    type: CreateUserDto,
+    status: HttpStatus.CREATED,
+    description: AuthenticationResponseMessage.UserCreated,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: AuthenticationResponseMessage.UserExist,
+  })
+  @Post(Path.Register)
+  public async register(@Body() dto: CreateUserDto) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Users}/${Path.Register}`,
+      dto
+    );
+    return data;
+  }
+
+  @ApiResponse({
     type: LoggedUserRdo,
     status: HttpStatus.OK,
     description: AuthenticationResponseMessage.LoggedSuccess,
@@ -55,6 +74,28 @@ export class UsersController {
   public async login(@Body() dto: LoginUserDto) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${Path.Login}`,
+      dto
+    );
+    return data;
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthenticationResponseMessage.UpdateUserPassword,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
+  @Patch(Path.NewPassword)
+  public async updatePassword(@Body() dto: UpdateUserPassword) {
+    console.log(dto);
+    const { data } = await this.httpService.axiosRef.patch(
+      `${ApplicationServiceURL.Users}/${dto.userId}/${Path.NewPassword}`,
       dto
     );
     return data;
@@ -86,28 +127,6 @@ export class UsersController {
       }
     );
 
-    return data;
-  }
-
-  @ApiResponse({
-    type: UserRdo,
-    status: HttpStatus.CREATED,
-    description: AuthenticationResponseMessage.UpdateUserPassword,
-  })
-  @ApiHeader({
-    name: AuthToken.Name,
-    description: AuthToken.Description,
-    required: true,
-  })
-  @UseGuards(CheckAuthGuard)
-  @UseInterceptors(InjectUserIdInterceptor)
-  @Patch(Path.NewPassword)
-  public async updatePassword(@Body() dto: UpdateUserPassword) {
-    console.log(dto);
-    const { data } = await this.httpService.axiosRef.patch(
-      `${ApplicationServiceURL.Users}/${dto.userId}/${Path.NewPassword}`,
-      dto
-    );
     return data;
   }
 }
