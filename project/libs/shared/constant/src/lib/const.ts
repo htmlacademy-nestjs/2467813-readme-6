@@ -1,6 +1,13 @@
 import { TTypePost } from './types/type-post.type';
+import { getFullServerPath } from '@project/helpers';
 
 export const DECIMAL_SYSTEM = 10;
+export const DEFAULT_HOST = 'localhost';
+
+export const HttpClient = {
+  MaxRedirects: 5,
+  Timeout: 3_000,
+} as const;
 
 export const AppRoutes = {
   Api: 'api',
@@ -9,13 +16,19 @@ export const AppRoutes = {
   Posts: 'posts',
   Comments: 'comments',
   Files: 'files',
+  Users: 'users',
+  Blog: 'blog',
 } as const;
 
 export const Path = {
   Register: 'register',
   Comments: 'comments',
+  Likes: 'likes',
+  Reposts: 'reposts',
   NewPassword: 'new-password',
   Login: 'login',
+  Refresh: 'refresh',
+  Check: 'check',
   Upload: 'upload',
 } as const;
 
@@ -28,10 +41,11 @@ export const SpaceName = {
   AppUser: 'app.user',
   AppFile: 'app.file',
   AppNotify: 'app.notify',
-  Notify: 'notify',
   Rabbit: 'rabbit',
   MongoDB: 'mongo_db',
   Jwt: 'jwt',
+  JwtRefresh: 'jwt-refresh',
+  Local: 'local',
 } as const;
 
 export const TypePost = {
@@ -47,9 +61,30 @@ export const DefaultPort = {
   AppPortBlog: 3_001,
   AppPortFile: 3_002,
   AppPortNotify: 3_003,
+  AppPortApp: 3_004,
   MongoPort: 27_017,
   RabbitPort: 5_672,
   MailSMTP: 25,
+} as const;
+
+export const ApplicationServiceURL = {
+  Users: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortUser)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Auth}`,
+  Blog: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortBlog)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Posts}`,
+  Notify: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortNotify)}/${
+    AppRoutes.Api
+  }`,
+  File: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortFile)}/${
+    AppRoutes.Api
+  }/${AppRoutes.Files}`,
+} as const;
+
+export const Jwt = {
+  algorithmHs256: 'HS256',
+  expired: '2d',
 } as const;
 
 export const PathEnvironments = {
@@ -73,7 +108,13 @@ export const AuthToken = {
 
 export const TypePostList: TTypePost[] = Object.values(TypePost);
 
-export const AllowedKeys = ['typePost', 'userId', 'title', 'tags'];
+export const AllowedKeys = [
+  'typePost',
+  'userId',
+  'title',
+  'tags',
+  'linkDescription',
+];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
 export const RequiredKeysPhoto = ['imageUrl'];

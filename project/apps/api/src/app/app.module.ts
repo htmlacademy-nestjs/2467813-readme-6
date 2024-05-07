@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { HttpModule } from '@nestjs/axios';
+import { HttpClient } from '@project/constant';
+import { UsersController } from './users.controller';
+import { CheckAuthGuard } from './guards/check-auth.guard';
+import { BlogController } from './blog.controller';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    HttpModule.register({
+      timeout: HttpClient.Timeout,
+      maxRedirects: HttpClient.MaxRedirects,
+    }),
+  ],
+  controllers: [UsersController, BlogController],
+  providers: [CheckAuthGuard],
 })
 export class AppModule {}

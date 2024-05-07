@@ -7,6 +7,10 @@ export const OpenApiMessages = {
     description: 'Access token',
     example: 'token',
   },
+  refreshToken: {
+    description: 'RefreshT token',
+    example: 'token',
+  },
   firstName: {
     description: 'User first name',
     example: 'Mikhail',
