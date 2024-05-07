@@ -2,7 +2,9 @@ import { HttpService } from '@nestjs/axios';
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
+  Param,
   Patch,
   Post,
   Req,
@@ -32,6 +34,7 @@ import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { CheckAuthGuard } from './guards/check-auth.guard';
+import { MongoIdValidationPipe } from '@project/pipes';
 
 @ApiTags(AppRoutes.Users)
 @Controller(AppRoutes.Users)
@@ -127,6 +130,23 @@ export class UsersController {
       }
     );
 
+    return data;
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.UserFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: AuthenticationResponseMessage.UserNotFound,
+  })
+  @Get(':id')
+  public async show(@Param('id', MongoIdValidationPipe) id: string) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.Users}/${id}`
+    );
     return data;
   }
 }

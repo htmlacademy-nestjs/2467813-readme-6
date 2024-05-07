@@ -44,6 +44,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
+# Get user by ID
+GET http://localhost:{{PORT}}/api/users/663362521895e601eb7e41c1 HTTP/1.1
+
+###
+
 # Create a new post 1 text
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
