@@ -34,6 +34,7 @@ import { InjectUserIdInterceptor } from '@project/interceptors';
 import { ApiHeader, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
 import { UserRdo } from '@project/authentication';
 import { PostUserWithPaginationRdo } from './rdo/post-user-with-pagination.rdo';
+import { NoCheckAuthGuard } from './guards/no-check-auth.guard';
 
 @ApiTags(AppRoutes.Blog)
 @Controller(AppRoutes.Blog)
@@ -122,12 +123,17 @@ export class BlogController {
     description: AuthToken.Description,
     required: false,
   })
+  @UseGuards(NoCheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
   @Get()
-  public async index(@Query() query: PostQuery) {
+  public async index(@Query() query: PostQuery, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.get<PostWithPaginationRdo>(
       `${ApplicationServiceURL.Blog}/`,
       {
         params: query,
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
       }
     );
 
