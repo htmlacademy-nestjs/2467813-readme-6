@@ -11,6 +11,8 @@ import {
   UseFilters,
   UseGuards,
   UseInterceptors,
+  Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
@@ -232,5 +234,40 @@ export class BlogController {
     );
 
     return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: PostResponseMessage.DeleteSuccess,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({ summary: OpenApiMessages.path.DeletePost.summary })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete(':id')
+  public async delete(@Param('id') id: string, @Req() req: Request) {
+    await this.httpService.axiosRef.delete(
+      `${ApplicationServiceURL.Blog}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+
+    return {};
   }
 }

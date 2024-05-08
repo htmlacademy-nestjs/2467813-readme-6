@@ -135,3 +135,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 {
   "title": "Some new quote Some quote Some quote Some quote"
 }
+
+###
+
+# Delete the post by id
+DELETE http://localhost:{{PORT}}/api/blog/3d6bcb34-1526-46aa-bebe-8317e2924c18 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+
+###

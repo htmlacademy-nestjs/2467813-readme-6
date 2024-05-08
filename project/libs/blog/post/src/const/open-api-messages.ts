@@ -136,5 +136,8 @@ export const OpenApiMessages = {
     UpdatePost: {
       summary: 'Редактировать пост',
     },
+    DeletePost: {
+      summary: 'Удалить пост',
+    },
   },
 };
