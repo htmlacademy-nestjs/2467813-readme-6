@@ -7,6 +7,7 @@ import { BlogController } from './blog.controller';
 import { ApiConfigModule } from '@project/api-config';
 import { CommentController } from './comment.controller';
 import { LikeController } from './like.controller';
+import { RepostController } from './repost.controller';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LikeController } from './like.controller';
     BlogController,
     CommentController,
     LikeController,
+    RepostController,
   ],
   providers: [CheckAuthGuard],
 })

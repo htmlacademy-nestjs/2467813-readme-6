@@ -14,6 +14,7 @@ export const AppRoutes = {
   Auth: 'auth',
   Swagger: 'swagger',
   Posts: 'posts',
+  Reposts: 'reposts',
   Comments: 'comments',
   Likes: 'likes',
   Files: 'files',

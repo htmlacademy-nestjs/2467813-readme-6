@@ -233,7 +233,12 @@ export class PostController {
     status: HttpStatus.UNAUTHORIZED,
     description: PostResponseMessage.IsNotLogged,
   })
-  @Post(`/:id/${Path.Reposts}`)
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @Put(`/:id/${Path.Reposts}`)
   public async isRepost(@Param('id') id: string, @Body() dto: CreateRepostDto) {
     const isRepost = await this.postService.createOrDeleteRepost(id, dto);
 
