@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Patch,
   Req,
   UseFilters,
   UseGuards,
@@ -30,6 +31,7 @@ import {
   PostRdo,
   PostResponseMessage,
   PostWithPaginationRdo,
+  UpdatePostDto,
 } from '@project/post';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import {
@@ -190,5 +192,45 @@ export class BlogController {
       ...data,
       user: dataUser,
     };
+  }
+
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.CREATED,
+    description: PostResponseMessage.UpdateSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({ summary: OpenApiMessages.path.UpdatePost.summary })
+  @Patch(':id')
+  public async update(
+    @Param('id') id: string,
+    @Body() dto: UpdatePostDto,
+    @Req() req: Request
+  ) {
+    const { data } = await this.httpService.axiosRef.patch(
+      `${ApplicationServiceURL.Blog}/${id}`,
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+
+    return data;
   }
 }

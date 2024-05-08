@@ -133,5 +133,8 @@ export const OpenApiMessages = {
     DetailPost: {
       summary: 'Получить детальный пост',
     },
+    UpdatePost: {
+      summary: 'Редактировать пост',
+    },
   },
 };
