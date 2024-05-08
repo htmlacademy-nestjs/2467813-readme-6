@@ -1,4 +1,4 @@
-import { TypePostList, TTypePost } from '@project/constant';
+import { TypePostList, TTypePost, TypePost } from '@project/constant';
 
 import {
   ArrayMaxSize,
@@ -52,6 +52,7 @@ export class CreatePostDto {
   @ApiProperty({
     description: OpenApiMessages.typePost.description,
     example: OpenApiMessages.typePost.example,
+    enum: TypePost,
   })
   @IsIn([...TypePostList], {
     message: CreatePostValidationMessage.typePost.invalidChoice,

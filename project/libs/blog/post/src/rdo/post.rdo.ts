@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { TTypePost } from '@project/constant';
+import { TTypePost, TypePost } from '@project/constant';
 import { ApiProperty } from '@nestjs/swagger';
 import { OpenApiMessages } from '../const';
 
@@ -21,6 +21,7 @@ export class PostRdo {
   @ApiProperty({
     description: OpenApiMessages.typePost.description,
     example: OpenApiMessages.typePost.example,
+    enum: TypePost,
   })
   @Expose()
   public typePost: TTypePost;
