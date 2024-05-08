@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { EmailSubscriberEntity } from './email-subscriber.entity';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
@@ -24,5 +25,34 @@ export class EmailSubscriberService {
     await this.emailSubscriberRepository.save(emailSubscriber);
 
     return emailSubscriber;
+  }
+
+  public async findSubscriberByEmail(
+    email: string
+  ): Promise<EmailSubscriberEntity> {
+    const existSubscriber = await this.emailSubscriberRepository.findByEmail(
+      email
+    );
+    if (!existSubscriber) {
+      throw new NotFoundException('The subscriber has not been found');
+    }
+    return existSubscriber;
+  }
+
+  public async updateSubscriber(email: string): Promise<EmailSubscriberEntity> {
+    const existSubscriber = await this.findSubscriberByEmail(email);
+    const subscriberEntity = new EmailSubscriberEntity().populate({
+      ...existSubscriber,
+      // newPostsUpdate: new Date(),
+    });
+    return await this.emailSubscriberRepository.update(
+      // @ts-ignore
+      subscriberEntity.id
+      // subscriberEntity
+    );
+  }
+
+  public async indexSubscribers(): Promise<EmailSubscriberEntity[]> {
+    return await this.emailSubscriberRepository.findMany();
   }
 }

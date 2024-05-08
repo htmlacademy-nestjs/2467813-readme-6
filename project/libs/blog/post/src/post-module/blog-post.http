@@ -131,3 +131,9 @@ Content-Type: application/json
 GET http://localhost:{{PORT}}/api/posts/663362521895e601eb7e41c1/statistics HTTP/1.1
 
 ###
+
+# Рассылка уведомлений на email о появлении новых публикаций.
+POST http://localhost:{{PORT}}/api/posts/newsletter-posts HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIzYTczMTliNDhiNjZlMjM1ZWJkNzAiLCJlbWFpbCI6Im5ldzJAdXNlci5jb20iLCJmaXJzdE5hbWUiOiJBbGV4IiwibGFzdE5hbWUiOiJCb2Noa2luIiwiaWF0IjoxNzA2Mjc1OTYyLCJleHAiOjE3MDg4Njc5NjJ9.NKmxS5VGH4YgSYHDT4a44MfNJmkBUG0MV13IddnDiXs
+
+###

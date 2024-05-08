@@ -14,6 +14,7 @@ export const AppRoutes = {
   Auth: 'auth',
   Swagger: 'swagger',
   Posts: 'posts',
+  Notifications: 'notifications',
   Reposts: 'reposts',
   Comments: 'comments',
   Likes: 'likes',
@@ -33,10 +34,12 @@ export const Path = {
   Refresh: 'refresh',
   Check: 'check',
   Upload: 'upload',
+  newsletterPosts: 'newsletter-posts',
 } as const;
 
 export const RabbitRouting = {
   AddSubscriber: 'notify.addSubscriber',
+  SendNewPosts: 'notify.sendNewPosts',
 } as const;
 
 export const SpaceName = {

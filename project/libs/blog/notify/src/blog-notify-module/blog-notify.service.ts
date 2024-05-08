@@ -4,23 +4,21 @@ import { ConfigType } from '@nestjs/config';
 
 import { RabbitRouting } from '@project/constant';
 import { rabbitConfig } from '@project/config';
-import { CreateSubscriberDto } from '../dto/create-subscriber.dto';
+import { CreatePostDto } from '../dto/create-post.dto';
 
 @Injectable()
-export class NotifyService {
+export class NotifyBlogService {
   constructor(
     private readonly rabbitClient: AmqpConnection,
     @Inject(rabbitConfig.KEY)
     private readonly rabbitOptions: ConfigType<typeof rabbitConfig>
   ) {}
 
-  public async registerSubscriber(dto: CreateSubscriberDto) {
-    return this.rabbitClient.publish<CreateSubscriberDto>(
+  public async sendNewPosts(posts: CreatePostDto[]) {
+    return this.rabbitClient.publish<CreatePostDto[]>(
       this.rabbitOptions.exchange,
-      RabbitRouting.AddSubscriber,
-      {
-        ...dto,
-      }
+      RabbitRouting.SendNewPosts,
+      posts
     );
   }
 }

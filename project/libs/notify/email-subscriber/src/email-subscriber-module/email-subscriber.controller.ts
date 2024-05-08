@@ -22,4 +22,26 @@ export class EmailSubscriberController {
     this.subscriberService.addSubscriber(subscriber);
     this.mailService.sendNotifyNewSubscriber(subscriber);
   }
+
+  @RabbitSubscribe({
+    exchange: 'readme.notify',
+    routingKey: RabbitRouting.SendNewPosts,
+    queue: 'readme.notify.posts',
+  })
+  public async sendNewPosts(posts: any[]): Promise<void> {
+    const subscriberEntitiesList =
+      await this.subscriberService.indexSubscribers();
+    // subscriberEntitiesList.forEach((subscriberEntity) => {
+    //   const { email } = subscriberEntity;
+    //   const dto: any = {
+    //     email,
+    //     // posts: filterNewPosts(posts, newPostsUpdate),
+    //     // posts: newPostsUpdate,
+    //   };
+    //   this.mailService.sendNotifyNewPosts(dto);
+    //   this.subscriberService.updateSubscriber(email);
+    // });
+    console.log('posts==>', posts);
+    console.log('subscriberEntitiesList==>', subscriberEntitiesList);
+  }
 }

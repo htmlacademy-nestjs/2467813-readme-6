@@ -34,6 +34,7 @@ import {
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   LikeResponseMessage,
+  NotificationResponseMessage,
   OpenApiMessages,
   PostResponseMessage,
   RepostResponseMessage,
@@ -42,11 +43,15 @@ import { PostGuard } from '../guard/post.guard';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeRdo } from '../rdo/like.rdo';
 import { CreateRepostDto } from '../dto/create-repost.dto';
+import { NotifyBlogService } from '@project/blog-notify';
 
 @ApiTags(AppRoutes.Posts)
 @Controller(AppRoutes.Posts)
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly notifyBlogService: NotifyBlogService
+  ) {}
 
   @ApiResponse({
     type: PostRdo,
@@ -266,5 +271,18 @@ export class PostController {
     const count = await this.postService.getStatistics(userId);
 
     return count;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: NotificationResponseMessage.NotificationEmail,
+  })
+  @Post(Path.newsletterPosts)
+  public async sendNewsletter(@Query() query: PostQuery, @Req() req: Request) {
+    const userId = req.headers['x-user-id'] ?? '';
+    const posts = await this.postService.getAllPosts(query, userId);
+    await this.notifyBlogService.sendNewPosts(
+      posts.entities.map((post) => post.toPOJO())
+    );
   }
 }

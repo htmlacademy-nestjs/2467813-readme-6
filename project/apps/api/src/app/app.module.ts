@@ -8,6 +8,7 @@ import { ApiConfigModule } from '@project/api-config';
 import { CommentController } from './comment.controller';
 import { LikeController } from './like.controller';
 import { RepostController } from './repost.controller';
+import { NotificationController } from './notification.controller';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RepostController } from './repost.controller';
     CommentController,
     LikeController,
     RepostController,
+    NotificationController,
   ],
   providers: [CheckAuthGuard],
 })

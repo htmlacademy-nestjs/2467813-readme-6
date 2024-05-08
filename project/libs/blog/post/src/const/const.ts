@@ -145,3 +145,7 @@ export const RepostResponseMessage = {
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',
 } as const;
+
+export const NotificationResponseMessage = {
+  NotificationEmail: 'Email notifications about new posts',
+} as const;

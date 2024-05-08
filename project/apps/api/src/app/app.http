@@ -166,6 +166,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
+# =======> COMMENTS
+
 # Create a new comment for post
 POST http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
@@ -193,6 +195,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
+# =======> LIKES
+
 # Like post by id
 PUT http://localhost:{{PORT}}/api/likes/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
@@ -204,11 +208,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
+# =======> REPOSTS
+
 # Repost post by id
 POST http://localhost:{{PORT}}/api/reposts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
 
 {}
+
+###
+
+# =======> NOTIFICATIONS
+
+# Рассылка уведомлений на email о появлении новых публикаций.
+GET http://localhost:{{PORT}}/api/notifications/newsletter-posts HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIzYTczMTliNDhiNjZlMjM1ZWJkNzAiLCJlbWFpbCI6Im5ldzJAdXNlci5jb20iLCJmaXJzdE5hbWUiOiJBbGV4IiwibGFzdE5hbWUiOiJCb2Noa2luIiwiaWF0IjoxNzA2Mjc1OTYyLCJleHAiOjE3MDg4Njc5NjJ9.NKmxS5VGH4YgSYHDT4a44MfNJmkBUG0MV13IddnDiXs
 
 ###

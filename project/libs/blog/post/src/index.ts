@@ -18,6 +18,7 @@ export {
   PostResponseMessage,
   LikeResponseMessage,
   RepostResponseMessage,
+  NotificationResponseMessage,
 } from './const/index';
 export { OpenApiMessages } from './const/open-api-messages';
 
