@@ -51,4 +51,24 @@ export const OpenApiMessages = {
     description: 'Comment comments',
     example: 2,
   },
+  sortDirection: {
+    name: 'sortDirection',
+  },
+  page: {
+    name: 'page',
+  },
+  limit: {
+    name: 'limit',
+  },
+  path: {
+    create: {
+      summary: 'Создать комментарий',
+    },
+    listComments: {
+      summary: 'Список комментариев для поста',
+    },
+    DeleteComment: {
+      summary: 'Удалить комментарий',
+    },
+  },
 };

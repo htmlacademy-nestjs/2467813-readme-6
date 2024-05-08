@@ -16,7 +16,7 @@ import { CreateCommentDto } from '../dto/create-comment.dto';
 import { CommentRdo } from '../rdo/comment.rdo';
 import { AppRoutes, Path, AuthToken, SortDirection } from '@project/constant';
 import { ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CommentResponseMessage } from '../const';
+import { CommentResponseMessage, OpenApiMessages } from '../const';
 import { CommentWithPaginationRdo } from '../rdo/comment-with-pagination.rdo';
 import { CommentQuery } from './comment.query';
 
@@ -35,17 +35,17 @@ export class CommentController {
     description: CommentResponseMessage.NotFound,
   })
   @ApiQuery({
-    name: 'limit',
+    name: OpenApiMessages.limit.name,
     type: 'number',
     required: false,
   })
   @ApiQuery({
-    name: 'sortDirection',
+    name: OpenApiMessages.sortDirection.name,
     enum: SortDirection,
     required: false,
   })
   @ApiQuery({
-    name: 'page',
+    name: OpenApiMessages.page.name,
     type: 'number',
     required: false,
   })

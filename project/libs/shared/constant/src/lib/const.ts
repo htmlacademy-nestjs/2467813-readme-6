@@ -15,6 +15,7 @@ export const AppRoutes = {
   Swagger: 'swagger',
   Posts: 'posts',
   Comments: 'comments',
+  Likes: 'likes',
   Files: 'files',
   Users: 'users',
   Blog: 'blog',

@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { OpenApiMessages } from '@project/comment';
 import { Expose } from 'class-transformer';
-import { CommentRdo } from './comment.rdo';
-import { OpenApiMessages } from '../const';
+import { CommentUserRdo } from './comment-user.rdo';
 
-export class CommentWithPaginationRdo {
+export class CommentUserWithPaginationRdo {
   @ApiProperty({
     description: OpenApiMessages.totalPages.description,
     example: OpenApiMessages.totalPages.example,
@@ -34,9 +34,9 @@ export class CommentWithPaginationRdo {
 
   @ApiProperty({
     description: OpenApiMessages.entities.description,
-    type: CommentRdo,
+    type: CommentUserRdo,
     isArray: true,
   })
   @Expose()
-  public entities: CommentRdo[];
+  public entities: CommentUserRdo[];
 }
