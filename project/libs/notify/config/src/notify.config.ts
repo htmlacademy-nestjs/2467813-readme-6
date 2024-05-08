@@ -53,7 +53,7 @@ function getConfig(): INotifyConfig {
   const config: INotifyConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
-      process.env.PORT || `${DefaultPort.AppPortNotify}`,
+      process.env.PORT_NOTIFY || `${DefaultPort.AppPortNotify}`,
       DECIMAL_SYSTEM
     ),
     db: {
