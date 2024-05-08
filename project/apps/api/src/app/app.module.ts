@@ -6,6 +6,7 @@ import { CheckAuthGuard } from './guards/check-auth.guard';
 import { BlogController } from './blog.controller';
 import { ApiConfigModule } from '@project/api-config';
 import { CommentController } from './comment.controller';
+import { LikeController } from './like.controller';
 
 @Module({
   imports: [
@@ -15,7 +16,12 @@ import { CommentController } from './comment.controller';
       maxRedirects: HttpClient.MaxRedirects,
     }),
   ],
-  controllers: [UsersController, BlogController, CommentController],
+  controllers: [
+    UsersController,
+    BlogController,
+    CommentController,
+    LikeController,
+  ],
   providers: [CheckAuthGuard],
 })
 export class AppModule {}

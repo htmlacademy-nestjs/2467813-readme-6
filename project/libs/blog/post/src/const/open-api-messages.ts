@@ -127,6 +127,9 @@ export const OpenApiMessages = {
     create: {
       summary: 'Создать пост',
     },
+    createOrDeleteLike: {
+      summary: 'Создать/Удалить лайк к посту',
+    },
     listPost: {
       summary: 'Получить список постов',
     },

@@ -7,11 +7,13 @@ export { PostModule } from './post-module/post.module';
 
 export { CreatePostDto } from './dto/create-post.dto';
 export { UpdatePostDto } from './dto/update-post.dto';
+export { CreateLikeDto } from './dto/create-like.dto';
 
 export { PostWithPaginationRdo } from './rdo/post-with-pagination.rdo';
 export { PostRdo } from './rdo/post.rdo';
+export { LikeRdo } from './rdo/like.rdo';
 
-export { PostResponseMessage } from './const/index';
+export { PostResponseMessage, LikeResponseMessage } from './const/index';
 export { OpenApiMessages } from './const/open-api-messages';
 
 export { PostQuery } from './post-module/post.query';

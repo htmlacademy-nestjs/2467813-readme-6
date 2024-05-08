@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -204,7 +205,12 @@ export class PostController {
     status: HttpStatus.UNAUTHORIZED,
     description: PostResponseMessage.IsNotLogged,
   })
-  @Post(`/:id/${Path.Likes}`)
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: true,
+  })
+  @Put(`/:id/${Path.Likes}`)
   public async isLike(@Param('id') id: string, @Body() dto: CreateLikeDto) {
     const isLike = await this.postService.createOrDeleteLike(id, dto);
 
