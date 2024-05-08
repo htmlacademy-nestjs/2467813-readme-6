@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { PrismaClientService } from '@project/models';
 import { ILike } from '@project/core';
@@ -16,7 +20,11 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, ILike> {
     super(entityFactory, client);
   }
 
-  public async existingLike(userId: string, postId: string): Promise<boolean> {
+  public async existingLike(
+    userId: string,
+    postId: string,
+    isLike: boolean
+  ): Promise<boolean> {
     const existingLike = await this.client.like.findUnique({
       where: {
         userId_postId: {
@@ -25,6 +33,14 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, ILike> {
         },
       },
     });
+
+    if (existingLike && isLike) {
+      throw new ForbiddenException('You can`t add a like twice');
+    }
+
+    if (!existingLike && !isLike) {
+      throw new NotFoundException('You can`t delete a like that doesn`t exist');
+    }
 
     if (existingLike) {
       await this.deleteById(existingLike.id);

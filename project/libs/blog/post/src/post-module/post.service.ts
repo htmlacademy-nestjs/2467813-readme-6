@@ -71,7 +71,7 @@ export class PostService {
   public async createOrDeleteLike(id: string, dto: CreateLikeDto) {
     const existsPost = await this.postRepository.findById(id);
 
-    return await this.likeService.toggleLikes(dto.userId, existsPost.id);
+    return await this.likeService.toggleLikes(dto, existsPost.id);
   }
 
   public async createOrDeleteRepost(id: string, dto: CreateRepostDto) {
