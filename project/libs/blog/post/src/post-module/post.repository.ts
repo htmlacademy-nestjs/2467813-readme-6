@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   ConflictException,
   Injectable,
@@ -84,7 +83,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           select: {
             comments: true,
             likes: true,
-            // reposts: true,
           },
         },
         likes: {
@@ -95,14 +93,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
             id: true,
           },
         },
-        // reposts: {
-        //   where: {
-        //     userId: currentUserId ?? '',
-        //   },
-        //   select: {
-        //     id: true,
-        //   },
-        // },
       },
     });
 
@@ -110,19 +100,21 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       throw new NotFoundException(getMessageNotFoundDocument('Post', id));
     }
 
-    const {
-      likes,
-      // reposts,
-      ...postInfo
-    } = document;
+    const repostCount = await this.client.post.count({
+      where: {
+        originPostId: id,
+        isRepost: true,
+      },
+    });
+
+    const { likes, ...postInfo } = document;
     const postEntity = this.createEntityFromDocument(
       postInfo as unknown as IPost
     );
     postEntity.comments = document._count?.comments;
     postEntity.likes = document._count?.likes;
-    // postEntity.reposts = document._count?.reposts;
+    postEntity.reposts = repostCount || 0;
     postEntity.isLike = likes.length > 0;
-    // postEntity.isRepost = reposts.length > 0;
 
     return postEntity;
   }
@@ -169,6 +161,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       where.userId = currentUserId;
     } else {
       where.isPublished = true;
+      where.isRepost = false;
     }
 
     if (query?.search) {
@@ -215,6 +208,24 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       });
     }
 
+    const repostCounts = await this.client.post.groupBy({
+      by: ['originPostId'],
+      where: {
+        originPostId: {
+          not: null,
+        },
+        isRepost: true,
+      },
+      _count: {
+        originPostId: true,
+      },
+    });
+
+    const repostsMap = repostCounts.reduce((map, { originPostId, _count }) => {
+      map[originPostId] = _count.originPostId;
+      return map;
+    }, {});
+
     const [records, postCount] = await Promise.all([
       this.client.post.findMany({
         where,
@@ -226,7 +237,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
             select: {
               comments: true,
               likes: true,
-              // reposts: true,
             },
           },
           likes: {
@@ -237,33 +247,20 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
               id: true,
             },
           },
-          // reposts: {
-          //   where: {
-          //     userId: currentUserId ?? '',
-          //   },
-          //   select: {
-          //     id: true,
-          //   },
-          // },
         },
       }),
       this.getPostCount(where),
     ]);
 
     const entities = records.map((record) => {
-      const {
-        likes,
-        // reposts
-        ...postInfo
-      } = record;
+      const { likes, ...postInfo } = record;
       const postEntity = this.createEntityFromDocument(
         postInfo as unknown as IPost
       );
       postEntity.comments = record._count?.comments;
       postEntity.likes = record._count?.likes;
-      // postEntity.reposts = record._count?.reposts;
+      postEntity.reposts = repostsMap[record.id] || 0;
       postEntity.isLike = likes.length > 0;
-      // postEntity.isRepost = reposts.length > 0;
       return postEntity;
     });
 

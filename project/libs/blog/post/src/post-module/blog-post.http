@@ -26,7 +26,7 @@ GET http://localhost:{{PORT}}/api/posts?limit=3&sortDirection=desc&page=1&userId
 ###
 
 # Get post by id
-GET http://localhost:{{PORT}}/api/posts/c3fd591f-c1aa-4340-a995-93d7d4b259e7 HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts/93ec8d33-2cb5-4401-a965-64e761816866 HTTP/1.1
 
 ###
 
@@ -96,11 +96,11 @@ DELETE http://localhost:{{PORT}}/api/posts/7c16003f-31b5-42a6-a0d7-77d73f2a9dfe 
 ###
 
 # Update post by id
-PATCH http://localhost:{{PORT}}/api/posts/3918319f-63b5-46a8-96cb-1987a0ca3b50 HTTP/1.1
+PATCH http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Some new text Some new text Some new text"
+  "title": "Some new quote Some new quote Some new quote"
 }
 
 ###

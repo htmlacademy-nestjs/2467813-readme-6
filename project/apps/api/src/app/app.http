@@ -123,7 +123,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 ###
 
 # Get post by id
-GET http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
+GET http://localhost:{{PORT}}/api/blog/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 
 ###
 
@@ -161,7 +161,7 @@ GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c 
 ###
 
 # Get posts with filter
-GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c /comments?limit=1&sortDirection=asc&page=1 HTTP/1.1
+GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c/comments?limit=1&sortDirection=asc&page=1 HTTP/1.1
 
 ###
 

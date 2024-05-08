@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -53,6 +54,11 @@ export class PostService {
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
     const existsPost = await this.postRepository.findById(id);
+
+    if (existsPost.isRepost) {
+      throw new BadRequestException('You cannot edit a repost');
+    }
+
     let hasChanges = false;
 
     for (const [key, value] of Object.entries(dto)) {
@@ -93,6 +99,7 @@ export class PostService {
       originPostId: id,
       originUserId: existsPost.userId,
       updatedAt: new Date(),
+      createdAt: new Date(),
     };
     const newPost = this.entityFactory.create(repost);
 
