@@ -75,11 +75,11 @@ export class PostUserRdo {
   public videoUrl?: string;
 
   @ApiProperty({
-    description: OpenApiMessages.imageUrl.description,
-    example: OpenApiMessages.imageUrl.example,
+    description: OpenApiMessages.image.description,
+    example: OpenApiMessages.image.example,
   })
   @Expose()
-  public imageUrl?: string;
+  public image?: string;
 
   @ApiProperty({
     description: OpenApiMessages.textQuote.description,

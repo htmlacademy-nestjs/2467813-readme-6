@@ -13,7 +13,6 @@ export { CreateRepostDto } from './dto/create-repost.dto';
 export { PostWithPaginationRdo } from './rdo/post-with-pagination.rdo';
 export { PostRdo } from './rdo/post.rdo';
 export { LikeRdo } from './rdo/like.rdo';
-export { RepostRdo } from './rdo/repost.rdo';
 
 export {
   PostResponseMessage,

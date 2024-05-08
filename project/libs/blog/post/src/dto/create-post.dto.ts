@@ -98,14 +98,14 @@ export class CreatePostDto {
   public videoUrl?: string;
 
   @ApiProperty({
-    description: OpenApiMessages.imageUrl.description,
-    example: OpenApiMessages.imageUrl.example,
+    description: OpenApiMessages.image.description,
+    example: OpenApiMessages.image.example,
   })
   @IsOptional()
   @IsString({
-    message: CreatePostValidationMessage.imageUrl.invalidFormat,
+    message: CreatePostValidationMessage.image.invalidFormat,
   })
-  public imageUrl?: string;
+  public image?: string;
 
   @ApiProperty({
     description: OpenApiMessages.textQuote.description,

@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { IPaginationResult, IPost } from '@project/core';
@@ -38,17 +42,21 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       data: {
         userId: pojoEntity.userId,
         title: pojoEntity.title,
+        updatedAt: pojoEntity.updatedAt,
         typePost: pojoEntity.typePost,
         announcementPublic: pojoEntity.announcementPublic,
         textPublic: pojoEntity.textPublic,
         videoUrl: pojoEntity.videoUrl,
-        imageUrl: pojoEntity.imageUrl,
+        image: pojoEntity.image,
         textQuote: pojoEntity.textQuote,
         quoteAuthor: pojoEntity.quoteAuthor,
         link: pojoEntity.link,
         linkDescription: pojoEntity.linkDescription,
         tags: pojoEntity.tags,
         isPublished: pojoEntity.isPublished,
+        isRepost: pojoEntity.isRepost,
+        originPostId: pojoEntity.originPostId,
+        originUserId: pojoEntity.originUserId,
       },
     });
 
@@ -76,7 +84,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
           select: {
             comments: true,
             likes: true,
-            reposts: true,
+            // reposts: true,
           },
         },
         likes: {
@@ -87,14 +95,14 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
             id: true,
           },
         },
-        reposts: {
-          where: {
-            userId: currentUserId ?? '',
-          },
-          select: {
-            id: true,
-          },
-        },
+        // reposts: {
+        //   where: {
+        //     userId: currentUserId ?? '',
+        //   },
+        //   select: {
+        //     id: true,
+        //   },
+        // },
       },
     });
 
@@ -102,15 +110,19 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       throw new NotFoundException(getMessageNotFoundDocument('Post', id));
     }
 
-    const { likes, reposts, ...postInfo } = document;
+    const {
+      likes,
+      // reposts,
+      ...postInfo
+    } = document;
     const postEntity = this.createEntityFromDocument(
       postInfo as unknown as IPost
     );
     postEntity.comments = document._count?.comments;
     postEntity.likes = document._count?.likes;
-    postEntity.reposts = document._count?.reposts;
+    // postEntity.reposts = document._count?.reposts;
     postEntity.isLike = likes.length > 0;
-    postEntity.isRepost = reposts.length > 0;
+    // postEntity.isRepost = reposts.length > 0;
 
     return postEntity;
   }
@@ -128,7 +140,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
         announcementPublic: pojoEntity.announcementPublic,
         textPublic: pojoEntity.textPublic,
         videoUrl: pojoEntity.videoUrl,
-        imageUrl: pojoEntity.imageUrl,
+        image: pojoEntity.image,
         textQuote: pojoEntity.textQuote,
         quoteAuthor: pojoEntity.quoteAuthor,
         link: pojoEntity.link,
@@ -214,7 +226,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
             select: {
               comments: true,
               likes: true,
-              reposts: true,
+              // reposts: true,
             },
           },
           likes: {
@@ -225,29 +237,33 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
               id: true,
             },
           },
-          reposts: {
-            where: {
-              userId: currentUserId ?? '',
-            },
-            select: {
-              id: true,
-            },
-          },
+          // reposts: {
+          //   where: {
+          //     userId: currentUserId ?? '',
+          //   },
+          //   select: {
+          //     id: true,
+          //   },
+          // },
         },
       }),
       this.getPostCount(where),
     ]);
 
     const entities = records.map((record) => {
-      const { likes, reposts, ...postInfo } = record;
+      const {
+        likes,
+        // reposts
+        ...postInfo
+      } = record;
       const postEntity = this.createEntityFromDocument(
         postInfo as unknown as IPost
       );
       postEntity.comments = record._count?.comments;
       postEntity.likes = record._count?.likes;
-      postEntity.reposts = record._count?.reposts;
+      // postEntity.reposts = record._count?.reposts;
       postEntity.isLike = likes.length > 0;
-      postEntity.isRepost = reposts.length > 0;
+      // postEntity.isRepost = reposts.length > 0;
       return postEntity;
     });
 
@@ -263,6 +279,23 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
   public async getUserPostCount(userId: string) {
     return this.getPostCount({
       userId,
+      isRepost: false,
     });
+  }
+
+  public async findRepost(originPostId: string, userId: string) {
+    const document = await this.client.post.findFirst({
+      where: {
+        originPostId,
+        userId,
+        isRepost: true,
+      },
+    });
+
+    if (document) {
+      throw new ConflictException('Repost already exists');
+    }
+
+    return document;
   }
 }

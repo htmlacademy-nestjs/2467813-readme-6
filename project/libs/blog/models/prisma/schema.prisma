@@ -25,16 +25,18 @@ model Post {
   announcementPublic String?  @map("announcement_public")
   textPublic         String?  @map("text_public")
   videoUrl           String?  @map("video_url")
-  imageUrl           String?  @map("image_url")
+  image              String?  @map("image")
   textQuote          String?  @map("text_quote")
   quoteAuthor        String?  @map("quote_author")
   link               String?  @map("link")
   linkDescription    String?  @map("link_description")
   tags               String[] @map("tags")
+  isRepost           Boolean? @default(false) @map("is_repost")
+  originPostId       String?  @map("origin_post_id")
+  originUserId       String?  @map("origin_user_id")
 
   comments Comment[]
   likes    Like[]
-  reposts  Repost[]
 
   @@index([title, tags])
   @@map("posts")
@@ -61,15 +63,4 @@ model Like {
 
   @@unique([userId, postId])
   @@map("likes")
-}
-
-model Repost {
-  id     String @id @default(uuid())
-  userId String @map("user_id")
-  postId String @map("post_id")
-
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, postId])
-  @@map("reposts")
 }

@@ -41,9 +41,9 @@ export const OpenApiMessages = {
     description: 'Post URL of the YouTube video',
     example: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
-  imageUrl: {
-    description: 'Post imageUrl',
-    example: 'imageUrl',
+  image: {
+    description: 'Post image',
+    example: 'image',
   },
   textQuote: {
     description: 'Post textQuote',
@@ -130,8 +130,8 @@ export const OpenApiMessages = {
     createOrDeleteLike: {
       summary: 'Создать/Удалить лайк к посту',
     },
-    createOrDeleteRepost: {
-      summary: 'Создать/Удалить репост',
+    createRepost: {
+      summary: 'Создать репост',
     },
     listPost: {
       summary: 'Получить список постов',

@@ -3,16 +3,9 @@ import { CommentModule } from '@project/comment';
 import { PostModule } from '@project/post';
 import { BlogConfigModule } from '@project/blog-config';
 import { LikeModule } from '@project/likes';
-import { RepostModule } from '@project/repost';
 
 @Module({
-  imports: [
-    BlogConfigModule,
-    CommentModule,
-    PostModule,
-    LikeModule,
-    RepostModule,
-  ],
+  imports: [BlogConfigModule, CommentModule, PostModule, LikeModule],
   controllers: [],
   providers: [],
 })

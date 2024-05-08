@@ -135,7 +135,7 @@ export const AllowedKeys = [
 ];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
-export const RequiredKeysPhoto = ['imageUrl'];
+export const RequiredKeysPhoto = ['image'];
 export const RequiredKeysQuote = ['textQuote', 'quoteAuthor'];
 export const RequiredKeysLink = ['link'];
 

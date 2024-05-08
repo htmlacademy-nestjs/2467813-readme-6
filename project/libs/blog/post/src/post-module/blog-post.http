@@ -117,11 +117,10 @@ Content-Type: application/json
 ###
 
 # Repost post by id
-PUT http://localhost:{{PORT}}/api/posts/c3fd591f-c1aa-4340-a995-93d7d4b259e7/reposts HTTP/1.1
+POST http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c/reposts HTTP/1.1
 Content-Type: application/json
 
 {
-  "isRepost": true,
   "userId": "663362521895e601eb7e41c1"
 }
 

@@ -10,17 +10,19 @@ export interface IPost {
   announcementPublic?: string;
   textPublic?: string;
   videoUrl?: string;
-  imageUrl?: string;
+  image?: string;
   textQuote?: string;
   quoteAuthor?: string;
   link?: string;
   linkDescription?: string;
   isPublished?: boolean;
-  isRepost?: boolean;
   isLike?: boolean;
   originalPostId?: string;
   tags?: string[];
   likes?: number;
   comments?: number;
   reposts?: number;
+  isRepost?: boolean;
+  originPostId?: string;
+  originUserId?: string;
 }

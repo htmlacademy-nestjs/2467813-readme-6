@@ -41,7 +41,6 @@ import {
 import { PostGuard } from '../guard/post.guard';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeRdo } from '../rdo/like.rdo';
-import { RepostRdo } from '../rdo/repost.rdo';
 import { CreateRepostDto } from '../dto/create-repost.dto';
 
 @ApiTags(AppRoutes.Posts)
@@ -221,13 +220,21 @@ export class PostController {
   }
 
   @ApiResponse({
-    type: RepostRdo,
+    type: PostRdo,
     status: HttpStatus.CREATED,
     description: RepostResponseMessage.RepostSuccess,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: PostResponseMessage.IsYourRepost,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: PostResponseMessage.IsRepostExists,
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
@@ -238,14 +245,11 @@ export class PostController {
     description: AuthToken.Description,
     required: true,
   })
-  @Put(`/:id/${Path.Reposts}`)
+  @Post(`/:id/${Path.Reposts}`)
   public async isRepost(@Param('id') id: string, @Body() dto: CreateRepostDto) {
-    const isRepost = await this.postService.createOrDeleteRepost(id, dto);
+    const repost = await this.postService.createRepost(id, dto);
 
-    return fillDto(RepostRdo, {
-      isRepost,
-      postId: id,
-    });
+    return fillDto(PostRdo, repost.toPOJO());
   }
 
   @ApiResponse({

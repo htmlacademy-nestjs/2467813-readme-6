@@ -63,10 +63,10 @@ export const CreatePostValidationMessage = {
     invalidFormat: 'The URL must be a valid YouTube video URL',
     isUrl: 'videoUrl must be a valid URL',
   },
-  imageUrl: {
-    invalidFormat: 'The imageUrl must be a string',
-    isUrl: 'imageUrl must be a valid URL',
-    isSize: 'imageUrl Maximum photo size: 1 megabyte',
+  image: {
+    invalidFormat: 'The image must be a string',
+    isUrl: 'image must be a valid URL',
+    isSize: 'image Maximum photo size: 1 megabyte',
     matches: 'The image must include an extension.jpg or .png',
   },
   textQuote: {
@@ -102,6 +102,8 @@ export const PostResponseMessage = {
   DeleteSuccess: 'Удаление поста.',
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',
+  IsRepostExists: 'Repost already exists',
+  IsYourRepost: 'You can`t repost your posts',
 } as const;
 
 export const CreateLikeMessages = {

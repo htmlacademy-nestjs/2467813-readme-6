@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { IPaginationResult } from '@project/core';
 
@@ -12,14 +16,13 @@ import { getMessageNotFoundDocument } from '@project/helpers';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeService } from '@project/likes';
 import { CreateRepostDto } from '../dto/create-repost.dto';
-import { RepostService } from '@project/repost';
 
 @Injectable()
 export class PostService {
   constructor(
+    private readonly entityFactory: PostFactory,
     private readonly postRepository: PostRepository,
-    private readonly likeService: LikeService,
-    private readonly repostService: RepostService
+    private readonly likeService: LikeService
   ) {}
 
   public async getAllPosts(
@@ -74,10 +77,28 @@ export class PostService {
     return await this.likeService.toggleLikes(dto, existsPost.id);
   }
 
-  public async createOrDeleteRepost(id: string, dto: CreateRepostDto) {
+  public async createRepost(id: string, dto: CreateRepostDto) {
     const existsPost = await this.postRepository.findById(id);
 
-    return await this.repostService.toggleRepost(dto.userId, existsPost.id);
+    if (dto.userId === existsPost.userId) {
+      throw new ForbiddenException('You can`t repost your posts');
+    }
+
+    await this.postRepository.findRepost(id, dto.userId);
+
+    const repost = {
+      ...existsPost,
+      userId: dto.userId,
+      isRepost: true,
+      originPostId: id,
+      originUserId: existsPost.userId,
+      updatedAt: new Date(),
+    };
+    const newPost = this.entityFactory.create(repost);
+
+    await this.postRepository.save(newPost);
+
+    return newPost;
   }
 
   public async getStatistics(id: string) {

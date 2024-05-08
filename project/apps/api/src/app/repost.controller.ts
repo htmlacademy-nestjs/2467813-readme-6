@@ -3,7 +3,7 @@ import {
   Controller,
   HttpStatus,
   Param,
-  Put,
+  Post,
   Req,
   UseFilters,
   UseGuards,
@@ -21,8 +21,8 @@ import { HttpService } from '@nestjs/axios';
 import {
   CreateRepostDto,
   OpenApiMessages,
+  PostRdo,
   PostResponseMessage,
-  RepostRdo,
   RepostResponseMessage,
 } from '@project/post';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -35,7 +35,7 @@ export class RepostController {
   constructor(private readonly httpService: HttpService) {}
 
   @ApiResponse({
-    type: RepostRdo,
+    type: PostRdo,
     status: HttpStatus.CREATED,
     description: RepostResponseMessage.RepostSuccess,
   })
@@ -47,6 +47,14 @@ export class RepostController {
     status: HttpStatus.UNAUTHORIZED,
     description: PostResponseMessage.IsNotLogged,
   })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: PostResponseMessage.IsYourRepost,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: PostResponseMessage.IsRepostExists,
+  })
   @ApiHeader({
     name: AuthToken.Name,
     description: AuthToken.Description,
@@ -54,14 +62,14 @@ export class RepostController {
   })
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
-  @ApiOperation({ summary: OpenApiMessages.path.createOrDeleteRepost.summary })
-  @Put(`:postId`)
-  public async createOrDelete(
+  @ApiOperation({ summary: OpenApiMessages.path.createRepost.summary })
+  @Post(`:postId`)
+  public async createRepost(
     @Param('postId') postId: string,
     @Body() dto: CreateRepostDto,
     @Req() req: Request
   ) {
-    const { data } = await this.httpService.axiosRef.put(
+    const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Blog}/${postId}/${Path.Reposts}`,
       dto,
       {
