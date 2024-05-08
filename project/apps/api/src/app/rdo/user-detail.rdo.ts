@@ -44,4 +44,11 @@ export class UserDetailRdo {
   })
   @Expose()
   public createdAt: Date;
+
+  @ApiProperty({
+    description: OpenApiMessages.countPublic.description,
+    example: OpenApiMessages.countPublic.example,
+  })
+  @Expose()
+  public countPublic: number;
 }

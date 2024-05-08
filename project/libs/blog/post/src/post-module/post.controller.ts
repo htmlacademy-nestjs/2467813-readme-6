@@ -245,4 +245,19 @@ export class PostController {
       postId: id,
     });
   }
+
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: PostResponseMessage.IsNotLogged,
+  })
+  @Get(`/:userId/${Path.Statistics}`)
+  public async statistics(@Param('userId') userId: string) {
+    const count = await this.postService.getStatistics(userId);
+
+    return count;
+  }
 }

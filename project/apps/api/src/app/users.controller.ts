@@ -19,6 +19,7 @@ import {
   CreateUserDto,
   LoggedUserRdo,
   LoginUserDto,
+  OpenApiMessages,
   UpdateTokensRdo,
   UpdateUserPassword,
   UserRdo,
@@ -31,7 +32,7 @@ import {
   Path,
 } from '@project/constant';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
-import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { InjectUserIdInterceptor } from '@project/interceptors';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { MongoIdValidationPipe } from '@project/pipes';
@@ -52,6 +53,7 @@ export class UsersController {
     status: HttpStatus.CONFLICT,
     description: AuthenticationResponseMessage.UserExist,
   })
+  @ApiOperation({ summary: OpenApiMessages.path.register.summary })
   @Post(Path.Register)
   public async register(@Body() dto: CreateUserDto) {
     const { data } = await this.httpService.axiosRef.post(
@@ -74,6 +76,7 @@ export class UsersController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @ApiOperation({ summary: OpenApiMessages.path.login.summary })
   @Post(Path.Login)
   public async login(@Body() dto: LoginUserDto) {
     const { data } = await this.httpService.axiosRef.post(
@@ -95,6 +98,7 @@ export class UsersController {
   })
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({ summary: OpenApiMessages.path.NewPassword.summary })
   @Patch(Path.NewPassword)
   public async updatePassword(
     @Body() dto: UpdateUserPassword,
@@ -126,6 +130,7 @@ export class UsersController {
     status: HttpStatus.UNAUTHORIZED,
     description: AuthUser.IsNotLogged,
   })
+  @ApiOperation({ summary: OpenApiMessages.path.Refresh.summary })
   @Post(Path.Refresh)
   public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
@@ -150,16 +155,20 @@ export class UsersController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @ApiOperation({ summary: OpenApiMessages.path.DetailUser.summary })
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.Users}/${id}`
     );
+    const { data: dataCount } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.Blog}/${id}/${Path.Statistics}`
+    );
     // FIXME: ДОБАВИТЬ загрузку Аватар пользователя
-    // FIXME: ДОБАВИТЬ
-    // Количество публикаций пользователя;
-    // Количество подписчиков;
-    // Уникальный идентификатор пользователя.
-    return data;
+    // FIXME: ДОБАВИТЬ Количество подписчиков;
+    return {
+      ...data,
+      countPublic: dataCount,
+    };
   }
 }

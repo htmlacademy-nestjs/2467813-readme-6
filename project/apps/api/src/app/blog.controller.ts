@@ -31,7 +31,13 @@ import {
   PostWithPaginationRdo,
 } from '@project/post';
 import { InjectUserIdInterceptor } from '@project/interceptors';
-import { ApiHeader, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiHeader,
+  ApiResponse,
+  ApiTags,
+  ApiQuery,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { UserRdo } from '@project/authentication';
 import { PostUserWithPaginationRdo } from './rdo/post-user-with-pagination.rdo';
 import { NoCheckAuthGuard } from './guards/no-check-auth.guard';
@@ -58,6 +64,7 @@ export class BlogController {
   })
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({ summary: OpenApiMessages.path.create.summary })
   @Post()
   public async create(@Body() dto: CreatePostDto, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
@@ -125,6 +132,7 @@ export class BlogController {
   })
   @UseGuards(NoCheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
+  @ApiOperation({ summary: OpenApiMessages.path.listPost.summary })
   @Get()
   public async index(@Query() query: PostQuery, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.get<PostWithPaginationRdo>(

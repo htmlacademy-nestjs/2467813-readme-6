@@ -25,6 +25,7 @@ export const Path = {
   Comments: 'comments',
   Likes: 'likes',
   Reposts: 'reposts',
+  Statistics: 'statistics',
   NewPassword: 'new-password',
   Login: 'login',
   Refresh: 'refresh',

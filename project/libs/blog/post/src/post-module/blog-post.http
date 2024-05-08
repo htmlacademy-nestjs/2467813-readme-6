@@ -126,3 +126,9 @@ Content-Type: application/json
 }
 
 ###
+
+
+# Получить статистику по постам
+GET http://localhost:{{PORT}}/api/posts/663362521895e601eb7e41c1/statistics HTTP/1.1
+
+###

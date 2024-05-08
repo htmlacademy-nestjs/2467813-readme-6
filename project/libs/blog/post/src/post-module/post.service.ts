@@ -79,4 +79,8 @@ export class PostService {
 
     return await this.repostService.toggleRepost(dto.userId, existsPost.id);
   }
+
+  public async getStatistics(id: string) {
+    return await this.postRepository.getUserPostCount(id);
+  }
 }

@@ -123,4 +123,12 @@ export const OpenApiMessages = {
   limit: {
     name: 'limit',
   },
+  path: {
+    create: {
+      summary: 'Создать пост',
+    },
+    listPost: {
+      summary: 'Получить список постов',
+    },
+  },
 };

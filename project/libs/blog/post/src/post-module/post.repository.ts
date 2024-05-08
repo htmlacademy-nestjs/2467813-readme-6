@@ -259,4 +259,10 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
       itemsPerPage: take,
     };
   }
+
+  public async getUserPostCount(userId: string) {
+    return this.getPostCount({
+      userId,
+    });
+  }
 }
