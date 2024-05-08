@@ -156,12 +156,13 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     const where: Prisma.PostWhereInput = {};
     const orderBy: Prisma.PostOrderByWithRelationInput[] = [];
 
+    where.isRepost = false;
+
     if (currentUserId) {
       where.isPublished = query?.isPublished ?? true;
-      where.userId = currentUserId;
+      // where.userId = currentUserId;
     } else {
       where.isPublished = true;
-      where.isRepost = false;
     }
 
     if (query?.search) {

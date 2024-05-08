@@ -179,11 +179,24 @@ export class BlogController {
     status: HttpStatus.NOT_FOUND,
     description: PostResponseMessage.NotFound,
   })
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.Description,
+    required: false,
+  })
+  @UseGuards(NoCheckAuthGuard)
+  @UseInterceptors(InjectUserIdInterceptor)
   @ApiOperation({ summary: OpenApiMessages.path.DetailPost.summary })
   @Get(':id')
-  public async show(@Param('id') id: string) {
+  public async show(@Param('id') id: string, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.get<PostRdo>(
-      `${ApplicationServiceURL.Blog}/${id}`
+      `${ApplicationServiceURL.Blog}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+          'X-User-Id': req.headers['X-User-Id'],
+        },
+      }
     );
 
     const { data: dataUser } = await this.httpService.axiosRef.get<UserRdo>(

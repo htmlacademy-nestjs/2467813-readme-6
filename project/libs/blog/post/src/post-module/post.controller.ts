@@ -58,8 +58,9 @@ export class PostController {
     description: PostResponseMessage.NotFound,
   })
   @Get(':id')
-  public async show(@Param('id') id: string) {
-    const post = await this.postService.getPost(id);
+  public async show(@Param('id') id: string, @Req() req: Request) {
+    const userId = req.headers['x-user-id'] ?? '';
+    const post = await this.postService.getPost(id, userId);
     return fillDto(PostRdo, post.toPOJO());
   }
 

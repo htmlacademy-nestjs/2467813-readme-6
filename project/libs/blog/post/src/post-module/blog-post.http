@@ -26,7 +26,7 @@ GET http://localhost:{{PORT}}/api/posts?limit=3&sortDirection=desc&page=1&userId
 ###
 
 # Get post by id
-GET http://localhost:{{PORT}}/api/posts/93ec8d33-2cb5-4401-a965-64e761816866 HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 
 ###
 

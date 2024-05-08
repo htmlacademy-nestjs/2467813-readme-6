@@ -48,8 +48,11 @@ export class PostService {
     }
   }
 
-  public async getPost(id: string): Promise<PostEntity> {
-    return this.postRepository.findById(id);
+  public async getPost(
+    id: string,
+    currentUserId?: string
+  ): Promise<PostEntity> {
+    return this.postRepository.findById(id, currentUserId);
   }
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
