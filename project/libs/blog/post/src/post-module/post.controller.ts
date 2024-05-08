@@ -57,15 +57,6 @@ export class PostController {
     status: HttpStatus.NOT_FOUND,
     description: PostResponseMessage.NotFound,
   })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: PostResponseMessage.IsNotLogged,
-  })
-  @ApiHeader({
-    name: AuthToken.Name,
-    description: AuthToken.Description,
-    required: true,
-  })
   @Get(':id')
   public async show(@Param('id') id: string) {
     const post = await this.postService.getPost(id);

@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
   Query,
   Req,
@@ -41,6 +42,7 @@ import {
 import { UserRdo } from '@project/authentication';
 import { PostUserWithPaginationRdo } from './rdo/post-user-with-pagination.rdo';
 import { NoCheckAuthGuard } from './guards/no-check-auth.guard';
+import { PostUserRdo } from './rdo/post-user.rdo';
 
 @ApiTags(AppRoutes.Blog)
 @Controller(AppRoutes.Blog)
@@ -161,6 +163,32 @@ export class BlogController {
     return {
       ...data,
       entities: result,
+    };
+  }
+
+  @ApiResponse({
+    type: PostUserRdo,
+    status: HttpStatus.OK,
+    description: PostResponseMessage.PostDetailSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: PostResponseMessage.NotFound,
+  })
+  @ApiOperation({ summary: OpenApiMessages.path.DetailPost.summary })
+  @Get(':id')
+  public async show(@Param('id') id: string) {
+    const { data } = await this.httpService.axiosRef.get<PostRdo>(
+      `${ApplicationServiceURL.Blog}/${id}`
+    );
+
+    const { data: dataUser } = await this.httpService.axiosRef.get<UserRdo>(
+      `${ApplicationServiceURL.Users}/${data.userId}`
+    );
+
+    return {
+      ...data,
+      user: dataUser,
     };
   }
 }

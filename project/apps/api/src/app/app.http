@@ -1,6 +1,6 @@
 @PORT = 3004
 
-# USERS
+# =======> USERS
 ###
 
 # Create a new user
@@ -45,11 +45,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 ###
 
-# Get user by ID
+# Get user detail by ID
 GET http://localhost:{{PORT}}/api/users/663362521895e601eb7e41c1 HTTP/1.1
 
 
-# POSTS
+# =======> POSTS
 ###
 
 # Create a new post 1 text
@@ -121,3 +121,9 @@ GET http://localhost:{{PORT}}/api/blog?isPublished=false  HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
 
 
+###
+
+# Get post by id
+GET http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
+
+###

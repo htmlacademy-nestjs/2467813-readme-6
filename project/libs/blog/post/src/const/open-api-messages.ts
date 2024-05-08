@@ -130,5 +130,8 @@ export const OpenApiMessages = {
     listPost: {
       summary: 'Получить список постов',
     },
+    DetailPost: {
+      summary: 'Получить детальный пост',
+    },
   },
 };
