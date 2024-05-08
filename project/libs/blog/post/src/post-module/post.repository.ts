@@ -160,7 +160,6 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
 
     if (currentUserId) {
       where.isPublished = query?.isPublished ?? true;
-      // where.userId = currentUserId;
     } else {
       where.isPublished = true;
     }

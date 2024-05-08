@@ -83,6 +83,12 @@ export class PostService {
   public async createOrDeleteLike(id: string, dto: CreateLikeDto) {
     const existsPost = await this.postRepository.findById(id);
 
+    if (!existsPost.isPublished) {
+      throw new BadRequestException(
+        'You can`t put a like when the post is not cheated'
+      );
+    }
+
     return await this.likeService.toggleLikes(dto, existsPost.id);
   }
 
