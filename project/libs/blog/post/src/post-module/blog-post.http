@@ -1,40 +1,56 @@
+@PORT = 3001
+
+###
+
 # Get all posts
-GET http://localhost:3001/api/posts HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts  HTTP/1.1
 
 ###
 
 # Get posts with filter
 
-GET http://localhost:3001/api/posts?limit=2&sortDirection=desc&page=1 HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts?limit=3&sortDirection=desc&page=1&search=text  HTTP/1.1
+
+###
+
+# Get posts with filter 2
+
+GET http://localhost:{{PORT}}/api/posts?limit=3&sortDirection=asc&page=1&sortOption=Likes HTTP/1.1
+
+###
+
+# Get posts with filter 3
+
+GET http://localhost:{{PORT}}/api/posts?limit=3&sortDirection=desc&page=1&userId=663362521895e601eb7e41c1 HTTP/1.1
 
 ###
 
 # Get post by id
-GET http://localhost:3001/api/posts/c1f32332-5f13-40cc-9a50-ec09ab595a86 HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 
 ###
 
-# Create a new post 1
-POST http://localhost:3001/api/posts HTTP/1.1
+# Create a new post 1 text
+POST http://localhost:{{PORT}}/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-  "userId": "6621683a9775bcf7c8f2606b",
+  "userId": "663362521895e601eb7e41c1",
   "title": "Some text Some text Some text Some text",
   "typePost": "text",
   "announcementPublic": "announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic",
   "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic",
-  "tags":["quote"]
+  "tags":["asd"]
 }
 
 ###
 
-# Create a new post 2
-POST http://localhost:3001/api/posts HTTP/1.1
+# Create a new post 2 quote
+POST http://localhost:{{PORT}}/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-  "userId": "6621683a9775bcf7c8f2606b",
+  "userId": "663362521895e601eb7e41c1",
   "title": "Some quote Some quote Some quote Some quote",
   "typePost": "quote",
   "textQuote": "textQuote textQuote textQuote textQuote textQuote textQuote",
@@ -44,17 +60,80 @@ Content-Type: application/json
 
 ###
 
+# Create a new post 3 link
+POST http://localhost:{{PORT}}/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "663362521895e601eb7e41c1",
+  "title": "Some link Some link Some link Some link",
+  "typePost": "link",
+  "link": "https://htmlacademy.ru",
+  "linkDescription": "",
+  "tags":["link","some"],
+  "isPublished":false
+}
+
+###
+
+# Create a new post 4 video
+POST http://localhost:{{PORT}}/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "663362521895e601eb7e41c1",
+  "title": "Some video Some video Some video Some video",
+  "typePost": "video",
+  "videoUrl": "https://www.youtube.com/watch",
+  "tags":["video","some"]
+}
+
+###
+
 # Delete the post by id
-DELETE http://localhost:3001/api/posts/7c16003f-31b5-42a6-a0d7-77d73f2a9dfe HTTP/1.1
+DELETE http://localhost:{{PORT}}/api/posts/7c16003f-31b5-42a6-a0d7-77d73f2a9dfe HTTP/1.1
 
 ###
 
 # Update post by id
-PATCH http://localhost:3001/api/posts/1c2bc357-9d4f-4086-a6cb-6f7c5e59657c HTTP/1.1
+PATCH http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Some new Some new Some new Some new"
+  "title": "Some new quote Some new quote Some new quote"
 }
+
+###
+
+# Like post by id
+PUT http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c/likes HTTP/1.1
+Content-Type: application/json
+
+{
+  "isLike": false,
+  "userId": "663362521895e601eb7e41c1"
+}
+
+###
+
+# Repost post by id
+POST http://localhost:{{PORT}}/api/posts/453ee77d-9a21-4b10-84a0-dd5c3170de4c/reposts HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "663362521895e601eb7e41c1"
+}
+
+###
+
+
+# Получить статистику по постам
+GET http://localhost:{{PORT}}/api/posts/663362521895e601eb7e41c1/statistics HTTP/1.1
+
+###
+
+# Рассылка уведомлений на email о появлении новых публикаций.
+POST http://localhost:{{PORT}}/api/posts/newsletter-posts HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIzYTczMTliNDhiNjZlMjM1ZWJkNzAiLCJlbWFpbCI6Im5ldzJAdXNlci5jb20iLCJmaXJzdE5hbWUiOiJBbGV4IiwibGFzdE5hbWUiOiJCb2Noa2luIiwiaWF0IjoxNzA2Mjc1OTYyLCJleHAiOjE3MDg4Njc5NjJ9.NKmxS5VGH4YgSYHDT4a44MfNJmkBUG0MV13IddnDiXs
 
 ###

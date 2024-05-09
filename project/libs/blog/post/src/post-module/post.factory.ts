@@ -19,12 +19,13 @@ export class PostFactory implements IEntityFactory<PostEntity> {
     entity.announcementPublic = dto.announcementPublic;
     entity.textPublic = dto.textPublic;
     entity.videoUrl = dto.videoUrl;
-    entity.imageUrl = dto.imageUrl;
+    entity.image = dto.image;
     entity.textQuote = dto.textQuote;
     entity.quoteAuthor = dto.quoteAuthor;
     entity.link = dto.link;
     entity.linkDescription = dto.linkDescription;
     entity.tags = dto.tags;
+    entity.isPublished = dto.isPublished;
 
     return entity;
   }

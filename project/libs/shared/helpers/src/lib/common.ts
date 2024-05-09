@@ -1,18 +1,35 @@
-import { ClassTransformOptions, plainToInstance } from 'class-transformer';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  ClassTransformOptions,
+  Transform,
+  plainToInstance,
+} from 'class-transformer';
+import {
+  registerDecorator,
+  ValidationOptions,
+  ValidationArguments,
+} from 'class-validator';
 
-type TPlainObject = Record<string, unknown>;
+export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
+export type TimeAndUnit = {
+  value: number;
+  unit: DateTimeUnit;
+};
 
-export function fillDto<T, V extends TPlainObject>(
+export function fillDto<T, V>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions
 ): T;
-export function fillDto<T, V extends TPlainObject[]>(
+export function fillDto<T, V extends []>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions
 ): T[];
-export function fillDto<T, V extends TPlainObject>(
+export function fillDto<T, V>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions
@@ -45,3 +62,59 @@ export function getRabbitMQConnectionString({
 export const getMessageNotFoundDocument = (name: string, id: string) => {
   return `${name} with ID ${id} not found`;
 };
+
+export function parseTime(time: string): TimeAndUnit {
+  const regex = /^(\d+)([shdmy])/;
+  const match = regex.exec(time);
+
+  if (!match) {
+    throw new Error(`[parseTime] Bad time string: ${time}`);
+  }
+
+  const [, valueRaw, unitRaw] = match;
+  const value = parseInt(valueRaw, 10);
+  const unit = unitRaw as DateTimeUnit;
+
+  if (isNaN(value)) {
+    throw new Error(`[parseTime] Can't parse value count. Result is NaN.`);
+  }
+
+  return {
+    value,
+    unit,
+  };
+}
+
+export function getFullServerPath(host: string, port: number) {
+  return `http://${host}:${port}`;
+}
+
+export function ToLowerCase() {
+  return Transform(({ value }) => {
+    if (Array.isArray(value)) {
+      return value.map((v) => (typeof v === 'string' ? v.toLowerCase() : v));
+    }
+    return typeof value === 'string' ? value.toLowerCase() : value;
+  });
+}
+
+export function IsYoutubeUrl(validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'isYoutubeUrl',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      validator: {
+        validate(value: any, _args: ValidationArguments) {
+          const urlPattern =
+            /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+          return typeof value === 'string' && urlPattern.test(value);
+        },
+        defaultMessage(_args: ValidationArguments) {
+          return 'The text must be a valid YouTube URL';
+        },
+      },
+    });
+  };
+}

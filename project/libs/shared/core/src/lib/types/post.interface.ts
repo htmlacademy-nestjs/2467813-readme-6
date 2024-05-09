@@ -1,7 +1,6 @@
 import { TTypePost } from '@project/constant';
 
 export interface IPost {
-  [key: string]: unknown;
   id?: string;
   userId: string;
   title: string;
@@ -11,16 +10,19 @@ export interface IPost {
   announcementPublic?: string;
   textPublic?: string;
   videoUrl?: string;
-  imageUrl?: string;
+  image?: string;
   textQuote?: string;
   quoteAuthor?: string;
   link?: string;
   linkDescription?: string;
-  isPublished: boolean;
-  isRepost?: boolean;
+  isPublished?: boolean;
+  isLike?: boolean;
   originalPostId?: string;
   tags?: string[];
   likes?: number;
   comments?: number;
   reposts?: number;
+  isRepost?: boolean;
+  originPostId?: string;
+  originUserId?: string;
 }

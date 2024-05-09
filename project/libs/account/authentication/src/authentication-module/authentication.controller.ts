@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Body,
   Controller,
@@ -7,12 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AppRoutes, Path, AuthToken } from '@project/constant';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthUser, AuthenticationResponseMessage } from '../const';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
@@ -22,6 +21,11 @@ import { MongoIdValidationPipe } from '@project/pipes';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { fillDto } from '@project/helpers';
 import { NotifyService } from '@project/notify-module';
+import { IRequestWithUser } from '../types/request-with-user.interface';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
+import { IRequestWithTokenPayload } from '../types/request-with-token-payload.interface';
+import { UpdateTokensRdo } from '../rdo/update-tokens.rdo';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -46,7 +50,7 @@ export class AuthenticationController {
     const { email, firstName, lastName } = newUser;
     await this.notifyService.registerSubscriber({ email, firstName, lastName });
 
-    return fillDto(UserRdo, newUser.toPOJO() as any);
+    return fillDto(UserRdo, newUser.toPOJO());
   }
 
   @ApiResponse({
@@ -62,13 +66,12 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @UseGuards(LocalAuthGuard)
   @Post(Path.Login)
-  public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-
-    const userToken = await this.authService.createUserToken(verifiedUser);
+  public async login(@Req() { user }: IRequestWithUser) {
+    const userToken = await this.authService.createUserToken(user);
     return fillDto(LoggedUserRdo, {
-      ...verifiedUser.toPOJO(),
+      ...user.toPOJO(),
       ...userToken,
     });
   }
@@ -85,11 +88,11 @@ export class AuthenticationController {
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
-    return existUser.toPOJO();
+    return fillDto(UserRdo, existUser.toPOJO());
   }
 
   @ApiResponse({
-    type: UpdateUserPassword,
+    type: UserRdo,
     status: HttpStatus.CREATED,
     description: AuthenticationResponseMessage.UpdateUserPassword,
   })
@@ -113,7 +116,29 @@ export class AuthenticationController {
     @Body() dto: UpdateUserPassword
   ) {
     const updatedUser = await this.authService.changePassword(id, dto);
-    return fillDto(UserRdo, updatedUser.toPOJO() as any);
+    return fillDto(UserRdo, updatedUser.toPOJO());
+  }
+
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.DescriptionRefresh,
+    required: true,
+  })
+  @ApiResponse({
+    type: UpdateTokensRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.NewTokens,
+  })
+  @UseGuards(JwtRefreshGuard)
+  @Post(Path.Refresh)
+  public async refreshToken(@Req() { user }: IRequestWithUser) {
+    return this.authService.createUserToken(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(Path.Check)
+  public async checkToken(@Req() { user: payload }: IRequestWithTokenPayload) {
+    return payload;
   }
 
   @UseGuards(JwtAuthGuard)

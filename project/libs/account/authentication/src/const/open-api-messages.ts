@@ -7,6 +7,10 @@ export const OpenApiMessages = {
     description: 'Access token',
     example: 'token',
   },
+  refreshToken: {
+    description: 'RefreshT token',
+    example: 'token',
+  },
   firstName: {
     description: 'User first name',
     example: 'Mikhail',
@@ -14,6 +18,14 @@ export const OpenApiMessages = {
   lastName: {
     description: 'User last name',
     example: 'Yanov',
+  },
+  createdAt: {
+    description: 'User createdAt',
+    example: '2024-04-23 10:04:27.508',
+  },
+  countPublic: {
+    description: 'User countPublic',
+    example: 3,
   },
   email: {
     description: 'User unique address',
@@ -28,7 +40,24 @@ export const OpenApiMessages = {
     example: '1234567',
   },
   avatarPath: {
-    description: 'User avatar path',
-    example: '/images/user.png',
+    description: 'User avatar path id',
+    example: '663ca1162b515bddbaa7e64c',
+  },
+  path: {
+    register: {
+      summary: 'Регистрация пользователя',
+    },
+    login: {
+      summary: 'Авторизация пользователя',
+    },
+    NewPassword: {
+      summary: 'Изменить пароль пользователя',
+    },
+    Refresh: {
+      summary: 'Запросить новую пару токенов',
+    },
+    DetailUser: {
+      summary: 'Запросить детальную информацию пользователя',
+    },
   },
 } as const;

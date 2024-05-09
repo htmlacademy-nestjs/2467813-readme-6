@@ -3,9 +3,10 @@ import {
   ArrayNotEmpty,
   ArrayUnique,
   IsArray,
-  IsLowercase,
+  IsBoolean,
   IsOptional,
   IsString,
+  IsUrl,
   Length,
   MaxLength,
   MinLength,
@@ -23,6 +24,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsYoutubeUrl, ToLowerCase } from '@project/helpers';
 
 export class UpdatePostDto {
   @ApiProperty({
@@ -67,20 +69,21 @@ export class UpdatePostDto {
     example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
-  @IsString({
+  @IsString()
+  @IsYoutubeUrl({
     message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
 
   @ApiProperty({
-    description: OpenApiMessages.imageUrl.description,
-    example: OpenApiMessages.imageUrl.example,
+    description: OpenApiMessages.image.description,
+    example: OpenApiMessages.image.example,
   })
   @IsOptional()
   @IsString({
-    message: CreatePostValidationMessage.imageUrl.invalidFormat,
+    message: CreatePostValidationMessage.image.invalidFormat,
   })
-  public imageUrl?: string;
+  public image?: string;
 
   @ApiProperty({
     description: OpenApiMessages.textQuote.description,
@@ -116,6 +119,12 @@ export class UpdatePostDto {
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
+  @IsUrl(
+    {},
+    {
+      message: CreatePostValidationMessage.link.isUrl,
+    }
+  )
   public link?: string;
 
   @ApiProperty({
@@ -132,6 +141,14 @@ export class UpdatePostDto {
   public linkDescription?: string;
 
   @ApiProperty({
+    description: OpenApiMessages.isPublished.description,
+    example: OpenApiMessages.isPublished.example,
+  })
+  @IsOptional()
+  @IsBoolean()
+  public isPublished?: boolean;
+
+  @ApiProperty({
     description: OpenApiMessages.tags.description,
     example: OpenApiMessages.tags.example,
   })
@@ -142,7 +159,7 @@ export class UpdatePostDto {
   })
   @ArrayMaxSize(8)
   @ArrayUnique()
-  @IsLowercase({ each: true })
+  @ToLowerCase()
   @MaxLength(Tags.Max, {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,

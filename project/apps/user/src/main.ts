@@ -8,7 +8,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app/app.module';
-import { AppRoutes, SpaceName } from '@project/constant';
+import { AppRoutes, DEFAULT_HOST, SpaceName } from '@project/constant';
+import { getFullServerPath } from '@project/helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,7 +35,9 @@ async function bootstrap() {
 
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${AppRoutes.Api}`
+    `🚀 Application is running on: ${getFullServerPath(DEFAULT_HOST, port)}/${
+      AppRoutes.Api
+    }`
   );
 }
 

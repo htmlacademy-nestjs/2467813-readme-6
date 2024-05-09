@@ -19,12 +19,14 @@ export const AuthUser = {
 
 export const AuthenticationResponseMessage = {
   LoggedSuccess: 'User has been successfully logged.',
+  UpdateTokens: 'tokens have been updated',
   LoggedError: 'Password or Login is wrong.',
   UserFound: 'User found',
   UserNotFound: 'User not found',
   UserExist: 'User with the email already exists',
   UserCreated: 'The new user has been successfully created.',
   UpdateUserPassword: 'The user has successfully updated the password.',
+  NewTokens: 'Get a new access/refresh tokens.',
 } as const;
 
 export const CreateUserMessages = {

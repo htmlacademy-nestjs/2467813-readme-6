@@ -2,6 +2,7 @@ import { TypePost } from '@project/constant';
 
 export const PostCount = {
   Default: 25,
+  SearchDefault: 20,
   PageDefault: 1,
 } as const;
 
@@ -43,41 +44,41 @@ export const Tags = {
 
 export const CreatePostValidationMessage = {
   title: {
-    invalidFormat: 'title is required',
+    invalidFormat: 'The title must be a string',
     lengthField: `min length is ${Title.Min}, max is ${Title.Max}`,
   },
   typePost: {
     invalidChoice: `type must be ${TypePost.Video}, ${TypePost.Text}, ${TypePost.Quote}, ${TypePost.Photo} or ${TypePost.Link}`,
-    invalidFormat: `invalidFormat must be an string`,
+    invalidFormat: `typePost must be an string`,
   },
   announcementPublic: {
-    invalidFormat: 'announcementPublic is required',
+    invalidFormat: 'The announcementPublic must be a string',
     lengthField: `min length for announcementPublic is ${AnnouncementPublic.Min}, max is ${AnnouncementPublic.Max}`,
   },
   textPublic: {
-    invalidFormat: 'textPublic is required',
+    invalidFormat: 'The textPublic must be a string',
     lengthField: `min length for textPublic is ${TextPublic.Min}, max is ${TextPublic.Max}`,
   },
   videoUrl: {
-    invalidFormat: 'videoUrl is required',
+    invalidFormat: 'The URL must be a valid YouTube video URL',
     isUrl: 'videoUrl must be a valid URL',
   },
-  imageUrl: {
-    invalidFormat: 'imageUrl is required',
-    isUrl: 'imageUrl must be a valid URL',
-    isSize: 'imageUrl Maximum photo size: 1 megabyte',
+  image: {
+    invalidFormat: 'The image must be a string',
+    isUrl: 'image must be a valid URL',
+    isSize: 'image Maximum photo size: 1 megabyte',
     matches: 'The image must include an extension.jpg or .png',
   },
   textQuote: {
-    invalidFormat: 'textQuote is required',
+    invalidFormat: 'The textQuote must be a string',
     lengthField: `min length for textQuote is ${TextQuote.Min}, max is ${TextQuote.Max}`,
   },
   quoteAuthor: {
-    invalidFormat: 'quoteAuthor is required',
+    invalidFormat: 'he quoteAuthor must be a string',
     lengthField: `min length for quoteAuthor is ${QuoteAuthor.Min}, max is ${QuoteAuthor.Max}`,
   },
   link: {
-    invalidFormat: 'link is required',
+    invalidFormat: 'The link must be a string',
     isUrl: 'link must be a valid URL',
   },
   linkDescription: {
@@ -101,4 +102,50 @@ export const PostResponseMessage = {
   DeleteSuccess: 'Удаление поста.',
   NotFound: 'Поста с указанным идентификатором не найдено',
   IsNotLogged: 'The token is invalid or expired.',
+  IsRepostExists: 'Repost already exists',
+  IsYourRepost: 'You can`t repost your posts',
+} as const;
+
+export const CreateLikeMessages = {
+  isLike: {
+    invalidFormat: 'isLike is required',
+  },
+  postId: {
+    invalidFormat: 'postId field must be a valid id',
+  },
+  userId: {
+    invalidFormat: 'userId field must be a valid id',
+  },
+} as const;
+
+export const CreateRepostMessages = {
+  isRepost: {
+    invalidFormat: 'isRepost is required',
+  },
+  postId: {
+    invalidFormat: 'postId field must be a valid id',
+  },
+  userId: {
+    invalidFormat: 'userId field must be a valid id',
+  },
+} as const;
+
+export const LikeValidateMessage = {
+  InvalidID: 'Invalid author id',
+} as const;
+
+export const LikeResponseMessage = {
+  LikeSuccess: 'Создание/Удаление нового лайка.',
+  NotFound: 'Поста с указанным идентификатором не найдено',
+  IsNotLogged: 'The token is invalid or expired.',
+} as const;
+
+export const RepostResponseMessage = {
+  RepostSuccess: 'Создание/Удаление нового репоста.',
+  NotFound: 'Поста с указанным идентификатором не найдено',
+  IsNotLogged: 'The token is invalid or expired.',
+} as const;
+
+export const NotificationResponseMessage = {
+  NotificationEmail: 'Email notifications about new posts',
 } as const;

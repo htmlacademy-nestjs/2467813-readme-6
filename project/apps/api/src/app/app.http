@@ -1,0 +1,293 @@
+@PORT = 3004
+
+# =======> USERS
+###
+
+# Create a new user
+POST http://localhost:{{PORT}}/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "example@email.ru",
+  "firstName": "Mikhail",
+  "lastName": "Yanov",
+  "password": "123456"
+}
+
+###
+
+# Create a new user with avatar
+POST http://localhost:{{PORT}}/api/users/register HTTP/1.1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="email"
+
+example@email.ru
+--WebAppBoundary
+Content-Disposition: form-data; name="firstName"
+
+Mikhail
+--WebAppBoundary
+Content-Disposition: form-data; name="lastName"
+
+Yanov
+--WebAppBoundary
+Content-Disposition: form-data; name="password"
+
+123456
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="1.jpg"
+Content-Type: image/jpeg
+
+./1.jpg
+--WebAppBoundary--
+
+###
+
+# Login
+POST http://localhost:{{PORT}}/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "example@email.ru",
+  "password": "123456"
+}
+
+###
+
+# Изменить пароль
+PATCH http://localhost:{{PORT}}/api/users/new-password HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "password": "123456",
+  "newPassword": "1234567"
+}
+
+###
+
+# Get new JWT pair
+POST http://localhost:{{PORT}}/api/users/refresh HTTP/1.1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# Get user detail by ID
+GET http://localhost:{{PORT}}/api/users/663ca1167347b49bf3e796e6 HTTP/1.1
+
+
+# =======> POSTS
+###
+
+# Create a new post 1 text
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Проверка text Проверка text Проверка text",
+  "typePost": "text",
+  "announcementPublic": "announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic announcementPublic",
+  "textPublic": "textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic textPublic",
+  "tags":["tagtext"]
+}
+
+###
+
+# Create a new post 2 quote
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Some quote Some quote Some quote Some quote",
+  "typePost": "quote",
+  "textQuote": "textQuote textQuote textQuote textQuote textQuote textQuote",
+  "quoteAuthor": "quoteAuthor",
+  "tags":["quote","some"]
+}
+
+###
+
+# Create a new post 3 link
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Some link Some link Some link Some link",
+  "typePost": "link",
+  "link": "https://htmlacademy.ru",
+  "linkDescription": "",
+  "tags":["link","some"]
+}
+
+###
+
+# Create a new post 4 video
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Some video Some video Some video Some video",
+  "typePost": "video",
+  "videoUrl": "https://www.youtube.com/watch",
+  "tags":["video","some"]
+}
+
+###
+
+# Create a new post 5 photo no photo
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Some photo Some photo Some photo Some photo",
+  "typePost": "photo",
+  "tags":["photo","some"]
+}
+
+###
+
+# Create a new post 5 photo
+POST http://localhost:{{PORT}}/api/blog HTTP/1.1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+
+Some photo Some photo Some photo Some photo
+--WebAppBoundary
+Content-Disposition: form-data; name="typePost"
+
+photo
+--WebAppBoundary
+Content-Disposition: form-data; name="image"
+
+Yanov
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="1.jpg"
+Content-Type: image/jpeg
+
+./1.jpg
+--WebAppBoundary--
+
+###
+
+# Get all posts
+GET http://localhost:{{PORT}}/api/blog  HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# Get posts with filter
+
+GET http://localhost:{{PORT}}/api/blog?limit=3&sortDirection=desc&page=1&search=text  HTTP/1.1
+
+###
+
+# Get posts with filter 2
+
+GET http://localhost:{{PORT}}/api/blog?limit=3&sortDirection=desc&page=1&sortOption=Likes HTTP/1.1
+
+###
+
+# Get posts with filter 3
+
+GET http://localhost:{{PORT}}/api/blog?limit=3&sortDirection=desc&page=1&userId=663362521895e601eb7e41c1 HTTP/1.1
+
+###
+
+# Get all posts Authorization filter 4 черновики
+GET http://localhost:{{PORT}}/api/blog?isPublished=true  HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# Get post by id
+GET http://localhost:{{PORT}}/api/blog/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# Update post by id
+PATCH http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "title": "Some new quote Some quote Some quote Some quote"
+}
+
+###
+
+# Delete the post by id
+DELETE http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# =======> COMMENTS
+
+# Create a new comment for post
+POST http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "message": "example example"
+}
+
+###
+
+# Get all comments for post
+GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
+
+###
+
+# Get posts with filter
+GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c/comments?limit=1&sortDirection=asc&page=1 HTTP/1.1
+
+###
+
+# Delete the comment by id
+DELETE http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c/comments/72bd8619-5237-4b75-80c2-66b05ea3d18e HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+###
+
+# =======> LIKES
+
+# Like post by id
+PUT http://localhost:{{PORT}}/api/likes/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{
+  "isLike": true
+}
+
+###
+
+# =======> REPOSTS
+
+# Repost post by id
+POST http://localhost:{{PORT}}/api/reposts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
+
+{}
+
+###
+
+# =======> NOTIFICATIONS
+
+# Рассылка уведомлений на email о появлении новых публикаций.
+POST http://localhost:{{PORT}}/api/notifications/newsletter-posts HTTP/1.1
+
+###

@@ -12,6 +12,7 @@ export class BlogUserEntity
   public lastName: string;
   public avatarPath?: string;
   public passwordHash: string;
+  public createdAt: Date;
 
   constructor(user?: IAuthUser) {
     super();
@@ -29,6 +30,7 @@ export class BlogUserEntity
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.passwordHash = user.passwordHash;
+    this.createdAt = user.createdAt;
   }
 
   public toPOJO(): IAuthUser {
@@ -39,6 +41,7 @@ export class BlogUserEntity
       lastName: this.lastName,
       avatarPath: this.avatarPath,
       passwordHash: this.passwordHash,
+      createdAt: this.createdAt,
     };
   }
 
