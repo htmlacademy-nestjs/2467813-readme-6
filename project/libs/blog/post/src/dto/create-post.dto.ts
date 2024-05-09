@@ -1,4 +1,4 @@
-import { TypePostList, TTypePost } from '@project/constant';
+import { TypePostList, TTypePost, TypePost } from '@project/constant';
 
 import {
   ArrayMaxSize,
@@ -6,14 +6,15 @@ import {
   ArrayUnique,
   IsArray,
   IsIn,
-  IsLowercase,
   IsMongoId,
   IsOptional,
   IsString,
+  IsBoolean,
   Length,
   MaxLength,
   MinLength,
   ValidateIf,
+  IsUrl,
 } from 'class-validator';
 import {
   AnnouncementPublic,
@@ -27,6 +28,7 @@ import {
   Title,
 } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsYoutubeUrl, ToLowerCase } from '@project/helpers';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -50,6 +52,7 @@ export class CreatePostDto {
   @ApiProperty({
     description: OpenApiMessages.typePost.description,
     example: OpenApiMessages.typePost.example,
+    enum: TypePost,
   })
   @IsIn([...TypePostList], {
     message: CreatePostValidationMessage.typePost.invalidChoice,
@@ -88,20 +91,21 @@ export class CreatePostDto {
     example: OpenApiMessages.videoUrl.example,
   })
   @IsOptional()
-  @IsString({
+  @IsString()
+  @IsYoutubeUrl({
     message: CreatePostValidationMessage.videoUrl.invalidFormat,
   })
   public videoUrl?: string;
 
   @ApiProperty({
-    description: OpenApiMessages.imageUrl.description,
-    example: OpenApiMessages.imageUrl.example,
+    description: OpenApiMessages.image.description,
+    example: OpenApiMessages.image.example,
   })
   @IsOptional()
   @IsString({
-    message: CreatePostValidationMessage.imageUrl.invalidFormat,
+    message: CreatePostValidationMessage.image.invalidFormat,
   })
-  public imageUrl?: string;
+  public image?: string;
 
   @ApiProperty({
     description: OpenApiMessages.textQuote.description,
@@ -137,6 +141,12 @@ export class CreatePostDto {
   @IsString({
     message: CreatePostValidationMessage.link.invalidFormat,
   })
+  @IsUrl(
+    {},
+    {
+      message: CreatePostValidationMessage.link.isUrl,
+    }
+  )
   public link?: string;
 
   @ApiProperty({
@@ -153,17 +163,23 @@ export class CreatePostDto {
   public linkDescription?: string;
 
   @ApiProperty({
+    description: OpenApiMessages.isPublished.description,
+    example: OpenApiMessages.isPublished.example,
+  })
+  @IsOptional()
+  @IsBoolean()
+  public isPublished?: boolean;
+
+  @ApiProperty({
     description: OpenApiMessages.tags.description,
     example: OpenApiMessages.tags.example,
   })
-  @IsOptional()
   @ValidateIf((_, value) => value != null)
   @IsArray({
     message: CreatePostValidationMessage.tags.invalidFormat,
   })
   @ArrayMaxSize(8)
   @ArrayUnique()
-  @IsLowercase({ each: true })
   @MaxLength(Tags.Max, {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
@@ -172,6 +188,8 @@ export class CreatePostDto {
     each: true,
     message: CreatePostValidationMessage.tags.lengthField,
   })
+  @ToLowerCase()
   @ArrayNotEmpty()
+  @IsOptional()
   public tags?: string[];
 }

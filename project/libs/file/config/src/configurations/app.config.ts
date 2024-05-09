@@ -39,7 +39,7 @@ function getConfig(): IFileConfig {
   const config: IFileConfig = {
     environment: process.env.NODE_ENV as TEnvironment,
     port: parseInt(
-      process.env.PORT || `${DefaultPort.AppPortFile}`,
+      process.env.PORT_FILE || `${DefaultPort.AppPortFile}`,
       DECIMAL_SYSTEM
     ),
     uploadDirectory: process.env.UPLOAD_DIRECTORY_PATH,

@@ -37,4 +37,11 @@ export class UserRdo {
   })
   @Expose()
   public lastName: string;
+
+  @ApiProperty({
+    description: OpenApiMessages.createdAt.description,
+    example: OpenApiMessages.createdAt.example,
+  })
+  @Expose()
+  public createdAt: Date;
 }

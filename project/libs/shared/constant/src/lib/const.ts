@@ -14,7 +14,10 @@ export const AppRoutes = {
   Auth: 'auth',
   Swagger: 'swagger',
   Posts: 'posts',
+  Notifications: 'notifications',
+  Reposts: 'reposts',
   Comments: 'comments',
+  Likes: 'likes',
   Files: 'files',
   Users: 'users',
   Blog: 'blog',
@@ -25,19 +28,32 @@ export const Path = {
   Comments: 'comments',
   Likes: 'likes',
   Reposts: 'reposts',
+  Statistics: 'statistics',
   NewPassword: 'new-password',
   Login: 'login',
   Refresh: 'refresh',
   Check: 'check',
   Upload: 'upload',
+  NewsletterPosts: 'newsletter-posts',
 } as const;
 
 export const RabbitRouting = {
   AddSubscriber: 'notify.addSubscriber',
+  SendNewPosts: 'notify.sendNewPosts',
+} as const;
+
+export const RabbitExchange = {
+  ReadmeNotify: 'readme.notify',
+} as const;
+
+export const RabbitQueue = {
+  Subscriber: 'subscriber',
+  Posts: 'posts',
 } as const;
 
 export const SpaceName = {
   AppBlog: 'app.blog',
+  AppApi: 'app.api',
   AppUser: 'app.user',
   AppFile: 'app.file',
   AppNotify: 'app.notify',
@@ -67,6 +83,12 @@ export const DefaultPort = {
   MailSMTP: 25,
 } as const;
 
+export const LimitSizeFile = {
+  Avatar: 5_00 * 1_024,
+  AvatarTest: 1,
+  Image: 1 * 1_024 * 1_024,
+} as const;
+
 export const ApplicationServiceURL = {
   Users: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortUser)}/${
     AppRoutes.Api
@@ -92,6 +114,7 @@ export const PathEnvironments = {
   File: 'apps/file/file.env',
   User: 'apps/user/user.env',
   Blog: 'apps/blog/blog.env',
+  Api: 'apps/api/api.env',
 } as const;
 
 export const Environments = ['development', 'production', 'stage'] as const;
@@ -101,9 +124,21 @@ export const SortDirection = {
   Desc: 'desc',
 } as const;
 
+export const BooleanEnum = {
+  True: 'true',
+  False: 'false',
+} as const;
+
+export const SortOption = {
+  Date: 'Date',
+  Likes: 'Likes',
+  Comments: 'Comments',
+} as const;
+
 export const AuthToken = {
   Name: 'AUTHORIZATION',
   Description: 'Token (формат: Bearer + "token")',
+  DescriptionRefresh: 'Token (формат: Bearer + "refreshToken")',
 } as const;
 
 export const TypePostList: TTypePost[] = Object.values(TypePost);
@@ -114,10 +149,11 @@ export const AllowedKeys = [
   'title',
   'tags',
   'linkDescription',
+  'isPublished',
 ];
 export const RequiredKeysText = ['announcementPublic', 'textPublic'];
 export const RequiredKeysVideo = ['videoUrl'];
-export const RequiredKeysPhoto = ['imageUrl'];
+export const RequiredKeysPhoto = ['image'];
 export const RequiredKeysQuote = ['textQuote', 'quoteAuthor'];
 export const RequiredKeysLink = ['link'];
 

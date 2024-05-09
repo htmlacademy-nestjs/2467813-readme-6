@@ -5,14 +5,6 @@ import { OpenApiMessages } from '../const';
 
 export class CommentWithPaginationRdo {
   @ApiProperty({
-    description: OpenApiMessages.entities.description,
-    type: CommentRdo,
-    isArray: true,
-  })
-  @Expose()
-  public entities: CommentRdo[];
-
-  @ApiProperty({
     description: OpenApiMessages.totalPages.description,
     example: OpenApiMessages.totalPages.example,
   })
@@ -39,4 +31,12 @@ export class CommentWithPaginationRdo {
   })
   @Expose()
   public itemsPerPage: number;
+
+  @ApiProperty({
+    description: OpenApiMessages.entities.description,
+    type: CommentRdo,
+    isArray: true,
+  })
+  @Expose()
+  public entities: CommentRdo[];
 }

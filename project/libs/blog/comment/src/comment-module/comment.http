@@ -1,17 +1,21 @@
+@PORT = 3001
+
+###
+
 # Get all comments for post
-GET http://localhost:3001/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments HTTP/1.1
 
 ###
 
 # Get posts with filter
 
-GET http://localhost:3001/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments?limit=1&sortDirection=asc&page=1 HTTP/1.1
+GET http://localhost:{{PORT}}/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments?limit=1&sortDirection=asc&page=1 HTTP/1.1
 
 ###
 
 
 # Create a new comment for post
-POST http://localhost:3001/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments HTTP/1.1
+POST http://localhost:{{PORT}}/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments HTTP/1.1
 Content-Type: application/json
 
 {
@@ -22,6 +26,6 @@ Content-Type: application/json
 ###
 
 # Delete the comment by id
-DELETE http://localhost:3001/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments/d0c4d980-2f5b-4d57-b830-c83b4c639a64 HTTP/1.1
+DELETE http://localhost:{{PORT}}/api/posts/9e0034c5-3202-4c66-a00d-11a9aa4df6a1/comments/d0c4d980-2f5b-4d57-b830-c83b4c639a64 HTTP/1.1
 
 ###

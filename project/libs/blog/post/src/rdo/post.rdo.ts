@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { TTypePost } from '@project/constant';
+import { TTypePost, TypePost } from '@project/constant';
 import { ApiProperty } from '@nestjs/swagger';
 import { OpenApiMessages } from '../const';
 
@@ -21,6 +21,7 @@ export class PostRdo {
   @ApiProperty({
     description: OpenApiMessages.typePost.description,
     example: OpenApiMessages.typePost.example,
+    enum: TypePost,
   })
   @Expose()
   public typePost: TTypePost;
@@ -68,11 +69,11 @@ export class PostRdo {
   public videoUrl?: string;
 
   @ApiProperty({
-    description: OpenApiMessages.imageUrl.description,
-    example: OpenApiMessages.imageUrl.example,
+    description: OpenApiMessages.image.description,
+    example: OpenApiMessages.image.example,
   })
   @Expose()
-  public imageUrl?: string;
+  public image?: string;
 
   @ApiProperty({
     description: OpenApiMessages.textQuote.description,
@@ -109,12 +110,24 @@ export class PostRdo {
   @Expose()
   public isPublished: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.isRepost.description,
+    example: OpenApiMessages.isRepost.example,
+  })
   @Expose()
   public isRepost?: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.isLike.description,
+    example: OpenApiMessages.isLike.example,
+  })
   @Expose()
-  public originalPostId?: string;
+  public isLike?: boolean;
 
+  @ApiProperty({
+    description: OpenApiMessages.likes.description,
+    example: OpenApiMessages.likes.example,
+  })
   @Expose()
   public likes: number;
 
@@ -125,12 +138,16 @@ export class PostRdo {
   @Expose()
   public comments: number;
 
+  @ApiProperty({
+    description: OpenApiMessages.reposts.description,
+    example: OpenApiMessages.reposts.example,
+  })
   @Expose()
   public reposts: number;
 
   @ApiProperty({
     description: OpenApiMessages.tags.description,
-    example: OpenApiMessages.tags.description,
+    example: OpenApiMessages.tags.example,
   })
   @Expose()
   public tags?: string[];

@@ -1,4 +1,17 @@
-import { ClassTransformOptions, plainToInstance } from 'class-transformer';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  ClassTransformOptions,
+  Transform,
+  plainToInstance,
+} from 'class-transformer';
+import {
+  registerDecorator,
+  ValidationOptions,
+  ValidationArguments,
+} from 'class-validator';
 
 export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
 export type TimeAndUnit = {
@@ -74,4 +87,34 @@ export function parseTime(time: string): TimeAndUnit {
 
 export function getFullServerPath(host: string, port: number) {
   return `http://${host}:${port}`;
+}
+
+export function ToLowerCase() {
+  return Transform(({ value }) => {
+    if (Array.isArray(value)) {
+      return value.map((v) => (typeof v === 'string' ? v.toLowerCase() : v));
+    }
+    return typeof value === 'string' ? value.toLowerCase() : value;
+  });
+}
+
+export function IsYoutubeUrl(validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'isYoutubeUrl',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      validator: {
+        validate(value: any, _args: ValidationArguments) {
+          const urlPattern =
+            /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+          return typeof value === 'string' && urlPattern.test(value);
+        },
+        defaultMessage(_args: ValidationArguments) {
+          return 'The text must be a valid YouTube URL';
+        },
+      },
+    });
+  };
 }

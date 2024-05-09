@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { IPaginationResult } from '@project/core';
 
@@ -12,20 +17,20 @@ import { getMessageNotFoundDocument } from '@project/helpers';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeService } from '@project/likes';
 import { CreateRepostDto } from '../dto/create-repost.dto';
-import { RepostService } from '@project/repost';
 
 @Injectable()
 export class PostService {
   constructor(
+    private readonly entityFactory: PostFactory,
     private readonly postRepository: PostRepository,
-    private readonly likeService: LikeService,
-    private readonly repostService: RepostService
+    private readonly likeService: LikeService
   ) {}
 
   public async getAllPosts(
-    query?: PostQuery
+    query?: PostQuery,
+    currentUserId?: string
   ): Promise<IPaginationResult<PostEntity>> {
-    return this.postRepository.find(query);
+    return this.postRepository.find(query, currentUserId);
   }
 
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
@@ -43,12 +48,20 @@ export class PostService {
     }
   }
 
-  public async getPost(id: string): Promise<PostEntity> {
-    return this.postRepository.findById(id);
+  public async getPost(
+    id: string,
+    currentUserId?: string
+  ): Promise<PostEntity> {
+    return this.postRepository.findById(id, currentUserId);
   }
 
   public async updatePost(id: string, dto: UpdatePostDto): Promise<PostEntity> {
     const existsPost = await this.postRepository.findById(id);
+
+    if (existsPost.isRepost) {
+      throw new BadRequestException('You cannot edit a repost');
+    }
+
     let hasChanges = false;
 
     for (const [key, value] of Object.entries(dto)) {
@@ -70,12 +83,41 @@ export class PostService {
   public async createOrDeleteLike(id: string, dto: CreateLikeDto) {
     const existsPost = await this.postRepository.findById(id);
 
-    return await this.likeService.toggleLikes(dto.userId, existsPost.id);
+    if (!existsPost.isPublished) {
+      throw new BadRequestException(
+        'You can`t put a like when the post is not cheated'
+      );
+    }
+
+    return await this.likeService.toggleLikes(dto, existsPost.id);
   }
 
-  public async createOrDeleteRepost(id: string, dto: CreateRepostDto) {
+  public async createRepost(id: string, dto: CreateRepostDto) {
     const existsPost = await this.postRepository.findById(id);
 
-    return await this.repostService.toggleRepost(dto.userId, existsPost.id);
+    if (dto.userId === existsPost.userId) {
+      throw new ForbiddenException('You can`t repost your posts');
+    }
+
+    await this.postRepository.findRepost(id, dto.userId);
+
+    const repost = {
+      ...existsPost,
+      userId: dto.userId,
+      isRepost: true,
+      originPostId: id,
+      originUserId: existsPost.userId,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    };
+    const newPost = this.entityFactory.create(repost);
+
+    await this.postRepository.save(newPost);
+
+    return newPost;
+  }
+
+  public async getStatistics(id: string) {
+    return await this.postRepository.getUserPostCount(id);
   }
 }

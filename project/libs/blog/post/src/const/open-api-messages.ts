@@ -10,6 +10,7 @@ export const OpenApiMessages = {
   userId: {
     description: 'The unique userId MongoDB',
     example: '6621683a9775bcf7c8f2606b',
+    name: 'userId',
   },
   createdAt: {
     description: 'Post createdAt',
@@ -26,6 +27,7 @@ export const OpenApiMessages = {
   typePost: {
     description: 'type must be video, text, quote, photo or link',
     example: 'text',
+    name: 'typePost',
   },
   announcementPublic: {
     description: 'Post announcementPublic',
@@ -36,12 +38,12 @@ export const OpenApiMessages = {
     example: 'textPublic',
   },
   videoUrl: {
-    description: 'Post videoUrl',
-    example: 'videoUrl',
+    description: 'Post URL of the YouTube video',
+    example: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
-  imageUrl: {
-    description: 'Post imageUrl',
-    example: 'imageUrl',
+  image: {
+    description: 'Post image',
+    example: 'image',
   },
   textQuote: {
     description: 'Post textQuote',
@@ -61,7 +63,8 @@ export const OpenApiMessages = {
   },
   tags: {
     description: 'Post tags',
-    example: '["tags"]',
+    example: '["tag"]',
+    name: 'tags',
   },
   entities: {
     description: 'Post list entities',
@@ -86,17 +89,64 @@ export const OpenApiMessages = {
   isPublished: {
     description: 'Post isPublished',
     example: true,
+    name: 'isPublished',
   },
   comments: {
     description: 'Post comments',
     example: 2,
   },
+  likes: {
+    description: 'Post likes',
+    example: 1,
+  },
+  reposts: {
+    description: 'Post reposts',
+    example: 4,
+  },
   isLike: {
     description: 'isLike like',
-    example: true,
+    example: false,
   },
   isRepost: {
     description: 'isRepost repost',
     example: true,
+  },
+  sortOption: {
+    name: 'sortOption',
+  },
+  sortDirection: {
+    name: 'sortDirection',
+  },
+  page: {
+    name: 'page',
+  },
+  limit: {
+    name: 'limit',
+  },
+  path: {
+    create: {
+      summary: 'Создать пост',
+    },
+    createOrDeleteLike: {
+      summary: 'Создать/Удалить лайк к посту',
+    },
+    createRepost: {
+      summary: 'Создать репост',
+    },
+    listPost: {
+      summary: 'Получить список постов',
+    },
+    DetailPost: {
+      summary: 'Получить детальный пост',
+    },
+    UpdatePost: {
+      summary: 'Редактировать пост',
+    },
+    DeletePost: {
+      summary: 'Удалить пост',
+    },
+    NotifyPosts: {
+      summary: 'Уведомления на email о новых постах',
+    },
   },
 };

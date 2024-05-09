@@ -8,14 +8,14 @@ import { PostService } from './post.service';
 import { PostRepository } from './post.repository';
 import { PostFactory } from './post.factory';
 import { LikeModule } from '@project/likes';
-import { RepostModule } from '@project/repost';
+import { NotifyBlogModule } from '@project/blog-notify';
 
 @Module({
   imports: [
     PrismaClientModule,
     LikeModule,
-    RepostModule,
     forwardRef(() => CommentModule),
+    NotifyBlogModule,
   ],
   controllers: [PostController],
   providers: [PostService, PostRepository, PostFactory],

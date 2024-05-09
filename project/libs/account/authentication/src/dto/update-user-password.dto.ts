@@ -1,4 +1,4 @@
-import { IsString, Length } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 import { CreateUserMessages, OpenApiMessages, Password } from '../const';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -22,4 +22,7 @@ export class UpdateUserPassword {
     message: CreateUserMessages.newPassword.lengthField,
   })
   public newPassword: string;
+
+  @IsOptional()
+  public userId?: string;
 }

@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
   HttpStatus,
   Param,
   Patch,
@@ -26,6 +25,7 @@ import { IRequestWithUser } from '../types/request-with-user.interface';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { IRequestWithTokenPayload } from '../types/request-with-token-payload.interface';
+import { UpdateTokensRdo } from '../rdo/update-tokens.rdo';
 
 @ApiTags(AppRoutes.Auth)
 @Controller(AppRoutes.Auth)
@@ -88,11 +88,11 @@ export class AuthenticationController {
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
-    return existUser.toPOJO();
+    return fillDto(UserRdo, existUser.toPOJO());
   }
 
   @ApiResponse({
-    type: UpdateUserPassword,
+    type: UserRdo,
     status: HttpStatus.CREATED,
     description: AuthenticationResponseMessage.UpdateUserPassword,
   })
@@ -119,13 +119,18 @@ export class AuthenticationController {
     return fillDto(UserRdo, updatedUser.toPOJO());
   }
 
-  @UseGuards(JwtRefreshGuard)
-  @Post(Path.Refresh)
-  @HttpCode(HttpStatus.OK)
+  @ApiHeader({
+    name: AuthToken.Name,
+    description: AuthToken.DescriptionRefresh,
+    required: true,
+  })
   @ApiResponse({
+    type: UpdateTokensRdo,
     status: HttpStatus.OK,
     description: AuthenticationResponseMessage.NewTokens,
   })
+  @UseGuards(JwtRefreshGuard)
+  @Post(Path.Refresh)
   public async refreshToken(@Req() { user }: IRequestWithUser) {
     return this.authService.createUserToken(user);
   }

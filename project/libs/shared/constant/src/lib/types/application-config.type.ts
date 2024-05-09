@@ -3,6 +3,15 @@ export interface IAppConfig {
   port: number;
 }
 
+export interface IRabbitConfig {
+  host: string;
+  password: string;
+  user: string;
+  queue: string;
+  exchange: string;
+  port: number;
+}
+
 export interface IFileConfig extends IAppConfig {
   uploadDirectory: string;
   db: {
