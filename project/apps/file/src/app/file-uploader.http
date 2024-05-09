@@ -1,18 +1,22 @@
+@PORT = 3002
+
+###
+
 # Upload some file
-POST http://localhost:3002/api/files/upload HTTP/1.1
+POST http://localhost:{{PORT}}/api/files/upload HTTP/1.1
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="file"; filename="file-uploader.http"
+Content-Disposition: form-data; name="file"; filename="1.jpg"
 
-./file-uploader.http
+./1.jpg
 
 --boundary--
 
 ###
 
 # Get file by ID
-GET http://localhost:3002/api/files/66335fcc909874e3f445de5b HTTP/1.1
+GET http://localhost:{{PORT}}/api/files/66335fcc909874e3f445de5b HTTP/1.1
 
 ###
 

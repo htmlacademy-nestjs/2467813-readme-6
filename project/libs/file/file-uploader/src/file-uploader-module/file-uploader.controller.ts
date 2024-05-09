@@ -29,8 +29,8 @@ export class FileUploaderController {
     status: HttpStatus.CREATED,
     description: UploadResponseMessage.UploadSuccess,
   })
-  @Post(`/${Path.Upload}`)
   @UseInterceptors(FileInterceptor('file'))
+  @Post(`/${Path.Upload}`)
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const fileEntity = await this.fileUploaderService.saveFile(file);
     return fillDto(UploadedFileRdo, fileEntity.toPOJO());

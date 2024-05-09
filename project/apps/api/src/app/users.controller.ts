@@ -1,5 +1,9 @@
+import 'multer';
+import { Express } from 'express';
 import { HttpService } from '@nestjs/axios';
+import FormData from 'form-data';
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -8,6 +12,7 @@ import {
   Patch,
   Post,
   Req,
+  UploadedFile,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -29,6 +34,7 @@ import {
   AppRoutes,
   ApplicationServiceURL,
   AuthToken,
+  LimitSizeFile,
   Path,
 } from '@project/constant';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
@@ -37,6 +43,9 @@ import { InjectUserIdInterceptor } from '@project/interceptors';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { MongoIdValidationPipe } from '@project/pipes';
 import { UserDetailRdo } from './rdo/user-detail.rdo';
+import { FileInterceptor } from '@nestjs/platform-express';
+
+import { UploadedFileRdo } from '@project/file-uploader';
 
 @ApiTags(AppRoutes.Users)
 @Controller(AppRoutes.Users)
@@ -54,11 +63,55 @@ export class UsersController {
     description: AuthenticationResponseMessage.UserExist,
   })
   @ApiOperation({ summary: OpenApiMessages.path.register.summary })
+  @UseInterceptors(
+    FileInterceptor('file', {
+      fileFilter: (_req, file, cb) => {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+          return cb(
+            new BadRequestException(
+              'Only jpg, jpeg, and png files are allowed!'
+            ),
+            false
+          );
+        }
+        cb(null, true);
+      },
+    })
+  )
   @Post(Path.Register)
-  public async register(@Body() dto: CreateUserDto) {
+  public async register(
+    @Body() dto: CreateUserDto,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    const dataImg = {
+      id: '',
+    };
+
+    if (file) {
+      if (file.size > LimitSizeFile.Avatar) {
+        throw new BadRequestException(
+          'File is too large. Maximum size is 500KB.'
+        );
+      }
+
+      const formData = new FormData();
+
+      formData.append('file', file.buffer, file.originalname);
+
+      const { data } = await this.httpService.axiosRef.post<UploadedFileRdo>(
+        `${ApplicationServiceURL.File}/${Path.Upload}`,
+        formData
+      );
+
+      dataImg.id = data.id;
+    }
+
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${Path.Register}`,
-      dto
+      {
+        ...dto,
+        avatarPath: dataImg.id ?? '',
+      }
     );
     return data;
   }

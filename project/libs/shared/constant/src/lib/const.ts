@@ -83,6 +83,12 @@ export const DefaultPort = {
   MailSMTP: 25,
 } as const;
 
+export const LimitSizeFile = {
+  Avatar: 5_00 * 1_024,
+  AvatarTest: 1,
+  Image: 1 * 1_024 * 1_024,
+} as const;
+
 export const ApplicationServiceURL = {
   Users: `${getFullServerPath(DEFAULT_HOST, DefaultPort.AppPortUser)}/${
     AppRoutes.Api

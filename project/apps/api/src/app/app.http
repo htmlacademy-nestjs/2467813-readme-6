@@ -8,11 +8,40 @@ POST http://localhost:{{PORT}}/api/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "example1@email.ru",
+  "email": "example@email.ru",
   "firstName": "Mikhail",
   "lastName": "Yanov",
   "password": "123456"
 }
+
+###
+
+# Create a new user with avatar
+POST http://localhost:{{PORT}}/api/users/register HTTP/1.1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="email"
+
+example2@email.ru
+--WebAppBoundary
+Content-Disposition: form-data; name="firstName"
+
+Mikhail
+--WebAppBoundary
+Content-Disposition: form-data; name="lastName"
+
+Yanov
+--WebAppBoundary
+Content-Disposition: form-data; name="password"
+
+123456
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="1.jpg"
+Content-Type: image/jpeg
+
+./1.jpg
+--WebAppBoundary--
 
 ###
 
@@ -46,7 +75,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 ###
 
 # Get user detail by ID
-GET http://localhost:{{PORT}}/api/users/663362521895e601eb7e41c1 HTTP/1.1
+GET http://localhost:{{PORT}}/api/users/663ca1167347b49bf3e796e6 HTTP/1.1
 
 
 # =======> POSTS

@@ -40,8 +40,8 @@ export const OpenApiMessages = {
     example: '1234567',
   },
   avatarPath: {
-    description: 'User avatar path',
-    example: '/images/user.png',
+    description: 'User avatar path id',
+    example: '663ca1162b515bddbaa7e64c',
   },
   path: {
     register: {
