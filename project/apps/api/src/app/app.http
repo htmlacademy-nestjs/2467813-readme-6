@@ -23,7 +23,7 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="email"
 
-example2@email.ru
+example@email.ru
 --WebAppBoundary
 Content-Disposition: form-data; name="firstName"
 

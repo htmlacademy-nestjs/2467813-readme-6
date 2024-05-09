@@ -12,7 +12,13 @@ export class EmailSubscriberService {
 
   public async addSubscriber(subscriber: CreateSubscriberDto) {
     const { email } = subscriber;
-    await this.findSubscriberByEmail(email);
+
+    const existSubscriber = await this.emailSubscriberRepository.findByEmail(
+      email
+    );
+    if (existSubscriber) {
+      return existSubscriber;
+    }
 
     const emailSubscriber = new EmailSubscriberEntity(subscriber);
     await this.emailSubscriberRepository.save(emailSubscriber);
@@ -34,6 +40,7 @@ export class EmailSubscriberService {
     const existSubscriber = await this.emailSubscriberRepository.findByEmail(
       email
     );
+
     if (!existSubscriber) {
       throw new NotFoundException('The subscriber has not been found');
     }

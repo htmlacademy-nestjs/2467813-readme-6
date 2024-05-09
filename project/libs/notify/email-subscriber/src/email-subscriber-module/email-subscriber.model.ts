@@ -29,7 +29,10 @@ export class EmailSubscriberModel extends Document implements ISubscriber {
   })
   public lastName: string;
 
-  @Prop()
+  @Prop({
+    type: Date,
+    default: Date.now,
+  })
   public lastNotificationTime?: Date;
 
   public id?: string;
