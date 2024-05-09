@@ -217,8 +217,7 @@ export class UsersController {
     const { data: dataCount } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.Blog}/${id}/${Path.Statistics}`
     );
-    // FIXME: ДОБАВИТЬ загрузку Аватар пользователя
-    // FIXME: ДОБАВИТЬ Количество подписчиков;
+
     return {
       ...data,
       countPublic: dataCount,

@@ -192,10 +192,4 @@ export class CreatePostDto {
   @ArrayNotEmpty()
   @IsOptional()
   public tags?: string[];
-
-  public transformTagsToLowercase(): void {
-    if (this.tags) {
-      this.tags = this.tags.map((tag) => tag.toLowerCase());
-    }
-  }
 }
