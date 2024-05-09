@@ -55,6 +55,13 @@ PGADMIN_DEFAULT_EMAIL=value - Email пользователя в (PgAdmin)
 PGADMIN_DEFAULT_PASSWORD=value - Пароль пользователя в для аутентификация (PgAdmin)
 
 PORT_BLOG=value - Порт для входящих подключений
+
+RABBIT_HOST=value - IP-адрес сервера (RabbitMQ)
+RABBIT_USER=alue - Имя пользователя (RabbitMQ)
+RABBIT_PASSWORD=value - Пароль пользователя (RabbitMQ)
+RABBIT_PORT=value - Порт пользователя (RabbitMQ)
+RABBIT_QUEUE=value - Название очереди (RabbitMQ)
+RABBIT_EXCHANGE=value - Название обменника (RabbitMQ)
 ```
 
 #### Переменных окружения проекта `file`
