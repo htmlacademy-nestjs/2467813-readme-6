@@ -2,11 +2,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 
-import { ISubscriber } from '@project/core';
+import { IPost, ISubscriber } from '@project/core';
 import { NotifyConfig } from '@project/notify-config';
-
-export const EMAIL_ADD_SUBSCRIBER_SUBJECT = 'Подписка на рассылку оформлена';
-export const SEND_NEW_POSTS_SUBJECT = 'Новые публикации по подписке';
+import { SendMessageMail, Template } from '../const';
 
 @Injectable()
 export class MailService {
@@ -19,8 +17,8 @@ export class MailService {
     await this.mailerService.sendMail({
       from: this.notifyConfig.mail.from,
       to: subscriber.email,
-      subject: EMAIL_ADD_SUBSCRIBER_SUBJECT,
-      template: './add-subscriber',
+      subject: SendMessageMail.Subscribe,
+      template: Template.Subscriber,
       context: {
         user: `${subscriber.firstName} ${subscriber.lastName}`,
         email: `${subscriber.email}`,
@@ -28,13 +26,12 @@ export class MailService {
     });
   }
 
-  public async sendNotifyNewPosts({ newPosts, email }: any) {
-    console.log('sendNotifyNewPosts ===>', newPosts, email);
+  public async sendNotifyNewPosts(newPosts: IPost[], email: string) {
     await this.mailerService.sendMail({
       from: this.notifyConfig.mail.from,
       to: email,
-      subject: SEND_NEW_POSTS_SUBJECT,
-      template: './list-new-publications',
+      subject: SendMessageMail.NewPosts,
+      template: Template.Publication,
       context: {
         newPosts,
       },

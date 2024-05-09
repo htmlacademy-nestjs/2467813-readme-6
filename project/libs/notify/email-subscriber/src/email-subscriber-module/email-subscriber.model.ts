@@ -29,6 +29,9 @@ export class EmailSubscriberModel extends Document implements ISubscriber {
   })
   public lastName: string;
 
+  @Prop()
+  public lastNotificationTime?: Date;
+
   public id?: string;
 }
 

@@ -277,7 +277,7 @@ export class PostController {
     status: HttpStatus.OK,
     description: NotificationResponseMessage.NotificationEmail,
   })
-  @Post(Path.newsletterPosts)
+  @Post(Path.NewsletterPosts)
   public async sendNewsletter(@Query() query: PostQuery, @Req() req: Request) {
     const userId = req.headers['x-user-id'] ?? '';
     const posts = await this.postService.getAllPosts(query, userId);

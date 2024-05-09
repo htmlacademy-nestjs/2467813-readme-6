@@ -21,7 +21,7 @@ POST http://localhost:{{PORT}}/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "example1@email.ru",
+  "email": "example@email.ru",
   "password": "123456"
 }
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 # Изменить пароль
 PATCH http://localhost:{{PORT}}/api/users/new-password HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "password": "123456",
@@ -41,7 +41,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 # Get new JWT pair
 POST http://localhost:{{PORT}}/api/users/refresh HTTP/1.1 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsInRva2VuSWQiOiJiYTcyOTE0OS01NzllLTRkMTctYmFjMS1iODI1ZWQxNjIyOTQiLCJpYXQiOjE3MTUwNjYzMjMsImV4cCI6MTcxNzY1ODMyM30.Mo_RZKJWKPE_SLXYr0cGN7bqzsPBrbxiuBfTrHuuCU4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
@@ -55,7 +55,7 @@ GET http://localhost:{{PORT}}/api/users/663362521895e601eb7e41c1 HTTP/1.1
 # Create a new post 1 text
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "title": "Проверка text Проверка text Проверка text",
@@ -70,7 +70,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Create a new post 2 quote
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "title": "Some quote Some quote Some quote Some quote",
@@ -85,7 +85,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Create a new post 3 link
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "title": "Some link Some link Some link Some link",
@@ -100,7 +100,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Create a new post 4 video
 POST http://localhost:{{PORT}}/api/blog HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "title": "Some video Some video Some video Some video",
@@ -113,8 +113,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 # Get all posts
 GET http://localhost:{{PORT}}/api/blog  HTTP/1.1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjM5ZTEzYTJkZDY3NWZmMGZmZDVhZDUiLCJlbWFpbCI6ImV4YW1wbGUxQGVtYWlsLnJ1IiwiZmlyc3ROYW1lIjoiTWlraGFpbCIsImxhc3ROYW1lIjoiWWFub3YiLCJpYXQiOjE3MTUxOTEzNTMsImV4cCI6MTcxNTM2NDE1M30.cVU9CxHdlNCg8HYBEY-nRv2YxW4sDxnTvs7DwXMdKaI
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
@@ -138,21 +137,20 @@ GET http://localhost:{{PORT}}/api/blog?limit=3&sortDirection=desc&page=1&userId=
 
 # Get all posts Authorization filter 4 черновики
 GET http://localhost:{{PORT}}/api/blog?isPublished=true  HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
 # Get post by id
 GET http://localhost:{{PORT}}/api/blog/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjM5ZTEzYTJkZDY3NWZmMGZmZDVhZDUiLCJlbWFpbCI6ImV4YW1wbGUxQGVtYWlsLnJ1IiwiZmlyc3ROYW1lIjoiTWlraGFpbCIsImxhc3ROYW1lIjoiWWFub3YiLCJpYXQiOjE3MTUxOTEzNTMsImV4cCI6MTcxNTM2NDE1M30.cVU9CxHdlNCg8HYBEY-nRv2YxW4sDxnTvs7DwXMdKaI
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
 # Update post by id
 PATCH http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "title": "Some new quote Some quote Some quote Some quote"
@@ -162,7 +160,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 
 # Delete the post by id
 DELETE http://localhost:{{PORT}}/api/blog/1265865e-5801-46df-b8dc-1a230666f567 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
@@ -171,7 +169,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Create a new comment for post
 POST http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "message": "example example"
@@ -191,7 +189,7 @@ GET http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c/
 
 # Delete the comment by id
 DELETE http://localhost:{{PORT}}/api/comments/453ee77d-9a21-4b10-84a0-dd5c3170de4c/comments/72bd8619-5237-4b75-80c2-66b05ea3d18e HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 ###
 
@@ -200,7 +198,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Like post by id
 PUT http://localhost:{{PORT}}/api/likes/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {
   "isLike": true
@@ -213,7 +211,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # Repost post by id
 POST http://localhost:{{PORT}}/api/reposts/453ee77d-9a21-4b10-84a0-dd5c3170de4c HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTA2ODYwNCwiZXhwIjoxNzE1MjQxNDA0fQ.HPUsshGhA4kmfzBqmX6g9a5pXWo0CKuDN1lcqe5-q64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1MjE4OTVlNjAxZWI3ZTQxYzEiLCJlbWFpbCI6ImV4YW1wbGVAZW1haWwucnUiLCJmaXJzdE5hbWUiOiJNaWtoYWlsIiwibGFzdE5hbWUiOiJZYW5vdiIsImlhdCI6MTcxNTI0MjA5MiwiZXhwIjoxNzE1NDE0ODkyfQ.K_sJDBtVLY56uzIftiJbNLHQZB2K6DdpD8cmSrkiubc
 
 {}
 
@@ -222,7 +220,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjI1M
 # =======> NOTIFICATIONS
 
 # Рассылка уведомлений на email о появлении новых публикаций.
-GET http://localhost:{{PORT}}/api/notifications/newsletter-posts HTTP/1.1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIzYTczMTliNDhiNjZlMjM1ZWJkNzAiLCJlbWFpbCI6Im5ldzJAdXNlci5jb20iLCJmaXJzdE5hbWUiOiJBbGV4IiwibGFzdE5hbWUiOiJCb2Noa2luIiwiaWF0IjoxNzA2Mjc1OTYyLCJleHAiOjE3MDg4Njc5NjJ9.NKmxS5VGH4YgSYHDT4a44MfNJmkBUG0MV13IddnDiXs
+POST http://localhost:{{PORT}}/api/notifications/newsletter-posts HTTP/1.1
 
 ###

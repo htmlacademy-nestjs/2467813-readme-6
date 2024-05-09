@@ -7,6 +7,7 @@ export class EmailSubscriberEntity
   public email: string;
   public firstName: string;
   public lastName: string;
+  public lastNotificationTime?: Date;
 
   constructor(subscriber?: ISubscriber) {
     super();
@@ -22,6 +23,7 @@ export class EmailSubscriberEntity
     this.email = subscriber.email;
     this.firstName = subscriber.firstName;
     this.lastName = subscriber.lastName;
+    this.lastNotificationTime = subscriber.lastNotificationTime;
   }
 
   public toPOJO(): ISubscriber {
@@ -30,6 +32,7 @@ export class EmailSubscriberEntity
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
+      lastNotificationTime: this.lastNotificationTime,
     };
   }
 }

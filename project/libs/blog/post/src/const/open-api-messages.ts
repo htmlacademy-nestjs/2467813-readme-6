@@ -145,5 +145,8 @@ export const OpenApiMessages = {
     DeletePost: {
       summary: 'Удалить пост',
     },
+    NotifyPosts: {
+      summary: 'Уведомления на email о новых постах',
+    },
   },
 };

@@ -1,3 +1,8 @@
+export const Template = {
+  Subscriber: './add-subscriber',
+  Publication: './list-new-publications',
+} as const;
+
 export const CreateEmailValidationMessage = {
   firstName: {
     invalidFormat: 'The firstName is empty',
@@ -9,3 +14,8 @@ export const CreateEmailValidationMessage = {
     invalidFormat: 'The email is not valid',
   },
 };
+
+export const SendMessageMail = {
+  Subscribe: 'Подписка на рассылку оформлена',
+  NewPosts: 'Новые публикации по подписке',
+} as const;

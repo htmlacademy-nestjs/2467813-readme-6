@@ -34,12 +34,21 @@ export const Path = {
   Refresh: 'refresh',
   Check: 'check',
   Upload: 'upload',
-  newsletterPosts: 'newsletter-posts',
+  NewsletterPosts: 'newsletter-posts',
 } as const;
 
 export const RabbitRouting = {
   AddSubscriber: 'notify.addSubscriber',
   SendNewPosts: 'notify.sendNewPosts',
+} as const;
+
+export const RabbitExchange = {
+  ReadmeNotify: 'readme.notify',
+} as const;
+
+export const RabbitQueue = {
+  Subscriber: 'subscriber',
+  Posts: 'posts',
 } as const;
 
 export const SpaceName = {
