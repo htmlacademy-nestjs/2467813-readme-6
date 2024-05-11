@@ -13,7 +13,7 @@ import { PostEntity } from './post.entity';
 import { PostFactory } from './post.factory';
 import { PostQuery } from './post.query';
 import { getMessageNotFoundDocument } from '@project/helpers';
-import { SortOption } from '@project/constant';
+import { ExceptionMessage, SortOption } from '@project/constant';
 import { PostCount } from '../const';
 
 @Injectable()
@@ -290,7 +290,7 @@ export class PostRepository extends BasePostgresRepository<PostEntity, IPost> {
     });
 
     if (document) {
-      throw new ConflictException('Repost already exists');
+      throw new ConflictException(ExceptionMessage.RepostConflict);
     }
 
     return document;

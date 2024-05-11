@@ -5,7 +5,7 @@ import {
   ExecutionContext,
   Injectable,
 } from '@nestjs/common';
-import { PostTypeToKeys } from '@project/constant';
+import { ExceptionMessage, PostTypeToKeys } from '@project/constant';
 import { CreatePostDto } from '../dto/create-post.dto';
 
 @Injectable()
@@ -16,9 +16,7 @@ export class PostGuard implements CanActivate {
 
     const typeConfig = PostTypeToKeys[body.typePost];
     if (!typeConfig) {
-      throw new BadRequestException(
-        'Invalid post type or missing required fields'
-      );
+      throw new BadRequestException(ExceptionMessage.FieldsInvalidMissing);
     }
 
     this.validatePostBody(
@@ -35,18 +33,20 @@ export class PostGuard implements CanActivate {
     requiredKeys: string[],
     allowedKeys: string[]
   ): void {
-    // Проверяем наличие всех необходимых ключей
     for (const key of requiredKeys) {
       if (!body.hasOwnProperty(key)) {
-        throw new BadRequestException(`Missing field: ${key}`);
+        throw new BadRequestException(
+          `${ExceptionMessage.FieldsMissing} ${key}`
+        );
       }
     }
 
-    // Проверяем, что нет лишних ключей
     const bodyKeys = Object.keys(body);
     for (const key of bodyKeys) {
       if (!allowedKeys.includes(key)) {
-        throw new BadRequestException(`Unexpected field: ${key}`);
+        throw new BadRequestException(
+          `${ExceptionMessage.FieldsUnexpected} ${key}`
+        );
       }
     }
   }

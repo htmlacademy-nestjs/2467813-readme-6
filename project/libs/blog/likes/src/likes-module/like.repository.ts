@@ -10,6 +10,7 @@ import { ILike } from '@project/core';
 import { BasePostgresRepository } from '@project/data-access';
 import { LikeEntity } from './like.entity';
 import { LikeFactory } from './like.factory';
+import { ExceptionMessage } from '@project/constant';
 
 @Injectable()
 export class LikeRepository extends BasePostgresRepository<LikeEntity, ILike> {
@@ -35,11 +36,11 @@ export class LikeRepository extends BasePostgresRepository<LikeEntity, ILike> {
     });
 
     if (existingLike && isLike) {
-      throw new ForbiddenException('You can`t add a like twice');
+      throw new ForbiddenException(ExceptionMessage.LikeForbidden);
     }
 
     if (!existingLike && !isLike) {
-      throw new NotFoundException('You can`t delete a like that doesn`t exist');
+      throw new NotFoundException(ExceptionMessage.LikeNotFound);
     }
 
     if (existingLike) {

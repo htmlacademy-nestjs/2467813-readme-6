@@ -9,6 +9,8 @@ import {
   SpaceName,
   IAppConfig,
 } from '@project/constant';
+import { getMessageConfig } from '@project/helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 const validationSchema = Joi.object({
   environment: Joi.string()
@@ -22,7 +24,10 @@ function validateConfig(config: IAppConfig): void {
     abortEarly: true,
   });
   if (error) {
-    throw new Error(`[Application Config Validation Error]: ${error.message}`);
+    throw new HttpException(
+      getMessageConfig('Application', error.message),
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 

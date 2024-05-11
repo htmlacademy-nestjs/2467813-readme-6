@@ -2,6 +2,8 @@ import { randomUUID } from 'node:crypto';
 
 import { Entity, IStorableEntity, IEntityFactory } from '@project/core';
 import { IRepository } from './repository.interface';
+import { NotFoundException } from '@nestjs/common';
+import { ExceptionMessage } from '@project/constant';
 
 export abstract class BaseMemoryRepository<
   T extends Entity & IStorableEntity<ReturnType<T['toPOJO']>>
@@ -31,7 +33,7 @@ export abstract class BaseMemoryRepository<
   public async update(entity: T): Promise<T> {
     const entityToUpdate = this.entities.get(entity.id) || null;
     if (!this.entities.has(entity.id)) {
-      throw new Error('Entity not found');
+      throw new NotFoundException(ExceptionMessage.EntityNotFound);
     }
 
     Object.entries(entity).forEach(([key, value]) => {
@@ -45,7 +47,7 @@ export abstract class BaseMemoryRepository<
 
   public async deleteById(id: T['id']): Promise<void> {
     if (!this.entities.has(id)) {
-      throw new Error('Entity not found');
+      throw new NotFoundException(ExceptionMessage.EntityNotFound);
     }
 
     this.entities.delete(id);

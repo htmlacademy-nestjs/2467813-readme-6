@@ -2,6 +2,8 @@ import * as Joi from 'joi';
 import { registerAs } from '@nestjs/config';
 
 import { SpaceName } from '@project/constant';
+import { getMessageConfig } from '@project/helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export interface JWTConfig {
   accessTokenSecret: string;
@@ -22,7 +24,10 @@ function validateConfig(config: JWTConfig): void {
     abortEarly: true,
   });
   if (error) {
-    throw new Error(`[Account JWTConfig Validation Error]: ${error.message}`);
+    throw new HttpException(
+      getMessageConfig('Account JWT', error.message),
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 
