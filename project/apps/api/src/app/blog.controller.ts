@@ -28,7 +28,6 @@ import {
   AppRoutes,
   ApplicationServiceURL,
   AuthToken,
-  LimitSizeFile,
   Path,
   SortDirection,
   SortOption,
@@ -81,21 +80,7 @@ export class BlogController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(InjectUserIdInterceptor)
   @ApiOperation({ summary: OpenApiMessages.path.create.summary })
-  @UseInterceptors(
-    FileInterceptor('file', {
-      fileFilter: (_req, file, cb) => {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-          return cb(
-            new BadRequestException(
-              'Only jpg, jpeg, and png files are allowed!'
-            ),
-            false
-          );
-        }
-        cb(null, true);
-      },
-    })
-  )
+  @UseInterceptors(FileInterceptor('file'))
   @Post()
   public async create(
     @Body() dto: CreatePostDto,
@@ -107,12 +92,6 @@ export class BlogController {
     }
 
     if (file) {
-      if (file.size > LimitSizeFile.Avatar) {
-        throw new BadRequestException(
-          'File is too large. Maximum size is 1MB.'
-        );
-      }
-
       const formData = new FormData();
 
       formData.append('file', file.buffer, file.originalname);

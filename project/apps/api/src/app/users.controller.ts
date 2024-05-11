@@ -3,7 +3,6 @@ import { Express } from 'express';
 import { HttpService } from '@nestjs/axios';
 import FormData from 'form-data';
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
@@ -34,7 +33,6 @@ import {
   AppRoutes,
   ApplicationServiceURL,
   AuthToken,
-  LimitSizeFile,
   Path,
 } from '@project/constant';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
@@ -63,37 +61,13 @@ export class UsersController {
     description: AuthenticationResponseMessage.UserExist,
   })
   @ApiOperation({ summary: OpenApiMessages.path.register.summary })
-  @UseInterceptors(
-    FileInterceptor('file', {
-      fileFilter: (_req, file, cb) => {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-          return cb(
-            new BadRequestException(
-              'Only jpg, jpeg, and png files are allowed!'
-            ),
-            false
-          );
-        }
-        cb(null, true);
-      },
-    })
-  )
+  @UseInterceptors(FileInterceptor('file'))
   @Post(Path.Register)
   public async register(
     @Body() dto: CreateUserDto,
     @UploadedFile() file: Express.Multer.File
   ) {
-    const dataImg = {
-      id: '',
-    };
-
     if (file) {
-      if (file.size > LimitSizeFile.Avatar) {
-        throw new BadRequestException(
-          'File is too large. Maximum size is 500KB.'
-        );
-      }
-
       const formData = new FormData();
 
       formData.append('file', file.buffer, file.originalname);
@@ -103,15 +77,12 @@ export class UsersController {
         formData
       );
 
-      dataImg.id = data.id;
+      dto.avatarPath = data.id;
     }
 
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${Path.Register}`,
-      {
-        ...dto,
-        avatarPath: dataImg.id ?? '',
-      }
+      dto
     );
     return data;
   }

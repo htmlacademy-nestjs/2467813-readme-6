@@ -1,6 +1,7 @@
 import 'multer';
 import { Express } from 'express';
 import {
+  BadRequestException,
   Controller,
   Get,
   HttpStatus,
@@ -12,7 +13,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { FileUploaderService } from './file-uploader.service';
-import { AppRoutes, Path } from '@project/constant';
+import { AppRoutes, LimitSizeFile, Path } from '@project/constant';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto } from '@project/helpers';
 import { UploadedFileRdo } from '../rdo/uploaded-file.rdo';
@@ -29,9 +30,33 @@ export class FileUploaderController {
     status: HttpStatus.CREATED,
     description: UploadResponseMessage.UploadSuccess,
   })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      fileFilter: (_req, file, cb) => {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+          return cb(
+            new BadRequestException(
+              'Only jpg, jpeg, and png files are allowed!'
+            ),
+            false
+          );
+        }
+        cb(null, true);
+      },
+    })
+  )
   @Post(`/${Path.Upload}`)
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    if (file.size > LimitSizeFile.Avatar) {
+      throw new BadRequestException(
+        'File is too large. Maximum size is 500KB.'
+      );
+    }
+
+    if (file.size > LimitSizeFile.Image) {
+      throw new BadRequestException('File is too large. Maximum size is 1MB.');
+    }
+
     const fileEntity = await this.fileUploaderService.saveFile(file);
     return fillDto(UploadedFileRdo, fileEntity.toPOJO());
   }
