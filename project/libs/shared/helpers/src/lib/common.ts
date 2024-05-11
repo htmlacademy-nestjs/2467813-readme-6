@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { ExceptionMessage } from '@project/constant';
 import {
   ClassTransformOptions,
   Transform,
@@ -63,12 +65,19 @@ export const getMessageNotFoundDocument = (name: string, id: string) => {
   return `${name} with ID ${id} not found`;
 };
 
+export const getMessageConfig = (name: string, message: string) => {
+  return `[${name} Config Validation Error]: ${message}`;
+};
+
 export function parseTime(time: string): TimeAndUnit {
   const regex = /^(\d+)([shdmy])/;
   const match = regex.exec(time);
 
   if (!match) {
-    throw new Error(`[parseTime] Bad time string: ${time}`);
+    throw new HttpException(
+      `${ExceptionMessage.ParseTime} ${time}`,
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 
   const [, valueRaw, unitRaw] = match;
@@ -76,7 +85,10 @@ export function parseTime(time: string): TimeAndUnit {
   const unit = unitRaw as DateTimeUnit;
 
   if (isNaN(value)) {
-    throw new Error(`[parseTime] Can't parse value count. Result is NaN.`);
+    throw new HttpException(
+      ExceptionMessage.ParseTimeNan,
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 
   return {

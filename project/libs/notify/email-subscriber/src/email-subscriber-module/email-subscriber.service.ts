@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { EmailSubscriberEntity } from './email-subscriber.entity';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
 import { CreateSubscriberDto } from '../../../email-subscriber/src/dto/create-subscriber.dto';
+import { ExceptionMessage } from '@project/constant';
 
 @Injectable()
 export class EmailSubscriberService {
@@ -42,7 +43,7 @@ export class EmailSubscriberService {
     );
 
     if (!existSubscriber) {
-      throw new NotFoundException('The subscriber has not been found');
+      throw new NotFoundException(ExceptionMessage.SubscriberNotFound);
     }
     return existSubscriber;
   }

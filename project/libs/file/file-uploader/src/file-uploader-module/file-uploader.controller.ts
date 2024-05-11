@@ -13,7 +13,12 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { FileUploaderService } from './file-uploader.service';
-import { AppRoutes, LimitSizeFile, Path } from '@project/constant';
+import {
+  AppRoutes,
+  ExceptionMessage,
+  LimitSizeFile,
+  Path,
+} from '@project/constant';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillDto } from '@project/helpers';
 import { UploadedFileRdo } from '../rdo/uploaded-file.rdo';
@@ -35,9 +40,7 @@ export class FileUploaderController {
       fileFilter: (_req, file, cb) => {
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
           return cb(
-            new BadRequestException(
-              'Only jpg, jpeg, and png files are allowed!'
-            ),
+            new BadRequestException(ExceptionMessage.FileBadRequest),
             false
           );
         }
@@ -48,13 +51,11 @@ export class FileUploaderController {
   @Post(`/${Path.Upload}`)
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
     if (file.size > LimitSizeFile.Avatar) {
-      throw new BadRequestException(
-        'File is too large. Maximum size is 500KB.'
-      );
+      throw new BadRequestException(ExceptionMessage.FileSizeAvatar);
     }
 
     if (file.size > LimitSizeFile.Image) {
-      throw new BadRequestException('File is too large. Maximum size is 1MB.');
+      throw new BadRequestException(ExceptionMessage.FileSizeImage);
     }
 
     const fileEntity = await this.fileUploaderService.saveFile(file);

@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { registerAs } from '@nestjs/config';
 import {
   DECIMAL_SYSTEM,
@@ -5,6 +6,7 @@ import {
   IRabbitConfig,
   SpaceName,
 } from '@project/constant';
+import { getMessageConfig } from '@project/helpers';
 import * as Joi from 'joi';
 
 const validationSchema = Joi.object({
@@ -21,7 +23,10 @@ function validateConfig(config: IRabbitConfig): void {
     abortEarly: true,
   });
   if (error) {
-    throw new Error(`[Rabbit Config Validation Error]: ${error.message}`);
+    throw new HttpException(
+      getMessageConfig('Rabbit', error.message),
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 

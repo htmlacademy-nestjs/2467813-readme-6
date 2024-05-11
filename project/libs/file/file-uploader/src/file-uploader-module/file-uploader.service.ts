@@ -21,6 +21,7 @@ import { IStoredFile } from '@project/core';
 import { FileUploaderEntity } from './file-uploader.entity';
 import { FileUploaderFactory } from './file-uploader.factory';
 import { getMessageNotFoundDocument } from '@project/helpers';
+import { ExceptionMessage } from '@project/constant';
 
 @Injectable()
 export class FileUploaderService {
@@ -68,9 +69,9 @@ export class FileUploaderService {
         subDirectory,
       };
     } catch (error) {
-      this.logger.error(`Error while saving file: ${error.message}`);
+      this.logger.error(`${ExceptionMessage.FileSave}: ${error.message}`);
       throw new HttpException(
-        `Can't save file`,
+        ExceptionMessage.FileSave,
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }

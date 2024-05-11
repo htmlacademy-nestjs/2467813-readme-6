@@ -1,6 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
 import { DECIMAL_SYSTEM, DefaultPort, SpaceName } from '@project/constant';
+import { getMessageConfig } from '@project/helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export interface IMongoConfig {
   host: string;
@@ -23,7 +25,10 @@ const dbValidationSchema = Joi.object({
 function validateMongoConfig(config: IMongoConfig): void {
   const { error } = dbValidationSchema.validate(config, { abortEarly: true });
   if (error) {
-    throw new Error(`[MongoDB Config Validation Error]: ${error.message}`);
+    throw new HttpException(
+      getMessageConfig('MongoDB', error.message),
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 

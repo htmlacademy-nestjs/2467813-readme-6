@@ -9,6 +9,8 @@ import {
   SpaceName,
   IFileConfig,
 } from '@project/constant';
+import { getMessageConfig } from '@project/helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 const validationSchema = Joi.object({
   environment: Joi.string()
@@ -31,7 +33,10 @@ function validateConfig(config: IFileConfig): void {
     abortEarly: true,
   });
   if (error) {
-    throw new Error(`[FileVault Config Validation Error]: ${error.message}`);
+    throw new HttpException(
+      getMessageConfig('FileVault', error.message),
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 

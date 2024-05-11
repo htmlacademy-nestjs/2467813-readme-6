@@ -17,6 +17,7 @@ import { getMessageNotFoundDocument } from '@project/helpers';
 import { CreateLikeDto } from '../dto/create-like.dto';
 import { LikeService } from '@project/likes';
 import { CreateRepostDto } from '../dto/create-repost.dto';
+import { ExceptionMessage } from '@project/constant';
 
 @Injectable()
 export class PostService {
@@ -59,7 +60,7 @@ export class PostService {
     const existsPost = await this.postRepository.findById(id);
 
     if (existsPost.isRepost) {
-      throw new BadRequestException('You cannot edit a repost');
+      throw new BadRequestException(ExceptionMessage.RepostBadRequest);
     }
 
     let hasChanges = false;
@@ -84,9 +85,7 @@ export class PostService {
     const existsPost = await this.postRepository.findById(id);
 
     if (!existsPost.isPublished) {
-      throw new BadRequestException(
-        'You can`t put a like when the post is not cheated'
-      );
+      throw new BadRequestException(ExceptionMessage.LikeBadRequest);
     }
 
     return await this.likeService.toggleLikes(dto, existsPost.id);
@@ -96,7 +95,7 @@ export class PostService {
     const existsPost = await this.postRepository.findById(id);
 
     if (dto.userId === existsPost.userId) {
-      throw new ForbiddenException('You can`t repost your posts');
+      throw new ForbiddenException(ExceptionMessage.RepostForbidden);
     }
 
     await this.postRepository.findRepost(id, dto.userId);

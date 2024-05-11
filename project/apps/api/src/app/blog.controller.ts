@@ -28,6 +28,7 @@ import {
   AppRoutes,
   ApplicationServiceURL,
   AuthToken,
+  ExceptionMessage,
   Path,
   SortDirection,
   SortOption,
@@ -88,7 +89,7 @@ export class BlogController {
     @Req() req: Request
   ) {
     if (dto.typePost === TypePost.Photo && !file) {
-      throw new BadRequestException('To publish a photo, you need a file');
+      throw new BadRequestException(ExceptionMessage.PublishPhoto);
     }
 
     if (file) {
