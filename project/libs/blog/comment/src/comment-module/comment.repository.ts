@@ -88,9 +88,6 @@ export class CommentRepository extends BasePostgresRepository<
         orderBy,
         skip,
         take,
-        // include: {
-        //   comments: true,
-        // },
       }),
       this.findByPostIdCount(postId),
     ]);
